@@ -10,7 +10,6 @@ install:
   - ckeditor
   - color
   - config
-  - contextual
   - menu_link_content
   - datetime
   - editor
@@ -42,6 +41,7 @@ install:
   - pathauto
   - simple_sitemap
   - highlight_php
+  - coffee
 
 dependencies:
   - node

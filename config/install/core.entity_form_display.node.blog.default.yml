@@ -4,10 +4,15 @@ status: true
 dependencies:
   config:
     - field.field.node.blog.body
+    - field.field.node.blog.field_image
+    - image.style.thumbnail
     - node.type.blog
   module:
+    - image
     - path
     - text
+_core:
+  default_config_hash: SWLX7SJAkCAniYLl-3_LUX1aMMWnj1NLuXd-lQoLmnc
 id: node.blog.default
 targetEntityType: node
 bundle: blog
@@ -28,6 +33,14 @@ content:
     weight: 10
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_image:
+    type: image_image
+    weight: 122
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
     third_party_settings: {  }
   path:
     type: path

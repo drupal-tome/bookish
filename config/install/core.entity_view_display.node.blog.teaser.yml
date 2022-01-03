@@ -5,10 +5,13 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.blog.body
+    - field.field.node.blog.field_image
     - node.type.blog
   module:
     - text
     - user
+_core:
+  default_config_hash: uo-24sR9W-c7CMwNF2uCU6iy_eOnh6CNbWdoLzw023w
 id: node.blog.teaser
 targetEntityType: node
 bundle: blog
@@ -27,4 +30,5 @@ content:
     third_party_settings: {  }
     weight: 100
     region: content
-hidden: {  }
+hidden:
+  field_image: true

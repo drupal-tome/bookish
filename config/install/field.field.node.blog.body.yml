@@ -7,6 +7,8 @@ dependencies:
     - node.type.blog
   module:
     - text
+_core:
+  default_config_hash: GoJG0937xstei7wB3_mQVYwtcIGvPs3s-si_0KygiB4
 id: node.blog.body
 field_name: body
 entity_type: node
@@ -18,6 +20,6 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  display_summary: false
+  display_summary: true
   required_summary: false
 field_type: text_with_summary
