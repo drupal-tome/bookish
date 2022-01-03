@@ -1,0 +1,28 @@
+<template>
+  <a class="bk-more-link" href="{{ link }}">{{ text }}</a>
+</template>
+
+<style>
+  .bk-more-link {
+    grid-row: 6;
+    grid-column: 1 / 11;
+    display: flex;
+    justify-content: center;
+    text-transform: uppercase;
+    font-weight: var(--font-weight-semibold);
+    font-size: 1.25rem;
+    align-items: center;
+    margin: 0 auto;
+    border-bottom: 2px solid transparent;
+  }
+  .bk-more-link:after {
+    content: "►";
+    font-size: 0.9375rem;
+    margin-top: 3px;
+    margin-left: 10px;
+  }
+  .bk-more-link:hover,
+  .bk-more-link:focus {
+    border-bottom: 2px solid var(--font-color-link-hover);
+  }
+</style>

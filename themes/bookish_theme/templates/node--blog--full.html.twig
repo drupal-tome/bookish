@@ -1,0 +1,9 @@
+{% include 'sfc--mc-blog' with {
+  'title': node.label(),
+  'time': node.created.value,
+  'text': node.body|view({
+    'label': 'hidden',
+    'type': 'text_default',
+  }),
+} %}
+{{ sfc_cache(node) }}

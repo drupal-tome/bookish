@@ -1,0 +1,54 @@
+<template>
+  <article class="bk-blog container container--margin" role="article">
+    {% include 'sfc--bk-blog-title' with {'title': title} %}
+    <div class="bk-blog__byline">
+      {{ time | date('M jS, Y') }}
+    </div>
+    <div class="bk-blog__text">
+      {{ text }}
+    </div>
+  </article>
+</template>
+
+<style>
+  .bk-blog__byline {
+    grid-row: 2;
+    grid-column: 2 / 11;
+    font-weight: var(--font-weight-semibold);
+    font-size: 1.25rem;
+    line-height: 1.25rem;
+  }
+  .bk-blog__text {
+    grid-row: 3;
+    grid-column: 3 / 9;
+    margin-top: var(--spacer-3);
+    font-size: 1.125rem;
+    line-height: 1.5rem;
+  }
+  .bk-blog__text p:first-child {
+    margin-top: 0;
+  }
+  .bk-blog__text img {
+    max-width: 100%;
+    height: auto;
+  }
+  .bk-blog .bk-blog-title {
+    grid-column: 1 / 11;
+    margin-bottom: var(--spacer-1);
+  }
+  @media screen and (max-width: 800px) {
+    .bk-blog__text {
+      grid-column: 2 / 10;
+    }
+  }
+  @media screen and (max-width: 560px) {
+    .bk-blog__text {
+      grid-column: 1 / 11;
+      margin-top: var(--spacer-2);
+    }
+    .bk-blog__byline {
+      grid-column: 1 / 11;
+      margin-top: var(--spacer-2);
+    }
+  }
+</style>

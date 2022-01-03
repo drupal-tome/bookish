@@ -1,0 +1,6 @@
+name: Bookish Components
+type: module
+description: 'Provides frontend components for Bookish.'
+core_version_requirement: '^9'
+dependencies:
+  - drupal:sfc

@@ -1,0 +1,63 @@
+<template>
+  <div class="bk-blog-page container container--margin">
+    {% include 'sfc--bk-blog-title' with {'title': 'Blog' | t} %}
+    <div class="bk-blog-page__blogs">
+      {% for node in nodes %}
+        {% include 'sfc--bk-blog-teaser' with {
+          'title': node.label(),
+          'link': path('entity.node.canonical', {'node': node.id}),
+          'text': node.body|view({
+          'label': 'hidden',
+          'type': 'text_summary_or_trimmed',
+          'settings': {'trim_length': 350}
+        })
+        }%}
+      {% endfor %}
+      {{ sfc_cache(nodes) }}
+      {{ sfc_cache('node_list') }}
+    </div>
+  </div>
+</template>
+
+<style>
+  .bk-blog-page__blogs {
+    grid-row: 5;
+    grid-column: 2 / 10;
+    grid-template-columns: 1fr 1fr;
+    display: grid;
+    grid-row-gap: var(--spacer-3);
+    grid-column-gap: var(--spacer-3);
+    margin: var(--spacer-3) 0;
+  }
+  .bk-blog-page .bk-blog-title {
+    grid-column: 1 / 11;
+  }
+  @media screen and (max-width: 800px) {
+    .bk-blog-page__blogs {
+      grid-row-gap: var(--spacer-2);
+      grid-column-gap: var(--spacer-2);
+    }
+  }
+  @media screen and (max-width: 560px) {
+    .bk-blog-page__blogs {
+      grid-column: 1 / 11;
+      grid-template-columns: 1fr;
+      margin: var(--spacer-2) 0;
+    }
+  }
+</style>
+
+
+<?php
+
+$prepareContext = function(&$context) {
+  $ids = \Drupal::entityQuery('node')
+    ->condition('type', 'blog')
+    ->condition('status', 1)
+    ->sort('created', 'DESC')
+    ->accessCheck()
+    ->execute();
+  $context['nodes'] = \Drupal::entityTypeManager()
+    ->getStorage('node')
+    ->loadMultiple($ids);
+};

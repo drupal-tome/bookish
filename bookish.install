@@ -36,7 +36,7 @@ function bookish_install() {
 
   $shortcut = Shortcut::create([
     'shortcut_set' => 'default',
-    'title' => t('Add Blog'),
+    'title' => t('Create Blog'),
     'link' => ['uri' => 'internal:/node/add/blog'],
     'weight' => $weight += 1,
   ]);

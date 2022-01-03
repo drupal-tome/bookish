@@ -1,0 +1,124 @@
+body {
+  --font-family: 'Source Sans Pro', sans-serif;
+  --font-color: #1E1E1E;
+  --font-color-light: #e3e3e3;
+  --font-color-link: #1F7DB5;
+  --font-color-link-hover: #175680;
+  --font-color-link-light: #238CCA;
+  --font-color-link-light-hover: #23a5e4;
+  --font-weight-regular: 400;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-black: 800;
+  --accent-color-1: #E3919A;
+  --accent-color-2: #AADFFF;
+  --background-color: white;
+  --background-color-dark: #1E1E1E;
+  --spacer-1: 10px;
+  --spacer-2: 25px;
+  --spacer-3: 50px;
+  --spacer-4: 75px;
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-regular);
+  color: var(--font-color);
+  margin: var(--spacer-3) 0;
+  background: var(--background-color);
+}
+
+a {
+  color: var(--font-color-link);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a:hover,
+a:focus {
+  color: var(--font-color-link-hover);
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-column-gap: var(--spacer-1);
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 100px;
+}
+
+.container > * {
+    min-width: 0;
+}
+
+.container--margin {
+  margin: var(--spacer-4) auto;
+}
+
+.container--no-grid {
+  display: block;
+}
+
+/* Match .hljs styles. */
+.monospace {
+  background: #fefefe;
+  font-family: monospace;
+}
+
+#block-mortenson-local-tasks ul,
+.lunr-search-page-form,
+.lunr-search-results,
+div[data-drupal-messages] {
+  max-width: 1280px;
+  padding: 0 100px;
+  margin: 0 auto;
+}
+
+#block-mortenson-local-tasks ul {
+  list-style: none;
+  display: flex;
+}
+
+#block-mortenson-local-tasks li {
+  margin-right: var(--spacer-1);
+}
+
+div[data-drupal-messages] {
+  padding: 20px 100px;
+}
+
+body.dark {
+  --font-color: var(--font-color-light);
+  --background-color: var(--background-color-dark);
+  --accent-color-2: #527286;
+  --font-color-link: var(--font-color-link-light);
+  --font-color-link-hover: var(--font-color-link-light-hover);
+}
+
+body.dark .monospace {
+  background: black;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    --font-color: var(--font-color-light);
+    --background-color: var(--background-color-dark);
+    --accent-color-2: #527286;
+    --font-color-link: var(--font-color-link-light);
+    --font-color-link-hover: var(--font-color-link-light-hover);
+  }
+  .monospace {
+    background: black;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  #block-mortenson-local-tasks ul,
+  .lunr-search-page-form,
+  .lunr-search-results,
+  div[data-drupal-messages],
+  .container {
+    padding: 0 25px;
+  }
+  .container--margin {
+    margin: var(--spacer-3) auto;
+  }
+}

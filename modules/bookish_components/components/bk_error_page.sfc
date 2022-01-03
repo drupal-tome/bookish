@@ -1,0 +1,23 @@
+<template>
+  {% if not title and _title %}
+    {% set title = _title %}
+  {% endif %}
+  <div class="bk-error-page container container--margin">
+    <h1 class="bk-error-page__title">{{ title }}</h1>
+    <p class="bk-error-page__text">{{ text }}</p>
+  </div>
+</template>
+
+<style>
+  .bk-error-page__text,
+  .bk-error-page__title {
+    grid-column: 1 / 11;
+  }
+  .bk-error-page__title {
+    text-transform: uppercase;
+    margin-top: 0;
+    margin-bottom: var(--spacer-1);
+    font-size: 3.125rem;
+    line-height: 4rem;
+  }
+</style>
