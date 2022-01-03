@@ -28,7 +28,7 @@ function bookish_install() {
 
   $shortcut = Shortcut::create([
     'shortcut_set' => 'default',
-    'title' => t('View content'),
+    'title' => t('Content'),
     'link' => ['uri' => 'internal:/admin/content'],
     'weight' => $weight += 1,
   ]);
