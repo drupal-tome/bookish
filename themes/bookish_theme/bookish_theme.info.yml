@@ -3,9 +3,9 @@ type: theme
 base theme: stable
 description: 'A theme suitable for blogs.'
 core_version_requirement: '^9'
-
 libraries:
   - core/normalize
-
+regions:
+  content: Content
 # ckeditor_stylesheets:
 #   - css/components/media-embed-error.css

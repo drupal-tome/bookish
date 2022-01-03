@@ -1,0 +1,44 @@
+uuid: a9e9208a-4f7f-43ae-8692-25e0da44460b
+langcode: en
+status: true
+dependencies:
+  module:
+    - editor
+    - highlight_php
+name: 'Rich text'
+format: rich_text
+weight: 0
+filters:
+  filter_html:
+    id: filter_html
+    provider: filter
+    status: true
+    weight: -10
+    settings:
+      allowed_html: '<code class> <pre class="text-align-left text-align-center text-align-right text-align-justify"> <br> <p class="text-align-left text-align-center text-align-right text-align-justify"> <h2 class="text-align-left text-align-center text-align-right text-align-justify"> <h3 class="text-align-left text-align-center text-align-right text-align-justify"> <h4 class="text-align-left text-align-center text-align-right text-align-justify"> <h5 class="text-align-left text-align-center text-align-right text-align-justify"> <h6 class="text-align-left text-align-center text-align-right text-align-justify"> <strong> <em> <u> <s> <blockquote class="text-align-left text-align-center text-align-right text-align-justify"> <a href> <ul class="text-align-left text-align-center text-align-right text-align-justify"> <ol class="text-align-left text-align-center text-align-right text-align-justify"> <li> <hr class="text-align-left text-align-center text-align-right text-align-justify"> <table class="text-align-left text-align-center text-align-right text-align-justify"> <tr> <td> <th> <thead> <tbody> <tfoot class="text-align-left text-align-center text-align-right text-align-justify"> <img src alt data-entity-uuid data-entity-type height width data-caption data-align>'
+      filter_html_help: true
+      filter_html_nofollow: false
+  editor_file_reference:
+    id: editor_file_reference
+    provider: editor
+    status: true
+    weight: 0
+    settings: {  }
+  filter_align:
+    id: filter_align
+    provider: filter
+    status: true
+    weight: 0
+    settings: {  }
+  filter_caption:
+    id: filter_caption
+    provider: filter
+    status: true
+    weight: 0
+    settings: {  }
+  filter_highlight_php:
+    id: filter_highlight_php
+    provider: highlight_php
+    status: true
+    weight: 10
+    settings: {  }

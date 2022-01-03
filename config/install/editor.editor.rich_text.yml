@@ -1,0 +1,46 @@
+uuid: 67c224dc-b1bd-4908-81bd-8b9b7e7fca48
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.rich_text
+  module:
+    - ckeditor5
+format: rich_text
+editor: ckeditor5
+settings:
+  toolbar:
+    items:
+      - heading
+      - bold
+      - italic
+      - underline
+      - strikethrough
+      - removeFormat
+      - alignment
+      - indent
+      - outdent
+      - link
+      - horizontalLine
+      - bulletedList
+      - numberedList
+      - blockQuote
+      - uploadImage
+      - insertTable
+      - codeBlock
+  plugins:
+    ckeditor5_heading:
+      enabled_headings:
+        - heading2
+        - heading3
+        - heading4
+        - heading5
+        - heading6
+image_upload:
+  status: true
+  scheme: public
+  directory: inline-images
+  max_size: ''
+  max_dimensions:
+    width: 0
+    height: 0

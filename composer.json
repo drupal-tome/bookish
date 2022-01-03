@@ -8,7 +8,7 @@
           "email": "samuel@mortenson.coffee"
       }
   ],
-  "license": "MIT",
+  "license": "GPL-2.0-or-later",
   "repositories": [
       {
           "type": "composer",
@@ -29,6 +29,7 @@
       "drupal/twig_tweak": "^3",
       "drupal/metatag": "^1",
       "drupal/pathauto": "^1",
-      "drupal/simple_sitemap": "^4"
+      "drupal/simple_sitemap": "^4",
+      "drupal/highlight_php": "^1"
     }
 }

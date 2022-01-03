@@ -3,3 +3,8 @@ codeblock:
     js/code-block.js: { preprocess: false, minified: true }
   dependencies:
     - ckeditor5/drupal.ckeditor5
+
+codeblock.admin:
+  css:
+    theme:
+      css/codeblock.admin.css: { }

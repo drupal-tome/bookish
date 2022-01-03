@@ -1,0 +1,18 @@
+uuid: 843c391e-702b-4c5c-b791-abe3813567a6
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+name: Blog
+type: blog
+description: 'Tell the world how you really feel.'
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: true

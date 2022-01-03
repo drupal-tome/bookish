@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * Hook implementations for bookish_admin.
+ */
+
+/**
+ * Implements hook_page_top().
+ */
+function bookish_admin_page_top(array &$page_top) {
+  $page_top['bookish_toolbar'] = [
+    '#type' => 'sfc',
+    '#component_id' => 'bookish_toolbar',
+  ];
+}

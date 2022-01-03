@@ -13,7 +13,6 @@ install:
   - contextual
   - menu_link_content
   - datetime
-  - block_content
   - editor
   - help
   - image
@@ -25,13 +24,15 @@ install:
   - big_pipe
   - taxonomy
   - dblog
-  - toolbar
   - field_ui
   - file
   - rdf
   - views
   - views_ui
+  - ckeditor5
+  - shortcut
   # Contrib module dependencies
+  - bookish_admin
   - quicklink
   - tome
   - lunr
@@ -40,6 +41,7 @@ install:
   - metatag
   - pathauto
   - simple_sitemap
+  - highlight_php
 
 dependencies:
   - node

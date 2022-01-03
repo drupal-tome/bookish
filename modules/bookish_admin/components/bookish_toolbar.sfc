@@ -1,0 +1,52 @@
+<template>
+  <div class="bookish-toolbar">
+    <div class="bookish-toolbar__links">
+      <ul>
+        <li>
+          <a href="{{ path('<front>') }}">{{ 'Home' | t }}</a>
+        </li>
+      </ul>
+    </div>
+    <div class="bookish-toolbar__shortcuts">
+      {{ shortcuts }}
+    </div>
+  </div>
+  {{ sfc_cache('route', 'contexts') }}
+</template>
+
+<style>
+  .bookish-toolbar {
+    font-family: BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+    background: #343434;
+    font-size: 14px;
+    display: flex;
+  }
+  .bookish-toolbar a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    transition: .2s;
+  }
+  .bookish-toolbar a:hover,
+  .bookish-toolbar a:focus {
+    color: white;
+    background: black;
+  }
+  .bookish-toolbar ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+  }
+  .bookish-toolbar ul li {
+    margin: 0;
+    padding: 0;
+  }
+</style>
+
+<?php
+
+$prepareContext = function (&$context) {
+  $context['shortcuts'] = shortcut_renderable_links(shortcut_current_displayed_set());
+};
