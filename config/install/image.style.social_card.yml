@@ -1,0 +1,15 @@
+uuid: 1e127325-b729-4236-8e0a-863e0f1f399e
+langcode: en
+status: true
+dependencies: {  }
+name: social_card
+label: 'Social card'
+effects:
+  821814da-d49f-4317-bb16-b4ca5fdb04c5:
+    uuid: 821814da-d49f-4317-bb16-b4ca5fdb04c5
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 500
+      height: 500
+      anchor: center-center
