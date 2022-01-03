@@ -1,0 +1,18 @@
+bookish_admin_codeblock:
+  ckeditor5:
+    plugins:
+      - codeBlock.CodeBlock
+    # *Additional configuration properties*
+    # config: data sent to the constructor of any CKEditor 5 plugin
+    #   editorPluginName:
+    #     editorPluginProperty: editorPluginValue
+
+  drupal:
+    label: Code Block
+    library: bookish_admin/codeblock
+    toolbar_items:
+      codeBlock:
+        label: Code Block
+    elements:
+      - <code class>
+      - <pre>

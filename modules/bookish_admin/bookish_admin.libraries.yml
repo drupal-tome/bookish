@@ -1,0 +1,5 @@
+codeblock:
+  js:
+    js/code-block.js: { preprocess: false, minified: true }
+  dependencies:
+    - ckeditor5/drupal.ckeditor5

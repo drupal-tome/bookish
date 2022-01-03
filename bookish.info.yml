@@ -1,0 +1,51 @@
+name: Bookish
+type: profile
+description: 'A starter profile for Tome blogs.'
+core_version_requirement: '^9'
+
+install:
+  - node
+  - block
+  - breakpoint
+  - ckeditor
+  - color
+  - config
+  - contextual
+  - menu_link_content
+  - datetime
+  - block_content
+  - editor
+  - help
+  - image
+  - menu_ui
+  - options
+  - path
+  - page_cache
+  - dynamic_page_cache
+  - big_pipe
+  - taxonomy
+  - dblog
+  - toolbar
+  - field_ui
+  - file
+  - rdf
+  - views
+  - views_ui
+  # Contrib module dependencies
+  - quicklink
+  - tome
+  - lunr
+  - sfc
+  - twig_tweak
+  - metatag
+  - pathauto
+  - simple_sitemap
+
+dependencies:
+  - node
+  - block
+  - views
+
+themes:
+  - bookish_theme
+  - claro

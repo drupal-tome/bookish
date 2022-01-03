@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Bookish installation profile.
+ */
+
+use Drupal\user\Entity\User;
+use Drupal\shortcut\Entity\Shortcut;
+
+/**
+ * Implements hook_install().
+ */
+function bookish_install() {
+  $user = User::load(1);
+  $user->roles[] = 'administrator';
+  $user->save();
+
+  $shortcut = Shortcut::create([
+    'shortcut_set' => 'default',
+    'title' => t('Add content'),
+    'weight' => -20,
+    'link' => ['uri' => 'internal:/node/add'],
+  ]);
+  $shortcut->save();
+
+  $shortcut = Shortcut::create([
+    'shortcut_set' => 'default',
+    'title' => t('All content'),
+    'weight' => -19,
+    'link' => ['uri' => 'internal:/admin/content'],
+  ]);
+  $shortcut->save();
+}
