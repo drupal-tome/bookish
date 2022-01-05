@@ -5,6 +5,7 @@ description: 'A theme suitable for blogs.'
 core_version_requirement: '^9'
 libraries:
   - core/normalize
+  - bookish_theme/main
 regions:
   content: Content
 # ckeditor_stylesheets:

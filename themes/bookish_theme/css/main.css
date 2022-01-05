@@ -21,7 +21,7 @@ body {
   font-family: var(--font-family);
   font-weight: var(--font-weight-regular);
   color: var(--font-color);
-  margin: var(--spacer-3) 0;
+  margin-bottom: var(--spacer-3);
   background: var(--background-color);
 }
 

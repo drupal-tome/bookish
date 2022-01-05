@@ -44,6 +44,14 @@ function bookish_install() {
 
   $shortcut = Shortcut::create([
     'shortcut_set' => 'default',
+    'title' => t('Create Page'),
+    'link' => ['uri' => 'internal:/node/add/page'],
+    'weight' => $weight += 1,
+  ]);
+  $shortcut->save();
+
+  $shortcut = Shortcut::create([
+    'shortcut_set' => 'default',
     'title' => t('Tome Static'),
     'link' => ['uri' => 'internal:/admin/config/tome/static'],
     'weight' => $weight += 1,

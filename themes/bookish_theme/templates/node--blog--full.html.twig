@@ -1,9 +1,14 @@
-{% include 'sfc--mc-blog' with {
+{% include 'sfc--bk-blog' with {
   'title': node.label(),
   'time': node.created.value,
   'text': node.body|view({
     'label': 'hidden',
     'type': 'text_default',
+  }),
+  'image': node.field_image|view({
+    'label': 'hidden',
+    'type': 'image',
+    'settings': {'image_style': 'blog_large'}
   }),
 } %}
 {{ sfc_cache(node) }}

@@ -38,6 +38,7 @@
     text-decoration: none;
     padding: 10px 18px;
     transition: .2s;
+    font-weight: normal;
   }
   .bookish-toolbar a:hover,
   .bookish-toolbar a:focus {

@@ -11,7 +11,7 @@ third_party_settings:
     parent: 'main:'
 name: Page
 type: page
-description: 'A standalone page that will not show up in admin listings.'
+description: 'A standalone page that will not show up in frontend lists.'
 help: ''
 new_revision: true
 preview_mode: 1
