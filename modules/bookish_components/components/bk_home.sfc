@@ -1,6 +1,3 @@
 <template>
-  {% include 'sfc--bk-about' %}
   {% include 'sfc--bk-blog-list' %}
-  {% include 'sfc--bk-work-list' %}
-  {% include 'sfc--bk-gallery-list' %}
 </template>
