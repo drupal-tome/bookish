@@ -5,6 +5,12 @@
  * Hook implementations for bookish_admin.
  */
 
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Entity\FieldableEntityInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\file\FileInterface;
+
 /**
  * Implements hook_page_top().
  */
@@ -17,4 +23,67 @@ function bookish_admin_page_top(array &$page_top) {
       'contexts' => ['user'],
     ],
   ];
+}
+
+/**
+ * Implements hook_entity_base_field_info().
+ */
+function bookish_admin_entity_base_field_info(EntityTypeInterface $entity_type) {
+  $fields = [];
+
+  if ($entity_type->id() === 'file') {
+    $fields['bookish_image_data'] = BaseFieldDefinition::create('string_long')
+      ->setLabel(t('Image data'))
+      ->setDescription(t('Image data related to bookish admin.'))
+      ->setRevisionable(TRUE)
+      ->setTranslatable(FALSE)
+      ->setDisplayConfigurable('form', FALSE)
+      ->setDisplayConfigurable('view', FALSE);
+  }
+
+  return $fields;
+}
+
+
+/**
+ * Implements hook_entity_insert().
+ *
+ * @see focal_point_entity_update
+ */
+function bookish_admin_entity_insert(EntityInterface $entity) {
+  bookish_admin_entity_update($entity);
+}
+
+/**
+ * Implements hook_entity_update().
+ *
+ * Saves the focal point value for the image file entity about to be saved.
+ */
+function bookish_admin_entity_update(EntityInterface $entity) {
+  if ($entity instanceof FieldableEntityInterface) {
+    foreach ($entity->getFieldDefinitions() as $field) {
+      if ($field->getType() === 'image' && $entity->hasField($field->getName())) {
+        foreach ($entity->{$field->getName()} as $item) {
+          if (!$item->entity instanceof FileInterface) {
+            continue;
+          }
+          $data = json_decode($item->entity->bookish_image_data->getString(), TRUE);
+          if (isset($item->brightness)) {
+            $data['brightness'] = $item->brightness;
+          }
+          $item->entity->bookish_image_data = json_encode($data);
+          $item->entity->save();
+          _bookish_admin_flush_image_styles($item->entity->getFileUri());
+        }
+      }
+    }
+  }
+}
+
+function _bookish_admin_flush_image_styles($uri) {
+  /** @var \Drupal\image\ImageStyleInterface[] $image_styles */
+  $image_styles = \Drupal::entityTypeManager()->getStorage('image_style')->loadMultiple();
+  foreach ($image_styles as $image_style) {
+    $image_style->flush($uri);
+  }
 }

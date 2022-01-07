@@ -3,13 +3,10 @@
 namespace Drupal\bookish_admin\Plugin\Field\FieldWidget;
 
 use Drupal\Component\Utility\NestedArray;
-use Drupal\Core\Field\FieldDefinitionInterface;
-use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
-use Drupal\Core\Render\ElementInfoManagerInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\image\Plugin\Field\FieldWidget\ImageWidget;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Plugin implementation of the 'bookish_image' widget.
@@ -22,76 +19,74 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   }
  * )
  */
-class BookishImageWidget extends WidgetBase {
+class BookishImageWidget extends ImageWidget {
 
   /**
-   * {@inheritdoc}
+   * Form API callback: Processes an image_image field element.
    */
-  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, array $third_party_settings, ElementInfoManagerInterface $element_info) {
-    parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $third_party_settings);
-    $this->elementInfo = $element_info;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    return new static($plugin_id, $plugin_definition, $configuration['field_definition'], $configuration['settings'], $configuration['third_party_settings'], $container->get('element_info'));
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
-    $element['container'] = [
-      '#type' => 'fieldset',
-      '#title' => $element['#title'],
-      '#description' => $element['#description'],
-      '#id' => 'bookish-image-widget-' . $this->fieldDefinition->getName() . '-' . $delta,
-    ];
-    if ($this->fieldDefinition->getFieldStorageDefinition()->isMultiple()) {
-      $element['container']['#type'] = 'container';
-    }
-    $element_info = $this->elementInfo->getInfo('managed_file');
-    $element['container']['fids'] = [
-      '#type' => 'managed_file',
-      '#upload_location' => $items[$delta]->getUploadLocation(),
-      '#upload_validators' => $items[$delta]->getUploadValidators(),
-      '#process' => array_merge($element_info['#process'], [[static::class, 'process']]),
-      '#default_value' => [$items[$delta]->getValue()['target_id']],
-    ];
-    $element['container']['lol']['#markup'] = print_r($items[$delta]->getValue(), TRUE);
-    return $element;
-  }
-
   public static function process($element, FormStateInterface $form_state, $form) {
-    $parents = array_slice($element['#array_parents'], 0, -1);
-    $new_options = [
-      'query' => [
-        'element_parents' => implode('/', $parents),
+    $element = parent::process($element, $form_state, $form);
+
+    $item = $element['#value'];
+    $item['fids'] = $element['fids']['#value'];
+
+    $preview_id = 'bookish-image-preview-' . $element['#field_name'] . '-' . $element['#delta'];
+    $element['brightness'] = [
+      '#title' => t('Brightness'),
+      '#type' => 'range',
+      '#min' => -255,
+      '#max' => 255,
+      '#access' => (bool) $item['fids'],
+      '#ajax' => [
+        'callback' => [static::class, 'updatePreview'],
+        'options' => [
+          'query' => [
+            'element_parents' => implode('/', $element['#array_parents']),
+          ],
+        ],
+        'event' => 'change',
+        'wrapper' => $preview_id,
       ],
     ];
-    $field_element = NestedArray::getValue($form, $parents);
-    $new_wrapper = $field_element['#id'];
-    foreach (Element::children($element) as $key) {
-      if (isset($element[$key]['#ajax'])) {
-        $element[$key]['#ajax']['options'] = $new_options;
-        $element[$key]['#ajax']['wrapper'] = $new_wrapper;
-      }
+
+    if (!empty($element['#files'])) {
+      $file = reset($element['#files']);
+      $image_data = json_decode($file->bookish_image_data->getString(), TRUE);
+      $element['brightness']['#default_value'] = $image_data['brightness'];
     }
-    unset($element['#prefix'], $element['#suffix']);
+
+    $element['preview']['#prefix'] = '<div id="' . $preview_id . '">';
+    $element['preview']['#suffix'] = '</div>';
 
     return $element;
   }
 
-  public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
-    foreach ($values as $i => $value) {
-      if (empty($value['container']['fids'])) {
-        continue;
+  public static function updatePreview(&$form, FormStateInterface &$form_state, Request $request) {
+    $form_parents = explode('/', $request->query->get('element_parents'));
+    $form_parents = array_filter($form_parents, [Element::class, 'child']);
+    $element = NestedArray::getValue($form, $form_parents);
+    if (!empty($element['#files'])) {
+      /** @var \Drupal\file\FileInterface $file */
+      $file = reset($element['#files']);
+      $image_data = json_decode($file->bookish_image_data->getString(), TRUE);
+      $image_data['brightness'] = $element['brightness']['#value'];
+      $file->bookish_image_data = json_encode($image_data);
+      /** @var \Drupal\image\ImageStyleInterface $image_style */
+      $image_style = \Drupal::entityTypeManager()->getStorage('image_style')->load($element['preview']['#style_name']);
+      if ($image_style) {
+        /** @var \Drupal\Core\File\FileUrlGeneratorInterface $file_url_generator */
+        $file_url_generator = \Drupal::service('file_url_generator');
+        /** @var \Drupal\Core\File\FileSystemInterface $file_system */
+        $file_system = \Drupal::service('file_system');
+        // @todo Make more unique.
+        $derivative_uri = 'public://bookish-image-preview/' . $file->getFileUri();
+        $file_system->delete($derivative_uri);
+        $image_style->createDerivative($file->getFileUri(), $derivative_uri);
+        $element['preview']['#theme'] = 'image';
+        $element['preview']['#uri'] = $file_url_generator->generate($derivative_uri)->toString() . '?cache_bypass=' . md5($file->bookish_image_data->getString());
       }
-      $values[$i]['target_id'] = $value['container']['fids'][0];
     }
-    return $values;
+    return $element['preview'];
   }
 
 }

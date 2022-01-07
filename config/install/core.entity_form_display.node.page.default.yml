@@ -33,7 +33,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_image:
-    type: image_image
+    type: bookish_image
     weight: 122
     region: content
     settings:
