@@ -68,8 +68,8 @@ function bookish_admin_entity_update(EntityInterface $entity) {
             continue;
           }
           $data = json_decode($item->entity->bookish_image_data->getString(), TRUE);
-          if (isset($item->brightness)) {
-            $data['brightness'] = $item->brightness;
+          if (isset($item->bookish_image_data)) {
+            $data = array_merge($data, $item->bookish_image_data);
           }
           $item->entity->bookish_image_data = json_encode($data);
           $item->entity->save();

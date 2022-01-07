@@ -1,0 +1,6 @@
+bookish_image_preview:
+  path: '/bookish-image-preview/{file}/{image_style}'
+  defaults:
+    _controller: '\Drupal\bookish_admin\Controller\BookishImagePreview::build'
+  requirements:
+    _custom_access: 'Drupal\bookish_admin\Controller\BookishImagePreview::access'
