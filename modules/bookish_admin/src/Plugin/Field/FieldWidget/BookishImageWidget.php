@@ -42,8 +42,9 @@ class BookishImageWidget extends ImageWidget {
       ],
       'event' => 'change',
       'wrapper' => $preview_id,
-      'progress' => ['type' => 'Dontdisable'],
+      'progress' => ['type' => 'none'],
       'effect' => 'fade',
+      'speed' => 'fast',
     ];
     $element['bookish_image_data'] =[
       '#type' => 'container',
@@ -62,14 +63,6 @@ class BookishImageWidget extends ImageWidget {
       '#ajax' => $ajax_settings,
     ];
 
-    $element['bookish_image_data']['red'] = [
-      '#title' => t('Red'),
-      '#type' => 'range',
-      '#min' => -255,
-      '#max' => 255,
-      '#ajax' => $ajax_settings,
-    ];
-
     $element['bookish_image_data']['contrast'] = [
       '#title' => t('Contrast'),
       '#type' => 'range',
@@ -78,12 +71,22 @@ class BookishImageWidget extends ImageWidget {
       '#ajax' => $ajax_settings,
     ];
 
-    $element['bookish_image_data']['green'] = [
-      '#title' => t('Green'),
+    $element['bookish_image_data']['hue'] = [
+      '#title' => t('Hue'),
       '#type' => 'range',
-      '#min' => -255,
-      '#max' => 255,
+      '#min' => 0,
+      '#max' => 360,
       '#ajax' => $ajax_settings,
+      '#default_value' => 0,
+    ];
+
+    $element['bookish_image_data']['saturation'] = [
+      '#title' => t('Saturation'),
+      '#type' => 'range',
+      '#min' => 0,
+      '#max' => 100,
+      '#ajax' => $ajax_settings,
+      '#default_value' => 0,
     ];
 
     $element['bookish_image_data']['blur'] = [
@@ -95,14 +98,6 @@ class BookishImageWidget extends ImageWidget {
       '#default_value' => 0,
     ];
 
-    $element['bookish_image_data']['blue'] = [
-      '#title' => t('Blue'),
-      '#type' => 'range',
-      '#min' => -255,
-      '#max' => 255,
-      '#ajax' => $ajax_settings,
-    ];
-
     $element['bookish_image_data']['grayscale'] = [
       '#title' => t('Grayscale'),
       '#type' => 'range',
@@ -111,6 +106,30 @@ class BookishImageWidget extends ImageWidget {
       '#ajax' => $ajax_settings,
       '#default_value' => 0,
     ];
+
+    // $element['bookish_image_data']['red'] = [
+    //   '#title' => t('Red'),
+    //   '#type' => 'range',
+    //   '#min' => -255,
+    //   '#max' => 255,
+    //   '#ajax' => $ajax_settings,
+    // ];
+
+    // $element['bookish_image_data']['green'] = [
+    //   '#title' => t('Green'),
+    //   '#type' => 'range',
+    //   '#min' => -255,
+    //   '#max' => 255,
+    //   '#ajax' => $ajax_settings,
+    // ];
+
+    // $element['bookish_image_data']['blue'] = [
+    //   '#title' => t('Blue'),
+    //   '#type' => 'range',
+    //   '#min' => -255,
+    //   '#max' => 255,
+    //   '#ajax' => $ajax_settings,
+    // ];
 
     if (!empty($element['#files'])) {
       $file = reset($element['#files']);
@@ -157,14 +176,18 @@ class BookishImageWidget extends ImageWidget {
     }
 
     $element['preview']['#theme'] = 'image';
-    $element['preview']['#uri'] = Url::fromRoute('bookish_image_preview', [
+    $url = Url::fromRoute('bookish_image_preview', [
       'file' => $file->id(),
       'image_style' => $element['preview']['#style_name'],
-    ], [
-      'query' => [
-        'bookish_image_data' => json_encode($image_data),
-      ],
-    ])->toString();
+    ]);
+    // @todo Change after https://www.drupal.org/project/drupal/issues/2630920
+    // is fixed.
+    $token = \Drupal::csrfToken()->get($url->getInternalPath());
+    $url->setOptions(['query' => [
+      'token' => $token,
+      'bookish_image_data' => json_encode($image_data),
+    ]]);
+    $element['preview']['#uri'] = $url->toString();
 
     return $element['preview'];
   }

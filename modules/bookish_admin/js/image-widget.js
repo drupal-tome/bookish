@@ -16,7 +16,10 @@
         $(this).promise().done(function(){
           $(this).parent().find('.bookish-image-preview-clone').each(function() {
             if (!$(this).is($clone)) {
-              $(this).remove();
+              $oldClone = $(this);
+              setTimeout(function () {
+                $oldClone.remove();
+              }, 1000);
             }
           });
         });

@@ -9,6 +9,12 @@
   background-size: contain;
   margin-left: 5px;
   vertical-align: top;
+  border-radius: 9px;
+  transition: background-color .2s;
+}
+
+.bookish-image-reset:hover {
+  background-color: #f2f2f3;
 }
 
 .bookish-image-data-container {

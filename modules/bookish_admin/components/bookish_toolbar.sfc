@@ -12,6 +12,11 @@
     <div>
       {{ shortcuts }}
     </div>
+    <div class="bookish-toolbar__logout">
+      <a href="{{ url('user.logout') }}">
+        {{ 'Logout' | t }}
+      </a>
+    </div>
   </nav>
   {{ sfc_cache('route', 'contexts') }}
 </template>
@@ -24,13 +29,16 @@
     font-size: 14px;
     display: flex;
   }
-  .bookish-toolbar__home {
+  .bookish-toolbar .bookish-toolbar__home {
     background-image: url(assets/drupal-logo.svg);
     height: 100%;
     background-size: 100% 70%;
     width: 20px;
     background-position: center;
     background-repeat: no-repeat;
+  }
+  .bookish-toolbar__logout {
+    margin-left: auto;
   }
   .bookish-toolbar a {
     display: block;

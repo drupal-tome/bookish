@@ -4,3 +4,4 @@ bookish_image_preview:
     _controller: '\Drupal\bookish_admin\Controller\BookishImagePreview::build'
   requirements:
     _custom_access: 'Drupal\bookish_admin\Controller\BookishImagePreview::access'
+    _csrf_token: 'TRUE'
