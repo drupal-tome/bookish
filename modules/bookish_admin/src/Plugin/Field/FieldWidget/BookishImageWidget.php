@@ -27,36 +27,113 @@ class BookishImageWidget extends ImageWidget {
    */
   public static function process($element, FormStateInterface $form_state, $form) {
     $element = parent::process($element, $form_state, $form);
+    $element['#attached'] = ['library' => ['bookish_admin/imageWidget']];
 
     $item = $element['#value'];
     $item['fids'] = $element['fids']['#value'];
 
     $preview_id = 'bookish-image-preview-' . $element['#field_name'] . '-' . $element['#delta'];
+    $ajax_settings = [
+      'callback' => [static::class, 'updatePreview'],
+      'options' => [
+        'query' => [
+          'element_parents' => implode('/', $element['#array_parents']),
+        ],
+      ],
+      'event' => 'change',
+      'wrapper' => $preview_id,
+      'progress' => ['type' => 'none'],
+      'effect' => 'fade',
+    ];
+    $element['bookish_image_data'] =[
+      '#type' => 'container',
+      '#attributes' => [
+        'class' => [
+          'bookish-image-data-container',
+        ],
+      ],
+      '#access' => (bool) $item['fids'],
+    ];
     $element['bookish_image_data']['brightness'] = [
       '#title' => t('Brightness'),
       '#type' => 'range',
       '#min' => -255,
       '#max' => 255,
-      '#access' => (bool) $item['fids'],
-      '#ajax' => [
-        'callback' => [static::class, 'updatePreview'],
-        'options' => [
-          'query' => [
-            'element_parents' => implode('/', $element['#array_parents']),
-          ],
-        ],
-        'event' => 'change',
-        'wrapper' => $preview_id,
-      ],
+      '#ajax' => $ajax_settings,
+    ];
+
+    $element['bookish_image_data']['contrast'] = [
+      '#title' => t('Contrast'),
+      '#type' => 'range',
+      '#min' => -100,
+      '#max' => 100,
+      '#ajax' => $ajax_settings,
+    ];
+
+    $element['bookish_image_data']['blur'] = [
+      '#title' => t('Blur'),
+      '#type' => 'range',
+      '#min' => 0,
+      '#max' => 100,
+      '#ajax' => $ajax_settings,
+      '#default_value' => 0,
+    ];
+
+    $element['bookish_image_data']['grayscale'] = [
+      '#title' => t('Grayscale'),
+      '#type' => 'range',
+      '#min' => 0,
+      '#max' => 1,
+      '#ajax' => $ajax_settings,
+      '#default_value' => 0,
+    ];
+
+    $element['bookish_image_data']['red'] = [
+      '#title' => t('Red'),
+      '#type' => 'range',
+      '#min' => -255,
+      '#max' => 255,
+      '#ajax' => $ajax_settings,
+    ];
+
+    $element['bookish_image_data']['green'] = [
+      '#title' => t('Green'),
+      '#type' => 'range',
+      '#min' => -255,
+      '#max' => 255,
+      '#ajax' => $ajax_settings,
+    ];
+
+    $element['bookish_image_data']['blue'] = [
+      '#title' => t('Blue'),
+      '#type' => 'range',
+      '#min' => -255,
+      '#max' => 255,
+      '#ajax' => $ajax_settings,
     ];
 
     if (!empty($element['#files'])) {
       $file = reset($element['#files']);
       $image_data = json_decode($file->bookish_image_data->getString(), TRUE);
-      $element['bookish_image_data']['brightness']['#default_value'] = $image_data['brightness'];
+      foreach (Element::children($element['bookish_image_data']) as $key) {
+        if (!isset($image_data[$key])) {
+          continue;
+        }
+        $element['bookish_image_data'][$key]['#default_value'] = $image_data[$key];
+      }
     }
 
-    $element['preview']['#prefix'] = '<div id="' . $preview_id . '">';
+    $element['preview_clone'] = [
+      '#type' => 'container',
+      '#weight' => $element['preview']['#weight'] -1,
+      '#attributes' => [
+        'class' => [
+          'bookish-image-preview-clone',
+        ],
+      ],
+    ];
+
+    $element['preview']['#prefix'] = '<div class="bookish-image-preview" id="' . $preview_id . '">';
     $element['preview']['#suffix'] = '</div>';
 
     return $element;
@@ -75,6 +152,9 @@ class BookishImageWidget extends ImageWidget {
     $image_data = json_decode($file->bookish_image_data->getString(), TRUE);
     $new_image_data = $form_state->getValue(array_merge($element['#parents'], ['bookish_image_data']));
     $image_data = array_merge($image_data, $new_image_data);
+    foreach ($image_data as &$value) {
+      $value = (int) $value;
+    }
 
     $element['preview']['#theme'] = 'image';
     $element['preview']['#uri'] = Url::fromRoute('bookish_image_preview', [
@@ -85,6 +165,7 @@ class BookishImageWidget extends ImageWidget {
         'bookish_image_data' => json_encode($image_data),
       ],
     ])->toString();
+
     return $element['preview'];
   }
 

@@ -1,0 +1,30 @@
+.bookish-image-reset {
+  background-image: url(../assets/reset.svg);
+  color: transparent;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 16px;
+  border: none;
+  background-size: contain;
+  margin-left: 5px;
+}
+
+.bookish-image-data-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.bookish-image-data-container > .form-item {
+  flex-basis: 50%;
+  margin: 0;
+}
+
+.bookish-image-data-container input[type="range"] {
+  width: calc(100% - 50px);
+}
+
+.bookish-image-preview img,
+.bookish-image-preview-clone img {
+  background: none !important;
+}

@@ -71,6 +71,9 @@ function bookish_admin_entity_update(EntityInterface $entity) {
           if (isset($item->bookish_image_data)) {
             $data = array_merge($data, $item->bookish_image_data);
           }
+          foreach ($data as &$value) {
+            $value = (int) $value;
+          }
           $item->entity->bookish_image_data = json_encode($data);
           $item->entity->save();
           _bookish_admin_flush_image_styles($item->entity->getFileUri());

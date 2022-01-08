@@ -4,6 +4,17 @@ codeblock:
   dependencies:
     - ckeditor5/drupal.ckeditor5
 
+imageWidget:
+  js:
+    js/image-widget.js: { }
+  css:
+    theme:
+      css/image-widget.css: { }
+  dependencies:
+    - core/jquery
+    - core/once
+    - core/drupal
+
 codeblock.admin:
   css:
     theme:
