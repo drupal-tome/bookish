@@ -42,7 +42,7 @@ class BookishImageWidget extends ImageWidget {
       ],
       'event' => 'change',
       'wrapper' => $preview_id,
-      'progress' => ['type' => 'none'],
+      'progress' => ['type' => 'Dontdisable'],
       'effect' => 'fade',
     ];
     $element['bookish_image_data'] =[

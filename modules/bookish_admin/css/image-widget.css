@@ -8,6 +8,7 @@
   border: none;
   background-size: contain;
   margin-left: 5px;
+  vertical-align: top;
 }
 
 .bookish-image-data-container {

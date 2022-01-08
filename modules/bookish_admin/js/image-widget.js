@@ -1,4 +1,4 @@
-(function ($, Drupal) {
+(function ($, Drupal, debounce) {
 
   Drupal.behaviors.bookishAdminImageWidget = {
     attach: function attach(context, settings) {
@@ -23,7 +23,7 @@
       });
       $('.bookish-image-data-container', context).once('bookish-image-container').each(function () {
         $(this).find('input[type="range"]').each(function () {
-          var $resetButton = $('<button class="bookish-image-reset">Reset</button>');
+          var $resetButton = $('<button class="bookish-image-reset"><span class="visually-hidden">Reset</span></button>');
           var $range = $(this);
           $resetButton.click(function(e) {
             e.preventDefault();
@@ -31,9 +31,13 @@
             $range.trigger('change');
           });
           $(this).after($resetButton);
+
+          // $(this).on('input', debounce(function () {
+          //   $(this).trigger('change');
+          // }, 200));
         });
       });
     }
   };
 
-})(jQuery, Drupal);
+})(jQuery, Drupal, Drupal.debounce);
