@@ -62,11 +62,27 @@ class BookishImageWidget extends ImageWidget {
       '#ajax' => $ajax_settings,
     ];
 
+    $element['bookish_image_data']['red'] = [
+      '#title' => t('Red'),
+      '#type' => 'range',
+      '#min' => -255,
+      '#max' => 255,
+      '#ajax' => $ajax_settings,
+    ];
+
     $element['bookish_image_data']['contrast'] = [
       '#title' => t('Contrast'),
       '#type' => 'range',
       '#min' => -100,
       '#max' => 100,
+      '#ajax' => $ajax_settings,
+    ];
+
+    $element['bookish_image_data']['green'] = [
+      '#title' => t('Green'),
+      '#type' => 'range',
+      '#min' => -255,
+      '#max' => 255,
       '#ajax' => $ajax_settings,
     ];
 
@@ -79,6 +95,14 @@ class BookishImageWidget extends ImageWidget {
       '#default_value' => 0,
     ];
 
+    $element['bookish_image_data']['blue'] = [
+      '#title' => t('Blue'),
+      '#type' => 'range',
+      '#min' => -255,
+      '#max' => 255,
+      '#ajax' => $ajax_settings,
+    ];
+
     $element['bookish_image_data']['grayscale'] = [
       '#title' => t('Grayscale'),
       '#type' => 'range',
@@ -86,30 +110,6 @@ class BookishImageWidget extends ImageWidget {
       '#max' => 1,
       '#ajax' => $ajax_settings,
       '#default_value' => 0,
-    ];
-
-    $element['bookish_image_data']['red'] = [
-      '#title' => t('Red'),
-      '#type' => 'range',
-      '#min' => -255,
-      '#max' => 255,
-      '#ajax' => $ajax_settings,
-    ];
-
-    $element['bookish_image_data']['green'] = [
-      '#title' => t('Green'),
-      '#type' => 'range',
-      '#min' => -255,
-      '#max' => 255,
-      '#ajax' => $ajax_settings,
-    ];
-
-    $element['bookish_image_data']['blue'] = [
-      '#title' => t('Blue'),
-      '#type' => 'range',
-      '#min' => -255,
-      '#max' => 255,
-      '#ajax' => $ajax_settings,
     ];
 
     if (!empty($element['#files'])) {
