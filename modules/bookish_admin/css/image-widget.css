@@ -31,14 +31,8 @@
   width: calc(100% - 50px);
 }
 
-.bookish-image-preview img,
-.bookish-image-preview-clone img {
+.bookish-image-preview img {
   background: none !important;
-}
-
-.bookish-image-preview-clone {
-  position: absolute;
-  z-index: -1;
 }
 
 .bookish-image-focal-point-container {

@@ -2,26 +2,15 @@
 
   Drupal.behaviors.bookishAdminImageWidget = {
     attach: function attach(context, settings) {
-      // This is insane, but I'm trying to work around a graphical bug where
-      // image previews would flash on the screen since core AJAX animations
-      // are really lacking.
       $('.bookish-image-preview', context).once('bookish-image-preview').each(function () {
-        $(this).parent().css('position', 'relative');
-        $clone = $(this).clone();
-        $clone.attr('id', '');
-        $clone.attr('class', 'bookish-image-preview-clone');
-        $clone.attr('style', '');
-        $(this).before($clone);
-        $(this).promise().done(function(){
-          $(this).parent().find('.bookish-image-preview-clone').each(function() {
-            if (!$(this).is($clone)) {
-              $oldClone = $(this);
-              setTimeout(function () {
-                $oldClone.remove();
-              }, 1000);
-            }
-          });
-        });
+        $(this).promise().done(debounce(function () {
+          var $img = $(this).find('img');
+          $(this).parent()
+            .css('background-image', 'url(' + $img.attr('src') + ')')
+            .css('box-shadow', 'none')
+            .css('width', $img.attr('width'))
+            .css('height', $img.attr('height'));
+        }, 100));
       });
 
       $('.bookish-image-data-container', context).once('bookish-image-container').each(function () {
@@ -40,6 +29,7 @@
           }, 100));
         });
       });
+
       $('.bookish-image-focal-point-container', context).once('bookish-image-focal-point').each(function() {
         var $dot = $('<div class="bookish-image-focal-point-dot"></div>');
         var $img = $(this).find('img');
