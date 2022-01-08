@@ -35,3 +35,24 @@
 .bookish-image-preview-clone img {
   background: none !important;
 }
+
+.bookish-image-preview-clone {
+  position: absolute;
+  z-index: -1;
+}
+
+.bookish-image-focal-point-container {
+  position: relative;
+  max-width: 150px;
+}
+
+.bookish-image-focal-point-dot {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: rgb(0, 117, 255);
+  border-radius: 50%;
+  border: 2px solid white;
+  margin-left: -5px;
+  margin-top: -5px;
+}

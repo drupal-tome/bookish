@@ -71,8 +71,12 @@ function bookish_admin_entity_update(EntityInterface $entity) {
           if (isset($item->bookish_image_data)) {
             $data = array_merge($data, $item->bookish_image_data);
           }
-          foreach ($data as &$value) {
-            $value = (int) $value;
+          foreach ($data as $key => &$value) {
+            if ($key === 'focal_point') {
+              $value = array_map('intval', explode(',', $value));
+            } else {
+              $value = (int) $value;
+            }
           }
           $item->entity->bookish_image_data = json_encode($data);
           $item->entity->save();

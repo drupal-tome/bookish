@@ -11,7 +11,6 @@
         $clone.attr('id', '');
         $clone.attr('class', 'bookish-image-preview-clone');
         $clone.attr('style', '');
-        $clone.css('position', 'absolute');
         $(this).before($clone);
         $(this).promise().done(function(){
           $(this).parent().find('.bookish-image-preview-clone').each(function() {
@@ -41,10 +40,32 @@
           }, 100));
         });
       });
+      $('.bookish-image-focal-point-container', context).once('bookish-image-focal-point').each(function() {
+        var $dot = $('<div class="bookish-image-focal-point-dot"></div>');
+        var $img = $(this).find('img');
+        $dot.css('left', $img.width() / 2);
+        $dot.css('top', $img.height() / 2);
+        $(this).append($dot);
+        var $container = $(this);
+        $img.click(function (e) {
+          var x = e.pageX - $img.offset().left;
+          var y = e.pageY - $img.offset().top;
+          var differenceX = $img.attr('width') / $img.width();
+          var differenceY = $img.attr('height') / $img.height();
+          $dot.css('left', x);
+          $dot.css('top', y);
+          $container.parent()
+            .find('.bookish-image-focal-point-input')
+            .val(Math.round(x * differenceX) + ',' + Math.round(y * differenceY));
+          $container.parent()
+          .find('.bookish-image-re-render')
+          .click();
+        });
+      });
     }
   };
 
-  var beforeSend = Drupal.ajax.prototype.beforeSend;
+  var beforeSend = Drupal.Ajax.prototype.beforeSend;
 
   Drupal.Ajax.prototype.beforeSend = function (xmlhttprequest, options) {
     if (!$(this.element).is('.bookish-image-data-container input[type="range"]')) {

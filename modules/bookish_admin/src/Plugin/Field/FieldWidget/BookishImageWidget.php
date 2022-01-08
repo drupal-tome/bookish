@@ -6,6 +6,7 @@ use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Url;
+use Drupal\image\Entity\ImageStyle;
 use Drupal\image\Plugin\Field\FieldWidget\ImageWidget;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -107,31 +108,56 @@ class BookishImageWidget extends ImageWidget {
       '#default_value' => 0,
     ];
 
-    // $element['bookish_image_data']['red'] = [
-    //   '#title' => t('Red'),
-    //   '#type' => 'range',
-    //   '#min' => -255,
-    //   '#max' => 255,
-    //   '#ajax' => $ajax_settings,
-    // ];
+    $element['bookish_image_data']['red'] = [
+      '#title' => t('Red'),
+      '#type' => 'range',
+      '#min' => -255,
+      '#max' => 255,
+      '#ajax' => $ajax_settings,
+    ];
 
-    // $element['bookish_image_data']['green'] = [
-    //   '#title' => t('Green'),
-    //   '#type' => 'range',
-    //   '#min' => -255,
-    //   '#max' => 255,
-    //   '#ajax' => $ajax_settings,
-    // ];
+    $element['bookish_image_data']['green'] = [
+      '#title' => t('Green'),
+      '#type' => 'range',
+      '#min' => -255,
+      '#max' => 255,
+      '#ajax' => $ajax_settings,
+    ];
 
-    // $element['bookish_image_data']['blue'] = [
-    //   '#title' => t('Blue'),
-    //   '#type' => 'range',
-    //   '#min' => -255,
-    //   '#max' => 255,
-    //   '#ajax' => $ajax_settings,
-    // ];
+    $element['bookish_image_data']['blue'] = [
+      '#title' => t('Blue'),
+      '#type' => 'range',
+      '#min' => -255,
+      '#max' => 255,
+      '#ajax' => $ajax_settings,
+    ];
+
+    $element['bookish_image_data']['focal_point'] = [
+      '#title' => t('Focal point'),
+      '#type' => 'hidden',
+      '#attributes' => [
+        'class' => [
+          'bookish-image-focal-point-input',
+        ],
+      ],
+      '#ajax' => array_merge($ajax_settings, ['disable-refocus' => TRUE]),
+    ];
+
+    $element['re_render_button'] = [
+      '#type' => 'button',
+      '#value' => t('Re-render preview'),
+      '#limit_validation_errors' => [],
+      '#attributes' => [
+        'class' => [
+          'visually-hidden',
+          'bookish-image-re-render',
+        ],
+      ],
+      '#ajax' => array_merge($ajax_settings, ['disable-refocus' => TRUE, 'event' => 'click']),
+    ];
 
     if (!empty($element['#files'])) {
+      /** @var \Drupal\file\FileInterface $file */
       $file = reset($element['#files']);
       $image_data = json_decode($file->bookish_image_data->getString(), TRUE);
       foreach (Element::children($element['bookish_image_data']) as $key) {
@@ -140,6 +166,24 @@ class BookishImageWidget extends ImageWidget {
         }
         $element['bookish_image_data'][$key]['#default_value'] = $image_data[$key];
       }
+      /** @var \Drupal\Core\Image\ImageFactory $image_factory */
+      $image_factory = \Drupal::service('image.factory');
+      $image = $image_factory->get($file->getFileUri());
+      $element['focal_point'] = [
+        '#type' => 'container',
+        '#weight' => $element['preview']['#weight'] +1,
+        '#attributes' => [
+          'class' => [
+            'bookish-image-focal-point-container',
+          ],
+        ],
+        'thumbnail' => [
+          '#theme' => 'image',
+          '#uri' => $file->getFileUri(),
+          '#width' => $image->getWidth(),
+          '#height' => $image->getHeight(),
+        ],
+      ];
     }
 
     $element['preview_clone'] = [
@@ -171,11 +215,22 @@ class BookishImageWidget extends ImageWidget {
     $image_data = json_decode($file->bookish_image_data->getString(), TRUE);
     $new_image_data = $form_state->getValue(array_merge($element['#parents'], ['bookish_image_data']));
     $image_data = array_merge($image_data, $new_image_data);
-    foreach ($image_data as &$value) {
-      $value = (int) $value;
+    foreach ($image_data as $key => &$value) {
+      if ($key === 'focal_point') {
+        $value = array_map('intval', explode(',', $value));
+      } else {
+        $value = (int) $value;
+      }
     }
 
+    /** @var \Drupal\Core\Image\ImageFactory $image_factory */
+    $image_factory = \Drupal::service('image.factory');
+    $image_style = ImageStyle::load($element['preview']['#style_name']);
+    $derivative_uri = $image_style->buildUri($file->getFileUri());
+    $image = $image_factory->get($derivative_uri);
     $element['preview']['#theme'] = 'image';
+    $element['preview']['#width'] = $image->getWidth();
+    $element['preview']['#height'] = $image->getHeight();
     $url = Url::fromRoute('bookish_image_preview', [
       'file' => $file->id(),
       'image_style' => $element['preview']['#style_name'],
