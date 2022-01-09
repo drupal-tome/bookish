@@ -6,13 +6,18 @@
         $(this).promise().done(debounce(function () {
           var $img = $(this).find('img');
           var $wrapper = $(this).parent();
-          $img.on('load', function () {
+          var f = function () {
             $wrapper
               .css('background-image', 'url(' + $img.attr('src') + ')')
               .css('box-shadow', 'none')
               .css('width', $img.attr('width'))
               .css('height', $img.attr('height'));
-          });
+          }
+          if ($img.prop('complete')) {
+            f();
+          } else {
+            $img.on('load', f);
+          }
         }, 100));
       });
 
