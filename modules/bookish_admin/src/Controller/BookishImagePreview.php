@@ -36,7 +36,9 @@ class BookishImagePreview extends ControllerBase {
       'Content-Type' => $image->getMimeType(),
       'Content-Length' => $image->getFileSize(),
     ];
-    return new BinaryFileResponse($derivative_uri, 200, $headers, FALSE);
+    $response = new BinaryFileResponse($derivative_uri, 200, $headers, FALSE);
+    $response->setCache(['max_age' => 60]);
+    return $response;
   }
 
   public function access(FileInterface $file, ImageStyleInterface $image_style) {
