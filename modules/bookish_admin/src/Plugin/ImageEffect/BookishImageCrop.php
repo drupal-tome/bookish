@@ -34,9 +34,23 @@ class BookishImageCrop extends ResizeImageEffect {
     if (isset($data['focal_point'])) {
       $x = floor($data['focal_point'][0] - ($this->configuration['width'] / 2));
       $y = floor($data['focal_point'][1] - ($this->configuration['height'] / 2));
+      if ($x < 0) {
+        $x = 0;
+      }
+      if ($y < 0) {
+        $y = 0;
+      }
     } else {
       $x = 0;
       $y = 0;
+    }
+    $overflowX = ($x + $this->configuration['width']) - $image->getWidth();
+    if ($overflowX > 0) {
+      $x -= $overflowX;
+    }
+    $overflowY = ($y + $this->configuration['height']) - $image->getHeight();
+    if ($overflowY > 0) {
+      $y -= $overflowY;
     }
     if (!$image->crop($x, $y, $this->configuration['width'], $this->configuration['height'])) {
       $this->logger->error('Bookish image crop failed using the %toolkit toolkit on %path (%mimetype, %dimensions)', ['%toolkit' => $image->getToolkitId(), '%path' => $image->getSource(), '%mimetype' => $image->getMimeType(), '%dimensions' => $image->getWidth() . 'x' . $image->getHeight()]);
