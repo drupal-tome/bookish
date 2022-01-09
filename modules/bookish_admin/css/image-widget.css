@@ -49,4 +49,5 @@
   border: 2px solid white;
   margin-left: -5px;
   margin-top: -5px;
+  pointer-events: none;
 }

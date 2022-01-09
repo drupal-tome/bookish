@@ -182,6 +182,9 @@ class BookishImageWidget extends ImageWidget {
           '#uri' => $file->getFileUri(),
           '#width' => $image->getWidth(),
           '#height' => $image->getHeight(),
+          '#attributes' => [
+            'draggable' => 'false',
+          ],
         ],
       ];
     }

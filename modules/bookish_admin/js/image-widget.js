@@ -37,19 +37,38 @@
         $dot.css('top', $img.height() / 2);
         $(this).append($dot);
         var $container = $(this);
-        $img.click(function (e) {
+        var dragging = false;
+        var updateDot = function(e) {
+          var x = e.pageX - $img.offset().left;
+          var y = e.pageY - $img.offset().top;
+          $dot.css('left', x);
+          $dot.css('top', y);
+        }
+        var updateInput = debounce(function(e) {
           var x = e.pageX - $img.offset().left;
           var y = e.pageY - $img.offset().top;
           var differenceX = $img.attr('width') / $img.width();
           var differenceY = $img.attr('height') / $img.height();
-          $dot.css('left', x);
-          $dot.css('top', y);
           $container.parent()
             .find('.bookish-image-focal-point-input')
             .val(Math.round(x * differenceX) + ',' + Math.round(y * differenceY));
           $container.parent()
           .find('.bookish-image-re-render')
           .click();
+        }, 100);
+        $img.on('mousedown', function (e) {
+          dragging = true;
+          updateDot(e);
+          updateInput(e);
+        });
+        $img.on('mousemove', function (e) {
+          if (dragging) {
+            updateDot(e);
+            updateInput(e);
+          }
+        });
+        $img.on('mouseup', function () {
+          dragging = false;
         });
       });
     }
