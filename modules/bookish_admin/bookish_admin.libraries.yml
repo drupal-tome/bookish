@@ -21,3 +21,8 @@ codeblock.admin:
   css:
     theme:
       css/codeblock.admin.css: { }
+
+node_form:
+  css:
+    theme:
+      css/node-form.css: { }

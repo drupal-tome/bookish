@@ -164,7 +164,11 @@ class BookishImageWidget extends ImageWidget {
         if (!isset($image_data[$key])) {
           continue;
         }
-        $element['bookish_image_data'][$key]['#default_value'] = $image_data[$key];
+        if ($key === 'focal_point') {
+          $element['bookish_image_data'][$key]['#default_value'] = implode(',', $image_data[$key]);
+        } else {
+          $element['bookish_image_data'][$key]['#default_value'] = $image_data[$key];
+        }
       }
       /** @var \Drupal\Core\Image\ImageFactory $image_factory */
       $image_factory = \Drupal::service('image.factory');
@@ -188,16 +192,6 @@ class BookishImageWidget extends ImageWidget {
         ],
       ];
     }
-
-    $element['preview_clone'] = [
-      '#type' => 'container',
-      '#weight' => $element['preview']['#weight'] -1,
-      '#attributes' => [
-        'class' => [
-          'bookish-image-preview-clone',
-        ],
-      ],
-    ];
 
     $element['preview']['#prefix'] = '<div class="bookish-image-preview" id="' . $preview_id . '">';
     $element['preview']['#suffix'] = '</div>';

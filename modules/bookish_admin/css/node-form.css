@@ -1,0 +1,10 @@
+@media screen and (min-width: 61rem) {
+  div.layout-region--node-main .layout-region__content,
+  div.layout-region--node-footer .layout-region__content {
+    max-width: 1280px;
+  }
+}
+
+.ck-editor__editable {
+  min-height: 250px;
+}

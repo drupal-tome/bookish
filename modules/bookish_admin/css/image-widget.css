@@ -20,11 +20,14 @@
 .bookish-image-data-container {
   display: flex;
   flex-wrap: wrap;
+  flex: 1;
+  flex-basis: 200px;
+  align-self: flex-start;
 }
 
 .bookish-image-data-container > .form-item {
-  flex-basis: 50%;
-  margin: 0;
+  flex-basis: 100%;
+  margin-top: 0;
 }
 
 .bookish-image-data-container input[type="range"] {
@@ -50,4 +53,26 @@
   margin-left: -5px;
   margin-top: -5px;
   pointer-events: none;
+}
+
+div.field--widget-bookish-image .form-managed-file {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+div.field--widget-bookish-image .form-managed-file__main {
+  flex-basis: 100%;
+}
+
+div.field--widget-bookish-image .form-managed-file__meta-wrapper {
+  flex-basis: 65%;
+}
+
+div.field--widget-bookish-image .form-managed-file__meta {
+  flex-direction: column;
+}
+
+div.field--widget-bookish-image .form-managed-file__meta-items {
+  flex: 1;
 }

@@ -94,3 +94,7 @@ function _bookish_admin_flush_image_styles($uri) {
     $image_style->flush($uri);
   }
 }
+
+function bookish_admin_form_node_form_alter(&$form, &$form_state, $form_id) {
+  $form['#attached']['library'][] = 'bookish_admin/node_form';
+}

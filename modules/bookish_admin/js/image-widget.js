@@ -5,11 +5,14 @@
       $('.bookish-image-preview', context).once('bookish-image-preview').each(function () {
         $(this).promise().done(debounce(function () {
           var $img = $(this).find('img');
-          $(this).parent()
-            .css('background-image', 'url(' + $img.attr('src') + ')')
-            .css('box-shadow', 'none')
-            .css('width', $img.attr('width'))
-            .css('height', $img.attr('height'));
+          var $wrapper = $(this).parent();
+          $img.on('load', function () {
+            $wrapper
+              .css('background-image', 'url(' + $img.attr('src') + ')')
+              .css('box-shadow', 'none')
+              .css('width', $img.attr('width'))
+              .css('height', $img.attr('height'));
+          });
         }, 100));
       });
 
@@ -33,8 +36,19 @@
       $('.bookish-image-focal-point-container', context).once('bookish-image-focal-point').each(function() {
         var $dot = $('<div class="bookish-image-focal-point-dot"></div>');
         var $img = $(this).find('img');
-        $dot.css('left', $img.width() / 2);
-        $dot.css('top', $img.height() / 2);
+
+        // Set default value from form element.
+        var differenceX = $img.attr('width') / $img.width();
+        var differenceY = $img.attr('height') / $img.height();
+        var default_val = $(this).parent()
+          .find('.bookish-image-focal-point-input')
+          .val();
+        var pos = default_val.split(',');
+        var defaultX = parseInt(pos[0]) / differenceX;
+        var defaultY = parseInt(pos[1]) / differenceY;
+        $dot.css('left', defaultX);
+        $dot.css('top', defaultY);
+
         $(this).append($dot);
         var $container = $(this);
         var dragging = false;
