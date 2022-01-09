@@ -41,7 +41,7 @@ class BookishImageEffect extends ImageEffectBase {
       return TRUE;
     }
     $file = reset($files);
-    $data = json_decode($file->bookish_image_data->getString(), TRUE);
+    $data = _bookish_admin_coerce_data(json_decode($file->bookish_image_data->getString(), TRUE));
     if (isset($data['grayscale']) && $data['grayscale'] === 1) {
       imagefilter($resource, IMG_FILTER_GRAYSCALE);
     }

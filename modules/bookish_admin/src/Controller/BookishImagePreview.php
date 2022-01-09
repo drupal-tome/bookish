@@ -25,7 +25,7 @@ class BookishImagePreview extends ControllerBase {
     $image_factory = \Drupal::service('image.factory');
     $original_image_data = json_decode($file->bookish_image_data->getString(), TRUE);
     $new_image_data = json_decode($request->query->get('bookish_image_data', []), TRUE);
-    $image_data = array_merge($original_image_data, $new_image_data);
+    $image_data = array_merge(_bookish_admin_coerce_data($original_image_data), _bookish_admin_coerce_data($new_image_data));
     $file->bookish_image_data = json_encode($image_data);
     // @todo Make more unique.
     $derivative_uri = 'public://bookish-image-preview/' . $file->getFileUri();

@@ -39,22 +39,29 @@
       });
 
       $('.bookish-image-focal-point-container', context).once('bookish-image-focal-point').each(function() {
+        $(this).show();
         var $dot = $('<div class="bookish-image-focal-point-dot"></div>');
         var $img = $(this).find('img');
 
         // Set default value from form element.
         var differenceX = $img.attr('width') / $img.width();
         var differenceY = $img.attr('height') / $img.height();
-        var default_val = $(this).parent()
+        var default_val = $(this).closest('.bookish-image-container')
           .find('.bookish-image-focal-point-input')
           .val();
         var pos = default_val.split(',');
-        var defaultX = parseInt(pos[0]) / differenceX;
-        var defaultY = parseInt(pos[1]) / differenceY;
+        var defaultX = 0;
+        var defaultY = 0;
+        if (pos.length === 2) {
+          defaultX = parseInt(pos[0]) / differenceX;
+          defaultY = parseInt(pos[1]) / differenceY;
+        }
         $dot.css('left', defaultX);
         $dot.css('top', defaultY);
 
         $(this).append($dot);
+        $(this).hide();
+
         var $container = $(this);
         var dragging = false;
         var updateDot = function(e) {

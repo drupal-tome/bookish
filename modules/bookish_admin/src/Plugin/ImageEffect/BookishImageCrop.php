@@ -30,7 +30,7 @@ class BookishImageCrop extends ResizeImageEffect {
       return TRUE;
     }
     $file = reset($files);
-    $data = json_decode($file->bookish_image_data->getString(), TRUE);
+    $data = _bookish_admin_coerce_data(json_decode($file->bookish_image_data->getString(), TRUE));
     if (isset($data['focal_point'])) {
       $x = floor($data['focal_point'][0] - ($this->configuration['width'] / 2));
       $y = floor($data['focal_point'][1] - ($this->configuration['height'] / 2));

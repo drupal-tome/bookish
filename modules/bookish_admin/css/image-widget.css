@@ -17,12 +17,14 @@
   background-color: #f2f2f3;
 }
 
+.bookish-image-container {
+  flex: 1;
+  flex-basis: 200px;
+}
+
 .bookish-image-data-container {
   display: flex;
   flex-wrap: wrap;
-  flex: 1;
-  flex-basis: 200px;
-  align-self: flex-start;
 }
 
 .bookish-image-data-container > .form-item {
@@ -40,7 +42,6 @@
 
 .bookish-image-focal-point-container {
   position: relative;
-  max-width: 150px;
 }
 
 .bookish-image-focal-point-dot {
@@ -75,4 +76,43 @@ div.field--widget-bookish-image .form-managed-file__meta {
 
 div.field--widget-bookish-image .form-managed-file__meta-items {
   flex: 1;
+}
+
+.bookish-image-tabs .form-radios {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.bookish-image-tabs .form-radios > * {
+  margin-left: 0;
+}
+
+div.bookish-image-tabs label,
+div.bookish-image-tabs .form-item__label.option {
+  font-weight: bold;
+  padding: 5px 10px;
+}
+
+div.bookish-image-tabs input {
+  height: 0px;
+  width: 0px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  opacity: 0;
+}
+
+div.bookish-image-tabs input + label {
+  border-bottom: 2px solid transparent;
+  transition: border-color .2s;
+}
+
+div.bookish-image-tabs input:focus + label,
+div.bookish-image-tabs input:hover + label {
+  border-bottom-color: #c9c9c9;
+}
+
+div.bookish-image-tabs input:checked + label {
+  border-bottom-color: #0075ff;
 }

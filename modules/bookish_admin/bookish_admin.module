@@ -67,20 +67,15 @@ function bookish_admin_entity_update(EntityInterface $entity) {
           if (!$item->entity instanceof FileInterface) {
             continue;
           }
+          if (!isset($item->bookish_image)) {
+            continue;
+          }
           $data = json_decode($item->entity->bookish_image_data->getString(), TRUE);
-          if (isset($item->bookish_image_data)) {
-            $data = array_merge($data, $item->bookish_image_data);
-          }
-          foreach ($data as $key => &$value) {
-            if ($key === 'focal_point') {
-              $value = array_map('intval', explode(',', $value));
-            } else {
-              $value = (int) $value;
-            }
-          }
+          $new_data = $item->bookish_image['bookish_image_data'];
+          $data = array_merge(_bookish_admin_coerce_data($data), _bookish_admin_coerce_data($new_data));
           $item->entity->bookish_image_data = json_encode($data);
           $item->entity->save();
-          _bookish_admin_flush_image_styles($item->entity->getFileUri());
+          _bookish_admin_flush_image_styles($item->entity->getFileUri());  
         }
       }
     }
@@ -97,4 +92,24 @@ function _bookish_admin_flush_image_styles($uri) {
 
 function bookish_admin_form_node_form_alter(&$form, &$form_state, $form_id) {
   $form['#attached']['library'][] = 'bookish_admin/node_form';
+}
+
+function _bookish_admin_coerce_data($data) {
+  if (!is_array($data)) {
+    return [];
+  }
+  foreach ($data as $key => &$value) {
+    if ($key === 'focal_point') {
+      if (!is_array($value)) {
+        $value = explode(',', $value);
+      }
+      if (count($value) < 2) {
+        $value = [0,0];
+      }
+      $value = array_map('intval', $value);
+    } else {
+      $value = (int) $value;
+    }
+  }
+  return $data;
 }

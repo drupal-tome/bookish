@@ -33,6 +33,32 @@ class BookishImageWidget extends ImageWidget {
     $item = $element['#value'];
     $item['fids'] = $element['fids']['#value'];
 
+    $element['bookish_image'] = [
+      '#type' => 'container',
+      '#attributes' => [
+        'class' => [
+          'bookish-image-container',
+        ],
+      ],
+    ];
+    $tabs_class = 'bookish-image-tabs-' . $element['#field_name'] . '-' . $element['#delta'];
+    $element['bookish_image']['tabs'] = [
+      '#type' => 'radios',
+      '#default_value' => 0,
+      '#options' => [
+        0 => t('Color'),
+        1 => t('Crop'),
+        2 => t('Filters'),
+      ],
+      '#attributes' => [
+        'class' => [
+          $tabs_class,
+        ],
+      ],
+      '#prefix' => '<div class="bookish-image-tabs">',
+      '#suffix' => '</div>'
+    ];
+
     $preview_id = 'bookish-image-preview-' . $element['#field_name'] . '-' . $element['#delta'];
     $ajax_settings = [
       'callback' => [static::class, 'updatePreview'],
@@ -47,7 +73,7 @@ class BookishImageWidget extends ImageWidget {
       'effect' => 'fade',
       'speed' => 'fast',
     ];
-    $element['bookish_image_data'] =[
+    $element['bookish_image']['bookish_image_data'] =[
       '#type' => 'container',
       '#attributes' => [
         'class' => [
@@ -55,8 +81,13 @@ class BookishImageWidget extends ImageWidget {
         ],
       ],
       '#access' => (bool) $item['fids'],
+      '#states' => [
+        'visible' => [
+          ".$tabs_class" => ['value' => 0],
+        ],
+      ],
     ];
-    $element['bookish_image_data']['brightness'] = [
+    $element['bookish_image']['bookish_image_data']['brightness'] = [
       '#title' => t('Brightness'),
       '#type' => 'range',
       '#min' => -255,
@@ -64,7 +95,7 @@ class BookishImageWidget extends ImageWidget {
       '#ajax' => $ajax_settings,
     ];
 
-    $element['bookish_image_data']['contrast'] = [
+    $element['bookish_image']['bookish_image_data']['contrast'] = [
       '#title' => t('Contrast'),
       '#type' => 'range',
       '#min' => -100,
@@ -72,7 +103,7 @@ class BookishImageWidget extends ImageWidget {
       '#ajax' => $ajax_settings,
     ];
 
-    $element['bookish_image_data']['hue'] = [
+    $element['bookish_image']['bookish_image_data']['hue'] = [
       '#title' => t('Hue'),
       '#type' => 'range',
       '#min' => 0,
@@ -81,7 +112,7 @@ class BookishImageWidget extends ImageWidget {
       '#default_value' => 0,
     ];
 
-    $element['bookish_image_data']['saturation'] = [
+    $element['bookish_image']['bookish_image_data']['saturation'] = [
       '#title' => t('Saturation'),
       '#type' => 'range',
       '#min' => 0,
@@ -90,7 +121,7 @@ class BookishImageWidget extends ImageWidget {
       '#default_value' => 0,
     ];
 
-    $element['bookish_image_data']['blur'] = [
+    $element['bookish_image']['bookish_image_data']['blur'] = [
       '#title' => t('Blur'),
       '#type' => 'range',
       '#min' => 0,
@@ -99,7 +130,7 @@ class BookishImageWidget extends ImageWidget {
       '#default_value' => 0,
     ];
 
-    $element['bookish_image_data']['grayscale'] = [
+    $element['bookish_image']['bookish_image_data']['grayscale'] = [
       '#title' => t('Grayscale'),
       '#type' => 'range',
       '#min' => 0,
@@ -108,7 +139,7 @@ class BookishImageWidget extends ImageWidget {
       '#default_value' => 0,
     ];
 
-    $element['bookish_image_data']['red'] = [
+    $element['bookish_image']['bookish_image_data']['red'] = [
       '#title' => t('Red'),
       '#type' => 'range',
       '#min' => -255,
@@ -116,7 +147,7 @@ class BookishImageWidget extends ImageWidget {
       '#ajax' => $ajax_settings,
     ];
 
-    $element['bookish_image_data']['green'] = [
+    $element['bookish_image']['bookish_image_data']['green'] = [
       '#title' => t('Green'),
       '#type' => 'range',
       '#min' => -255,
@@ -124,7 +155,7 @@ class BookishImageWidget extends ImageWidget {
       '#ajax' => $ajax_settings,
     ];
 
-    $element['bookish_image_data']['blue'] = [
+    $element['bookish_image']['bookish_image_data']['blue'] = [
       '#title' => t('Blue'),
       '#type' => 'range',
       '#min' => -255,
@@ -132,7 +163,7 @@ class BookishImageWidget extends ImageWidget {
       '#ajax' => $ajax_settings,
     ];
 
-    $element['bookish_image_data']['focal_point'] = [
+    $element['bookish_image']['bookish_image_data']['focal_point'] = [
       '#title' => t('Focal point'),
       '#type' => 'hidden',
       '#attributes' => [
@@ -143,7 +174,7 @@ class BookishImageWidget extends ImageWidget {
       '#ajax' => array_merge($ajax_settings, ['disable-refocus' => TRUE]),
     ];
 
-    $element['re_render_button'] = [
+    $element['bookish_image']['re_render_button'] = [
       '#type' => 'button',
       '#value' => t('Re-render preview'),
       '#limit_validation_errors' => [],
@@ -160,22 +191,24 @@ class BookishImageWidget extends ImageWidget {
       /** @var \Drupal\file\FileInterface $file */
       $file = reset($element['#files']);
       $image_data = json_decode($file->bookish_image_data->getString(), TRUE);
-      foreach (Element::children($element['bookish_image_data']) as $key) {
+      if (!is_array($image_data)) {
+        $image_data = [];
+      }
+      foreach (Element::children($element['bookish_image']['bookish_image_data']) as $key) {
         if (!isset($image_data[$key])) {
           continue;
         }
         if ($key === 'focal_point') {
-          $element['bookish_image_data'][$key]['#default_value'] = implode(',', $image_data[$key]);
+          $element['bookish_image']['bookish_image_data'][$key]['#default_value'] = implode(',', $image_data[$key]);
         } else {
-          $element['bookish_image_data'][$key]['#default_value'] = $image_data[$key];
+          $element['bookish_image']['bookish_image_data'][$key]['#default_value'] = $image_data[$key];
         }
       }
       /** @var \Drupal\Core\Image\ImageFactory $image_factory */
       $image_factory = \Drupal::service('image.factory');
       $image = $image_factory->get($file->getFileUri());
-      $element['focal_point'] = [
+      $element['bookish_image']['focal_point'] = [
         '#type' => 'container',
-        '#weight' => $element['preview']['#weight'] +1,
         '#attributes' => [
           'class' => [
             'bookish-image-focal-point-container',
@@ -188,6 +221,11 @@ class BookishImageWidget extends ImageWidget {
           '#height' => $image->getHeight(),
           '#attributes' => [
             'draggable' => 'false',
+          ],
+        ],
+        '#states' => [
+          'visible' => [
+            ".$tabs_class" => ['value' => 1],
           ],
         ],
       ];
@@ -210,15 +248,8 @@ class BookishImageWidget extends ImageWidget {
     /** @var \Drupal\file\FileInterface $file */
     $file = reset($element['#files']);
     $image_data = json_decode($file->bookish_image_data->getString(), TRUE);
-    $new_image_data = $form_state->getValue(array_merge($element['#parents'], ['bookish_image_data']));
-    $image_data = array_merge($image_data, $new_image_data);
-    foreach ($image_data as $key => &$value) {
-      if ($key === 'focal_point') {
-        $value = array_map('intval', explode(',', $value));
-      } else {
-        $value = (int) $value;
-      }
-    }
+    $new_image_data = $form_state->getValue(array_merge($element['#parents'], ['bookish_image', 'bookish_image_data']));
+    $image_data = array_merge(_bookish_admin_coerce_data($image_data), _bookish_admin_coerce_data($new_image_data));
 
     /** @var \Drupal\Core\Image\ImageFactory $image_factory */
     $image_factory = \Drupal::service('image.factory');
