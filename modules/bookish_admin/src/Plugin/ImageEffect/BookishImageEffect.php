@@ -42,16 +42,19 @@ class BookishImageEffect extends ImageEffectBase {
     }
     $file = reset($files);
     $data = _bookish_admin_coerce_data(json_decode($file->bookish_image_data->getString(), TRUE));
+    if (isset($data['saturation']) && $data['saturation'] !== 0) {
+      $this->saturation($resource, $data['saturation']);
+    }
     if (isset($data['grayscale']) && $data['grayscale'] === 1) {
       imagefilter($resource, IMG_FILTER_GRAYSCALE);
     }
     if (isset($data['red']) && isset($data['green']) && isset($data['blue'])) {
       imagefilter($resource, IMG_FILTER_COLORIZE, $data['red'], $data['green'], $data['blue']);
     }
-    if (isset($data['brightness'])) {
+    if (isset($data['brightness']) && $data['brightness'] != 0) {
       imagefilter($resource, IMG_FILTER_BRIGHTNESS, $data['brightness']);
     }
-    if (isset($data['contrast'])) {
+    if (isset($data['contrast']) && $data['contrast'] != 0) {
       imagefilter($resource, IMG_FILTER_CONTRAST, $data['contrast']);
     }
     if (isset($data['blur']) && $data['blur'] > 0) {
@@ -60,10 +63,49 @@ class BookishImageEffect extends ImageEffectBase {
     if (isset($data['hue']) && $data['hue'] > 0) {
       $this->imagehue($resource, $data['hue']);
     }
-    if (isset($data['saturation']) && $data['saturation'] > 0) {
-      $this->saturation($resource, $data['saturation']);
-    }
+    // if (isset($data['fade']) && $data['fade'] !== 0) {
+    //   $this->fade($resource, $data['fade']);
+    // }
     return TRUE;
+  }
+
+  /** @var GdImage $image */
+  protected function fade($image, $fade) {
+    $width = imagesx($image);
+    $height = imagesy($image);
+
+    $image_copy = imagecreatetruecolor($width, $height);
+    imagecopy($image_copy, $image, 0, 0, 0, 0, $width, $height);
+
+    imagealphablending($image_copy, FALSE);
+    imagesavealpha($image_copy, TRUE);
+    imagealphablending($image, FALSE);
+    imagesavealpha($image, TRUE);
+
+    $transparency = .5 * (abs($fade) / 100);
+    imagefilter($image_copy, IMG_FILTER_COLORIZE, 0, 0, 0, 127 * $transparency);
+
+    if ($fade < 0) {
+      imagefilter($image, IMG_FILTER_BRIGHTNESS, -255);
+    } else {
+      $this->saturation($image, 100);
+      imagefilter($image, IMG_FILTER_BRIGHTNESS, 255);
+    }
+    $this->imagecopymerge_alpha($image, $image_copy, 0, 0, 0, 0, $width, $height, 100);
+  }
+
+  protected function imagecopymerge_alpha($dst_im, $src_im, $dst_x, $dst_y, $src_x, $src_y, $src_w, $src_h, $pct){
+    // creating a cut resource
+    $cut = imagecreatetruecolor($src_w, $src_h);
+
+    // copying relevant section from background to the cut resource
+    imagecopy($cut, $dst_im, 0, 0, $dst_x, $dst_y, $src_w, $src_h);
+   
+    // copying relevant section from watermark to the cut resource
+    imagecopy($cut, $src_im, 0, 0, $src_x, $src_y, $src_w, $src_h);
+   
+    // insert cut resource to destination image
+    imagecopymerge($dst_im, $cut, $dst_x, $dst_y, 0, 0, $src_w, $src_h, $pct);
   }
 
   protected function blur($image, $width, $height, $amount) {

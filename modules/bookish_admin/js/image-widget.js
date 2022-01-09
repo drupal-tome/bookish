@@ -97,6 +97,20 @@
           dragging = false;
         });
       });
+
+      $('.bookish-image-filter', context).once('bookish-image-filter').each(function() {
+        $(this).on('click', function(e) {
+          e.preventDefault();
+          var data = JSON.parse($(this).attr('data-image-data'));
+          $container = $(this).closest('.bookish-image-container');
+          for (var key in data) {
+            $container.find('input[type="range"][name*=' + key + ']').val(data[key]);
+          }
+          $container
+            .find('.bookish-image-re-render')
+            .click();
+        });
+      });
     }
   };
 

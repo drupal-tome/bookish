@@ -30,6 +30,7 @@
 .bookish-image-data-container > .form-item {
   flex-basis: 100%;
   margin-top: 0;
+  margin-bottom: 15px;
 }
 
 .bookish-image-data-container input[type="range"] {
@@ -108,11 +109,43 @@ div.bookish-image-tabs input + label {
   transition: border-color .2s;
 }
 
-div.bookish-image-tabs input:focus + label,
 div.bookish-image-tabs input:hover + label {
   border-bottom-color: #c9c9c9;
 }
 
 div.bookish-image-tabs input:checked + label {
-  border-bottom-color: #0075ff;
+  border-bottom-color: #2b8eff;
+}
+
+div.bookish-image-tabs input:focus + label {
+  border-bottom-color: #003e85;
+}
+
+.bookish-image-filter-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.bookish-image-filter {
+  margin-right: 20px;
+  margin-bottom: 10px;
+  border: 1px solid #bababf;
+  padding: 10px 5px;
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+}
+
+.bookish-image-filter:hover {
+  background-color: #ededed;
+}
+
+a.bookish-image-filter-name,
+a.bookish-image-filter-name:hover,
+a.bookish-image-filter-name:focus {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #232429;
+  text-decoration: none;
+  text-align: right;
 }

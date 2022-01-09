@@ -5,6 +5,7 @@ namespace Drupal\bookish_admin\Controller;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\StreamWrapper\StreamWrapperManager;
+use Drupal\Core\Url;
 use Drupal\file\FileInterface;
 use Drupal\image\ImageStyleInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -27,8 +28,7 @@ class BookishImagePreview extends ControllerBase {
     $new_image_data = json_decode($request->query->get('bookish_image_data', []), TRUE);
     $image_data = array_merge(_bookish_admin_coerce_data($original_image_data), _bookish_admin_coerce_data($new_image_data));
     $file->bookish_image_data = json_encode($image_data);
-    // @todo Make more unique.
-    $derivative_uri = 'public://bookish-image-preview/' . $file->getFileUri();
+    $derivative_uri = 'temporary://bookish-image-preview/' . preg_replace('|.*://|', '', $file->getFileUri());
     $file_system->delete($derivative_uri);
     $image_style->createDerivative($file->getFileUri(), $derivative_uri);
     $image = $image_factory->get($derivative_uri);
