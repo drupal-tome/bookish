@@ -20,6 +20,7 @@
 .bookish-image-container {
   flex: 1;
   flex-basis: 200px;
+  max-width: 600px;
 }
 
 .bookish-image-data-container {
@@ -57,7 +58,8 @@
   pointer-events: none;
 }
 
-div.field--widget-bookish-image .form-managed-file {
+div.field--widget-bookish-image .form-managed-file,
+.bookish-admin-image-form {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -71,11 +73,16 @@ div.field--widget-bookish-image .form-managed-file__meta-wrapper {
   flex-basis: 65%;
 }
 
+.bookish-admin-image-form #edit-preview-wrapper {
+  margin-right: 50px;
+}
+
 div.field--widget-bookish-image .form-managed-file__meta {
   flex-direction: column;
 }
 
-div.field--widget-bookish-image .form-managed-file__meta-items {
+div.field--widget-bookish-image .form-managed-file__meta-items,
+.bookish-admin-image-form .form-managed-file__meta-items {
   flex: 1;
 }
 
@@ -154,4 +161,8 @@ a.bookish-image-filter-name:focus {
 
 input.bookish-image-re-render {
   display: none;
+}
+
+.bookish-image-form-actions {
+  flex-basis: 100%;
 }

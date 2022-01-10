@@ -41,7 +41,7 @@ class BookishImagePreview extends ControllerBase {
     return $response;
   }
 
-  public function access(FileInterface $file, ImageStyleInterface $image_style) {
+  public static function access(FileInterface $file, ImageStyleInterface $image_style) {
     $uri = $file->getFileUri();
     $scheme = StreamWrapperManager::getScheme($uri);
     return AccessResult::allowedIf(file_exists($uri) && $file->access('download') && $scheme !== 'private');
