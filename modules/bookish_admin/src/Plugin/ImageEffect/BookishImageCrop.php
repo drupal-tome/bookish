@@ -41,8 +41,8 @@ class BookishImageCrop extends ResizeImageEffect {
         $y = 0;
       }
     } else {
-      $x = 0;
-      $y = 0;
+      $x = floor($this->configuration['width'] / 2);
+      $y = floor($this->configuration['height'] / 2);
     }
     $overflowX = ($x + $this->configuration['width']) - $image->getWidth();
     if ($overflowX > 0) {

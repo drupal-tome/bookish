@@ -29,7 +29,7 @@ class BookishImageWidget extends ImageWidget {
    */
   public static function process($element, FormStateInterface $form_state, $form) {
     $element = parent::process($element, $form_state, $form);
-    $element['#attached'] = ['library' => ['bookish_admin/imageWidget']];
+    $element['#attached']['library'][] = 'bookish_admin/imageWidget';
 
     $item = $element['#value'];
     $item['fids'] = $element['fids']['#value'];
@@ -41,14 +41,15 @@ class BookishImageWidget extends ImageWidget {
           'bookish-image-container',
         ],
       ],
+      '#access' => (bool) $item['fids'],
     ];
     $tabs_class = 'bookish-image-tabs-' . $element['#field_name'] . '-' . $element['#delta'];
     $element['bookish_image']['tabs'] = [
       '#type' => 'radios',
-      '#default_value' => 0,
+      '#default_value' => 2,
       '#options' => [
-        0 => t('Color'),
         2 => t('Filter'),
+        0 => t('Color'),
         1 => t('Crop'),
       ],
       '#attributes' => [
@@ -81,7 +82,6 @@ class BookishImageWidget extends ImageWidget {
           'bookish-image-data-container',
         ],
       ],
-      '#access' => (bool) $item['fids'],
       '#states' => [
         'visible' => [
           ".$tabs_class" => ['value' => 0],
@@ -203,6 +203,13 @@ class BookishImageWidget extends ImageWidget {
       if (!is_array($image_data)) {
         $image_data = [];
       }
+      /** @var \Drupal\Core\Image\ImageFactory $image_factory */
+      $image_factory = \Drupal::service('image.factory');
+      $image = $image_factory->get($file->getFileUri());      
+      $element['bookish_image']['bookish_image_data']['focal_point']['#default_value'] = implode(',', [
+        floor($image->getWidth() / 2),
+        floor($image->getHeight() / 2),
+      ]);
       foreach (Element::children($element['bookish_image']['bookish_image_data']) as $key) {
         if (!isset($image_data[$key])) {
           continue;
@@ -213,9 +220,6 @@ class BookishImageWidget extends ImageWidget {
           $element['bookish_image']['bookish_image_data'][$key]['#default_value'] = $image_data[$key];
         }
       }
-      /** @var \Drupal\Core\Image\ImageFactory $image_factory */
-      $image_factory = \Drupal::service('image.factory');
-      $image = $image_factory->get($file->getFileUri());
       $element['bookish_image']['focal_point'] = [
         '#type' => 'container',
         '#attributes' => [
@@ -241,173 +245,172 @@ class BookishImageWidget extends ImageWidget {
           ],
         ],
       ];
+      $element['bookish_image']['filters'] = [
+        '#type' => 'container',
+        '#attributes' => [
+          'class' => [
+            'bookish-image-filter-container',
+          ],
+        ],
+        '#states' => [
+          'visible' => [
+            ".$tabs_class" => ['value' => 2],
+          ],
+        ],
+      ];
+      $filters = [
+        'Original' => [
+          "brightness" => 0,
+          "contrast" => 0,
+          "hue" => 0,
+          "saturation" => 0,
+          "blur" => 0,
+          "grayscale" => 0,
+          "red" => 0,
+          "green" => 0,
+          "blue" => 0,
+        ],
+        'Calderwood' => [
+          "brightness" => 23,
+          "contrast" => -15,
+          "hue" => 0,
+          "saturation" => 0,
+          "blur" => 0,
+          "grayscale" => 0,
+          "red" => 1,
+          "green" => 12,
+          "blue" => 15,
+        ],
+        'Tartan' => [
+          "brightness" => 85,
+          "contrast" => -4,
+          "hue" => 0,
+          "saturation" => -12,
+          "blur" => 0,
+          "grayscale" => 0,
+          "red" => -31,
+          "green" => -26,
+          "blue" => -28,
+        ],
+        'Lunar' => [
+          "brightness" => 36,
+          "contrast" => -8,
+          "hue" => 0,
+          "saturation" => -49,
+          "blur" => 0,
+          "grayscale" => 1,
+          "red" => 0,
+          "green" => 0,
+          "blue" => 0,
+        ],
+        'Sparrow' => [
+          "brightness" => 28,
+          "contrast" => -12,
+          "hue" => 0,
+          "saturation" => -28,
+          "blur" => 0,
+          "grayscale" => 0,
+          "red" => 26,
+          "green" => 15,
+          "blue" => -1,
+        ],
+        'Reinas' => [
+          "brightness" => 45,
+          "contrast" => 9,
+          "hue" => 0,
+          "saturation" => -50,
+          "blur" => 0,
+          "grayscale" => 0,
+          "red" => 34,
+          "green" => 18,
+          "blue" => 0,
+        ],
+        'Pluto' => [
+          "brightness" => 26,
+          "contrast" => -7,
+          "hue" => 0,
+          "saturation" => 11,
+          "blur" => 0,
+          "grayscale" => 0,
+          "red" => 0,
+          "green" => 0,
+          "blue" => 0,
+        ],
+        'Restful' => [
+          "brightness" => -28,
+          "contrast" => 0,
+          "hue" => 0,
+          "saturation" => -31,
+          "blur" => 0,
+          "grayscale" => 0,
+          "red" => 42,
+          "green" => 23,
+          "blue" => 0,
+        ],
+        'Leche' => [
+          "brightness" => -39,
+          "contrast" => -7,
+          "hue" => 0,
+          "saturation" => -34,
+          "blur" => 0,
+          "grayscale" => 0,
+          "red" => 53,
+          "green" => 47,
+          "blue" => 34,
+        ],
+        'Wolfgang' => [
+          "brightness" => 7,
+          "contrast" => -7,
+          "hue" => 0,
+          "saturation" => 13,
+          "blur" => 0,
+          "grayscale" => 0,
+          "red" => 0,
+          "green" => 0,
+          "blue" => -7,
+        ],
+        'Oden' => [
+          "brightness" => -12,
+          "contrast" => 0,
+          "hue" => 0,
+          "saturation" => -15,
+          "blur" => 0,
+          "grayscale" => 0,
+          "red" => 20,
+          "green" => 12,
+          "blue" => 12,
+        ],
+        'Felicity' => [
+          "brightness" => 12,
+          "contrast" => -5,
+          "hue" => 0,
+          "saturation" => 0,
+          "blur" => 0,
+          "grayscale" => 0,
+          "red" => -18,
+          "green" => -4,
+          "blue" => -15,
+        ],
+      ];
+      foreach ($filters as $name => $image_data) {
+        $element['bookish_image']['filters'][$name] = [
+          '#type' => 'container',
+          '#attributes' => [
+            'data-image-data' => json_encode($image_data),
+            'class' => [
+              'bookish-image-filter',
+            ],
+          ],
+          'bookish_preview' => static::getPreviewElement($file, 'bookish_image_thumbnail', $image_data),
+          'title' => [
+            '#markup' => '<a href="#" class="bookish-image-filter-name">' . $name . '</a>',
+          ],
+        ];
+      }
     }
 
     $element['preview']['#prefix'] = '<div class="bookish-image-preview" id="' . $preview_id . '">';
     $element['preview']['#suffix'] = '</div>';
-
-    $element['bookish_image']['filters'] = [
-      '#type' => 'container',
-      '#attributes' => [
-        'class' => [
-          'bookish-image-filter-container',
-        ],
-      ],
-      '#states' => [
-        'visible' => [
-          ".$tabs_class" => ['value' => 2],
-        ],
-      ],
-    ];
-    $filters = [
-      'Original' => [
-        "brightness" => 0,
-        "contrast" => 0,
-        "hue" => 0,
-        "saturation" => 0,
-        "blur" => 0,
-        "grayscale" => 0,
-        "red" => 0,
-        "green" => 0,
-        "blue" => 0,
-      ],
-      'Calderwood' => [
-        "brightness" => 23,
-        "contrast" => -15,
-        "hue" => 0,
-        "saturation" => 0,
-        "blur" => 0,
-        "grayscale" => 0,
-        "red" => 1,
-        "green" => 12,
-        "blue" => 15,
-      ],
-      'Tartan' => [
-        "brightness" => 85,
-        "contrast" => -4,
-        "hue" => 0,
-        "saturation" => -12,
-        "blur" => 0,
-        "grayscale" => 0,
-        "red" => -31,
-        "green" => -26,
-        "blue" => -28,
-      ],
-      'Lunar' => [
-        "brightness" => 36,
-        "contrast" => -8,
-        "hue" => 0,
-        "saturation" => -49,
-        "blur" => 0,
-        "grayscale" => 1,
-        "red" => 0,
-        "green" => 0,
-        "blue" => 0,
-      ],
-      'Sparrow' => [
-        "brightness" => 28,
-        "contrast" => -12,
-        "hue" => 0,
-        "saturation" => -28,
-        "blur" => 0,
-        "grayscale" => 0,
-        "red" => 26,
-        "green" => 15,
-        "blue" => -1,
-      ],
-      'Reinas' => [
-        "brightness" => 45,
-        "contrast" => 9,
-        "hue" => 0,
-        "saturation" => -50,
-        "blur" => 0,
-        "grayscale" => 0,
-        "red" => 34,
-        "green" => 18,
-        "blue" => 0,
-      ],
-      'Pluto' => [
-        "brightness" => 26,
-        "contrast" => -7,
-        "hue" => 0,
-        "saturation" => 11,
-        "blur" => 0,
-        "grayscale" => 0,
-        "red" => 0,
-        "green" => 0,
-        "blue" => 0,
-      ],
-      'Restful' => [
-        "brightness" => -28,
-        "contrast" => 0,
-        "hue" => 0,
-        "saturation" => -31,
-        "blur" => 0,
-        "grayscale" => 0,
-        "red" => 42,
-        "green" => 23,
-        "blue" => 0,
-      ],
-      'Leche' => [
-        "brightness" => -39,
-        "contrast" => -7,
-        "hue" => 0,
-        "saturation" => -34,
-        "blur" => 0,
-        "grayscale" => 0,
-        "red" => 53,
-        "green" => 47,
-        "blue" => 34,
-      ],
-      'Wolfgang' => [
-        "brightness" => 7,
-        "contrast" => -7,
-        "hue" => 0,
-        "saturation" => 13,
-        "blur" => 0,
-        "grayscale" => 0,
-        "red" => 0,
-        "green" => 0,
-        "blue" => -7,
-      ],
-      'Oden' => [
-        "brightness" => -12,
-        "contrast" => 0,
-        "hue" => 0,
-        "saturation" => -15,
-        "blur" => 0,
-        "grayscale" => 0,
-        "red" => 20,
-        "green" => 12,
-        "blue" => 12,
-      ],
-      'Felicity' => [
-        "brightness" => 12,
-        "contrast" => -5,
-        "hue" => 0,
-        "saturation" => 0,
-        "blur" => 0,
-        "grayscale" => 0,
-        "red" => -18,
-        "green" => -4,
-        "blue" => -15,
-      ],
-    ];
-    foreach ($filters as $name => $image_data) {
-      $element['bookish_image']['filters'][$name] = [
-        '#type' => 'container',
-        '#attributes' => [
-          'data-image-data' => json_encode($image_data),
-          'class' => [
-            'bookish-image-filter',
-          ],
-        ],
-        'preview' => static::getPreviewElement($file, 'bookish_image_thumbnail', $image_data),
-        'title' => [
-          '#markup' => '<a href="#" class="bookish-image-filter-name">' . $name . '</a>',
-        ],
-      ];
-    }
 
     return $element;
   }
