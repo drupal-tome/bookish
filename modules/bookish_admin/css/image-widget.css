@@ -134,6 +134,8 @@ div.bookish-image-tabs input:focus + label {
   border-radius: 2px;
   display: flex;
   flex-direction: column;
+  transition: .2s;
+  cursor: pointer;
 }
 
 .bookish-image-filter:hover {
@@ -147,5 +149,9 @@ a.bookish-image-filter-name:focus {
   font-size: 14px;
   color: #232429;
   text-decoration: none;
-  text-align: right;
+  text-align: center;
+}
+
+input.bookish-image-re-render {
+  display: none;
 }
