@@ -49,7 +49,7 @@ class BookishImageWidget extends ImageWidget {
       '#default_value' => 2,
       '#options' => [
         2 => t('Filter'),
-        0 => t('Color'),
+        0 => t('Adjust'),
         1 => t('Crop'),
       ],
       '#attributes' => [
