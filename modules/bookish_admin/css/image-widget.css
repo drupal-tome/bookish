@@ -134,8 +134,8 @@ div.bookish-image-tabs input:focus + label {
 }
 
 .bookish-image-filter {
-  margin-right: 20px;
-  margin-bottom: 20px;
+  margin-right: 15px;
+  margin-bottom: 15px;
   border: 1px solid #e0e0e6;
   padding: 10px 5px;
   border-radius: 2px;

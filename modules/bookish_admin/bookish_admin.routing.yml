@@ -10,7 +10,7 @@ bookish_image_form:
   path: '/admin/bookish-image-effect-form/{file}/{image_style}'
   defaults:
     _form: '\Drupal\bookish_admin\Form\BookishImageForm'
-    _title: 'Edit file'
+    _title: 'Edit image'
   requirements:
     _custom_access: 'Drupal\bookish_admin\Controller\BookishImagePreview::access'
     _csrf_token: 'TRUE'

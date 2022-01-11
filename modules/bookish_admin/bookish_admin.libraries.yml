@@ -4,6 +4,13 @@ codeblock:
   dependencies:
     - ckeditor5/drupal.ckeditor5
 
+image-ckeditor:
+  js:
+    js/ckeditor5-bookish-image/build/bookish-image.js: { preprocess: false, minified: true }
+  dependencies:
+    - ckeditor5/drupal.ckeditor5
+    - ckeditor5/drupal.ckeditor5.image
+
 imageWidget:
   js:
     js/image-widget.js: { }
