@@ -44,7 +44,8 @@ class BookishImagePreview extends ControllerBase {
   public static function access(FileInterface $file, ImageStyleInterface $image_style) {
     $uri = $file->getFileUri();
     $scheme = StreamWrapperManager::getScheme($uri);
-    return AccessResult::allowedIf(file_exists($uri) && $file->access('download') && $scheme !== 'private');
+    return AccessResult::allowedIf(file_exists($uri) && $file->access('download') && $scheme !== 'private')
+      ->andIf(AccessResult::allowedIfHasPermission(\Drupal::currentUser(), 'use bookish image'));
   }
 
 }

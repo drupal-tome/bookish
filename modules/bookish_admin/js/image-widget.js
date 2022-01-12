@@ -114,6 +114,12 @@
     }
   };
 
+  Drupal.AjaxCommands.prototype.bookishImageCKEditor = function (ajax, response, status) {
+    if (window.bookishImageAjaxCallback && response.url) {
+      window.bookishImageAjaxCallback(response.url);
+    }
+  }
+
   var beforeSend = Drupal.Ajax.prototype.beforeSend;
 
   Drupal.Ajax.prototype.beforeSend = function (xmlhttprequest, options) {

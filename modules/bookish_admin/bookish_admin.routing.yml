@@ -13,4 +13,4 @@ bookish_image_form:
     _title: 'Edit image'
   requirements:
     _custom_access: 'Drupal\bookish_admin\Controller\BookishImagePreview::access'
-    _csrf_token: 'TRUE'
+    _convert_uuid: 'TRUE'

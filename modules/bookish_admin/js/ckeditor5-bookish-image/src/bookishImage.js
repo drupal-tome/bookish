@@ -12,6 +12,7 @@ export default class BookishImage extends Plugin {
 		const editor = this.editor;
 		const t = editor.t;
 		const model = editor.model;
+		const writer = editor.conversion;
 
 		editor.ui.componentFactory.add( 'bookishImageButton', locale => {
 			const view = new ButtonView( locale );
@@ -32,8 +33,26 @@ export default class BookishImage extends Plugin {
 				if (!src || !dataEntityType || dataEntityType != 'file' || !dataEntityUuid) {
 					return;
 				}
-				console.log(src, dataEntityType, dataEntityUuid);
-			} );
+				const imageStyle = 'social_card';
+				const element_settings = {
+          url: drupalSettings.path.baseUrl + drupalSettings.path.pathPrefix +
+						`admin/bookish-image-effect-form/${dataEntityUuid}/${imageStyle}`,
+          event: 'click',
+					dialogType: 'modal',
+					dialog: {
+						width: 1280,
+						height: 800,
+					},
+          progress: {
+            type: 'none'
+          }
+        };
+				Drupal.ajax(element_settings).execute();
+				window.bookishImageAjaxCallback = function (src) {
+					model.change(writer => {
+						writer.setAttribute('src', src, selectedElement);
+					});
+				}});
 
 			return view;
 		} );

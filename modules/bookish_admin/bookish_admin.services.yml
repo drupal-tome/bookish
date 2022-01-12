@@ -1,0 +1,7 @@
+services:
+    paramconverter.bookish_admin.image:
+      parent: paramconverter.entity
+      class: Drupal\bookish_admin\ParamConverter\BookishUuidConverter
+      tags:
+        # Priority 10, to ensure it runs before @paramconverter.entity.
+        - { name: paramconverter, priority: 10 }

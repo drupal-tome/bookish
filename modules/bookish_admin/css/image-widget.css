@@ -40,6 +40,7 @@
 
 .bookish-image-preview img {
   background: none !important;
+  display: block;
 }
 
 .bookish-image-focal-point-container {
@@ -73,8 +74,9 @@ div.field--widget-bookish-image .form-managed-file__meta-wrapper {
   flex-basis: 65%;
 }
 
-.bookish-admin-image-form #edit-preview-wrapper {
+.bookish-admin-image-form [id*=edit-preview-wrapper] {
   margin-right: 50px;
+  align-self: flex-start;
 }
 
 div.field--widget-bookish-image .form-managed-file__meta {

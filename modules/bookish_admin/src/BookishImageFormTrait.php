@@ -10,6 +10,22 @@ use Drupal\image\ImageStyleInterface;
 
 trait BookishImageFormTrait {
 
+  protected static function getAjaxSettings($element, $preview_id) {
+    return [
+      'callback' => [static::class, 'updatePreview'],
+      'options' => [
+        'query' => [
+          'element_parents' => implode('/', $element['#array_parents']),
+        ],
+      ],
+      'event' => 'change',
+      'wrapper' => $preview_id,
+      'progress' => ['type' => 'none'],
+      'effect' => 'fade',
+      'speed' => 'fast',
+    ];
+  }
+
   protected static function buildImageForm($element, $unique_id, FileInterface $file) {
     $tabs_class = 'bookish-image-tabs-' . $unique_id;
     $preview_id = 'bookish-image-preview-' . $unique_id;
@@ -43,19 +59,7 @@ trait BookishImageFormTrait {
       '#suffix' => '</div>'
     ];
 
-    $ajax_settings = [
-      'callback' => [static::class, 'updatePreview'],
-      'options' => [
-        'query' => [
-          'element_parents' => implode('/', $element['#array_parents']),
-        ],
-      ],
-      'event' => 'change',
-      'wrapper' => $preview_id,
-      'progress' => ['type' => 'none'],
-      'effect' => 'fade',
-      'speed' => 'fast',
-    ];
+    $ajax_settings = static::getAjaxSettings($element, $preview_id);
     $element['bookish_image']['bookish_image_data'] =[
       '#type' => 'container',
       '#attributes' => [
