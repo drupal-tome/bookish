@@ -3,15 +3,17 @@
   Drupal.behaviors.bookishAdminImageWidget = {
     attach: function attach(context, settings) {
       $('.bookish-image-preview', context).once('bookish-image-preview').each(function () {
+        var $img = $(this).find('img');
+        var $wrapper = $(this).parent();
+        $wrapper
+          .css('width', $img.attr('width'))
+          .css('height', $img.attr('height'));
         $(this).promise().done(debounce(function () {
-          var $img = $(this).find('img');
-          var $wrapper = $(this).parent();
           var f = function () {
             $wrapper
               .css('background-image', 'url(' + $img.attr('src') + ')')
               .css('box-shadow', 'none')
-              .css('width', $img.attr('width'))
-              .css('height', $img.attr('height'));
+              .css('background-repeat', 'no-repeat');
           }
           if ($img.prop('complete')) {
             f();

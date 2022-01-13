@@ -31,10 +31,7 @@ class BookishImageForm extends FormBase {
     $user_input = $form_state->getUserInput();
     $image_style_name = isset($user_input['image_style']) ? (string) $user_input['image_style'] : '';
     if (!$image_style_name && $image_style_name !== 'none') {
-      $url = $this->getRequest()->query->get('fileUrl', 'none');
-      if (preg_match('|/styles/([^/]*)|', $url, $matches)) {
-        $image_style_name = $matches[1];
-      }
+      $image_style_name = $this->getRequest()->query->get('imageStyle', NULL);
     }
 
     $image_style = NULL;
@@ -55,6 +52,7 @@ class BookishImageForm extends FormBase {
     ksort($image_styles);
     $bookish_styles = [];
     $other_styles = [];
+    $other_styles_states = [['value' => 'none']];
     foreach ($image_styles as $name => $style) {
       $is_bookish = FALSE;
       foreach ($style->getEffects() as $effect) {
@@ -67,6 +65,7 @@ class BookishImageForm extends FormBase {
         $bookish_styles[$name] = $style->label();
       } else {
         $other_styles[$name] = $style->label();
+        $other_styles_states[] = ['value' => $name];
       }
     }
 
@@ -80,7 +79,7 @@ class BookishImageForm extends FormBase {
       '#title' => t('Image Style'),
       '#type' => 'select',
       '#options' => $options,    
-      '#default_value' => $image_style_name,
+      '#default_value' => $image_style_name ?? 'none',
       '#ajax' => static::getAjaxSettings($form, $preview_id),
       '#attributes' => [
         'class' => [
@@ -109,7 +108,7 @@ class BookishImageForm extends FormBase {
 
     $form['bookish_image']['#states'] = [
       'invisible' => [
-        ".bookish-image-image-style-$unique_id" => ['value' => 'none'],
+        ".bookish-image-image-style-$unique_id" => $other_styles_states,
       ],
     ];
 

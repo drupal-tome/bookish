@@ -30,9 +30,27 @@ export default class BookishImage extends Plugin {
       });
     }
 
-		editor.conversion.for( 'upcast' ).attributeToAttribute( {
-			view: 'data-bookish-image-style',
-			model: 'dataBookishImageStyle'	
+		editor.conversion.for( 'upcast' ).add( dispatcher => {
+			dispatcher.on('element:img', (evt, data, conversionApi) => {
+				const { viewItem } = data;
+				const { writer } = conversionApi;
+				const imageStyle = viewItem.getAttribute('data-bookish-image-style');
+				const uuid = viewItem.getAttribute('data-entity-uuid');
+
+				if (!imageStyle || !uuid) {
+					return;
+				}
+				for (const value of data.modelRange) {
+					const { item } = value;
+					if ( (item.name === 'imageInline' || item.name === 'imageBlock') && item.getAttribute('dataEntityUuid') === uuid) {
+						writer.setAttribute(
+							'dataBookishImageStyle',
+							imageStyle,
+							item,
+						);
+					}
+				}
+			});
 		} );
 
 		editor.conversion.for( 'downcast' ).add( dispatcher => {
@@ -69,15 +87,14 @@ export default class BookishImage extends Plugin {
 			this.listenTo( view, 'execute', () => {
 				const selection = model.document.selection;
 				const selectedElement = selection.getSelectedElement() || first( selection.getSelectedBlocks() );		
-				const src = selectedElement.getAttribute( 'src' );
 				const dataEntityUuid = selectedElement.getAttribute( 'dataEntityUuid' );
 				const dataEntityType = selectedElement.getAttribute( 'dataEntityType' );
-				if (!src || !dataEntityType || dataEntityType != 'file' || !dataEntityUuid) {
+				if (!dataEntityType || dataEntityType != 'file' || !dataEntityUuid) {
 					return;
 				}
 				const element_settings = {
           url: drupalSettings.path.baseUrl + drupalSettings.path.pathPrefix +
-						`admin/bookish-image-effect-form/${dataEntityUuid}?fileUrl=${encodeURIComponent(src)}`,
+						`admin/bookish-image-effect-form/${dataEntityUuid}?imageStyle=${selectedElement.getAttribute('dataBookishImageStyle')}`,
           event: 'click',
 					dialogType: 'modal',
 					dialog: {
@@ -97,7 +114,6 @@ export default class BookishImage extends Plugin {
 						writer.setAttribute('dataBookishImageStyle', imageStyle, selectedElement);
 					});
 				}});
-
 			return view;
 		} );
 	}
