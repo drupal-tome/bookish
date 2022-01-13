@@ -116,7 +116,7 @@
 
   Drupal.AjaxCommands.prototype.bookishImageCKEditor = function (ajax, response, status) {
     if (window.bookishImageAjaxCallback && response.url) {
-      window.bookishImageAjaxCallback(response.url);
+      window.bookishImageAjaxCallback(response.url, response.imageStyle);
     }
   }
 

@@ -47,6 +47,11 @@
   position: relative;
 }
 
+.ui-button:hover,
+.ui-button:focus {
+  font-weight: bold;
+}
+
 .bookish-image-focal-point-dot {
   position: absolute;
   width: 10px;
@@ -77,6 +82,12 @@ div.field--widget-bookish-image .form-managed-file__meta-wrapper {
 .bookish-admin-image-form [id*=edit-preview-wrapper] {
   margin-right: 50px;
   align-self: flex-start;
+}
+
+.bookish-admin-image-form .form-item--image-style {
+  flex-basis: 100%;
+  margin: 0;
+  margin-bottom: 20px;
 }
 
 div.field--widget-bookish-image .form-managed-file__meta {

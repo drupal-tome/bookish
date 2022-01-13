@@ -8,7 +8,6 @@ use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\CloseModalDialogCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Url;
 use Drupal\file\FileInterface;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\image\ImageStyleInterface;
@@ -21,18 +20,39 @@ class BookishImageForm extends FormBase {
     return 'bookish_admin_image_form';
   }
 
-  public function buildForm(array $form, FormStateInterface $form_state, FileInterface $file = NULL, ImageStyleInterface $image_style = NULL) {
-    if (!$file || !$image_style) {
+  public function buildForm(array $form, FormStateInterface $form_state, FileInterface $file = NULL) {
+    $form['status_messages'] = [
+      '#type' => 'status_messages',
+    ];
+    if (!$file) {
       \Drupal::messenger()->addError('You cannot access this form.');
       return $form;
+    }
+    $user_input = $form_state->getUserInput();
+    $image_style_name = isset($user_input['image_style']) ? (string) $user_input['image_style'] : '';
+    if (!$image_style_name && $image_style_name !== 'none') {
+      $url = $this->getRequest()->query->get('fileUrl', 'none');
+      if (preg_match('|/styles/([^/]*)|', $url, $matches)) {
+        $image_style_name = $matches[1];
+      }
+    }
+
+    $image_style = NULL;
+    if ($image_style_name && $image_style_name !== 'none') {
+      $image_style = ImageStyle::load($image_style_name);
+      if (!$image_style) {
+        \Drupal::messenger()->addError('Could not load an image style use with the preview.');
+        return $form;
+      }
     }
 
     $image_data = _bookish_admin_coerce_data(json_decode($file->bookish_image_data->getString(), TRUE));
 
-    $unique_id = $file->id() . '-' . $image_style->getName();
+    $unique_id = $file->id() . '-modal';
     $preview_id = 'bookish-image-preview-' . $unique_id;
 
     $image_styles = ImageStyle::loadMultiple();
+    ksort($image_styles);
     $bookish_styles = [];
     $other_styles = [];
     foreach ($image_styles as $name => $style) {
@@ -56,6 +76,20 @@ class BookishImageForm extends FormBase {
       'Other image styles' => $other_styles,
     ];
 
+    $form['image_style'] = [
+      '#title' => t('Image Style'),
+      '#type' => 'select',
+      '#options' => $options,    
+      '#default_value' => $image_style_name,
+      '#ajax' => static::getAjaxSettings($form, $preview_id),
+      '#attributes' => [
+        'class' => [
+          'bookish-image-image-style',
+          'bookish-image-image-style-' . $unique_id,
+        ],
+      ],
+    ];
+
     $form['preview_wrapper'] = [
       '#type' => 'container',
       'preview' => [
@@ -64,14 +98,7 @@ class BookishImageForm extends FormBase {
           'class' => ['bookish-image-preview'],
         ],
         '#id' => $preview_id,
-        'image' => static::getPreviewElement($file, $image_style, $image_data),  
-        'image_style' => [
-          '#title' => t('Image Style'),
-          '#type' => 'select',
-          '#options' => $options,    
-          '#default_value' => 'original',
-          '#ajax' => static::getAjaxSettings($form, $preview_id),
-        ],
+        'image' => static::getPreviewElement($file, $image_style, $image_data),
       ],
     ];
 
@@ -79,6 +106,12 @@ class BookishImageForm extends FormBase {
     $form['#image_style'] = $image_style;
 
     $form = $this->buildImageForm($form, $unique_id, $file);
+
+    $form['bookish_image']['#states'] = [
+      'invisible' => [
+        ".bookish-image-image-style-$unique_id" => ['value' => 'none'],
+      ],
+    ];
 
     $form['actions'] = [
       '#type' => 'actions',
@@ -96,6 +129,7 @@ class BookishImageForm extends FormBase {
       '#ajax' => [
         'callback' => [$this, 'submitAjax'],
         'event' => 'click',
+        'disable-refocus' => true,
       ],
     ];
 
@@ -107,6 +141,7 @@ class BookishImageForm extends FormBase {
       '#ajax' => [
         'callback' => [$this, 'cancelAjax'],
         'event' => 'click',
+        'disable-refocus' => true,
       ],
     ];
 
@@ -131,12 +166,19 @@ class BookishImageForm extends FormBase {
   public static function submitAjax(array &$form, FormStateInterface $form_state) {
     /** @var FileInterface $file */
     $file = $form['#file'];
-    /** @var ImageStyleInterface $image_style  */
+    $url = $file->getFileUri();
+    /** @var ImageStyleInterface|NULL $image_style  */
     $image_style = $form['#image_style'];
-    $url = $image_style->buildUrl($file->getFileUri());
+    $image_style_name = NULL;
+    if ($image_style) {
+      $url = $image_style->buildUrl($url);
+      $image_style_name = $image_style->getName();
+    } else {
+      $url = $file->createFileUrl(FALSE);
+    }
     $response = new AjaxResponse();
-    $response->addCommand(new BookishImageCKEditorCommand($file->uuid(), $url));
     $response->addCommand(new CloseModalDialogCommand());
+    $response->addCommand(new BookishImageCKEditorCommand($file->uuid(), $url, $image_style_name));
     return $response;
   }
 

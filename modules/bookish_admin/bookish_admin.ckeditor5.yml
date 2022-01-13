@@ -23,11 +23,11 @@ bookish_admin_image:
         toolbar:
           - '|'
           - bookishImageButton
-
   drupal:
-    label: Code Block
+    label: Bookish Image
     library: bookish_admin/image-ckeditor
-    elements: false
     conditions:
-      plugins:
-        - ckeditor5_image
+      toolbarItem: uploadImage
+      imageUploadStatus: true
+    elements:
+      - <img data-bookish-image-style>

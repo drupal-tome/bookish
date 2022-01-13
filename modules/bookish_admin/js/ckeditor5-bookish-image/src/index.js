@@ -1,4 +1,4 @@
-import ckeditor from './../theme/icons/ckeditor.svg';
+import ckeditor from './../theme/icons/bookishImage.svg';
 
 export { default as BookishImage } from './bookishImage';
 

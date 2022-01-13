@@ -10,9 +10,12 @@ class BookishImageCKEditorCommand implements CommandInterface {
 
   protected $url;
 
-  public function __construct($file_uuid, $url) {
+  protected $image_style_name;
+
+  public function __construct($file_uuid, $url, $image_style_name = NULL) {
     $this->file_uuid = $file_uuid;
     $this->url = $url;
+    $this->image_style_name = $image_style_name;
   }
 
   public function render() {
@@ -20,6 +23,7 @@ class BookishImageCKEditorCommand implements CommandInterface {
       'command' => 'bookishImageCKEditor',
       'fileUuid' => $this->file_uuid,
       'url' => $this->url,
+      'imageStyle' => $this->image_style_name,
     ];
   }
 

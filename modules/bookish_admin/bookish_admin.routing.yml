@@ -7,7 +7,7 @@ bookish_image_preview:
     _csrf_token: 'TRUE'
 
 bookish_image_form:
-  path: '/admin/bookish-image-effect-form/{file}/{image_style}'
+  path: '/admin/bookish-image-effect-form/{file}'
   defaults:
     _form: '\Drupal\bookish_admin\Form\BookishImageForm'
     _title: 'Edit image'

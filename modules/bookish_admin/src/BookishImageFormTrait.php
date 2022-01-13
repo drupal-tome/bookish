@@ -385,9 +385,18 @@ trait BookishImageFormTrait {
     return $element;
   }
 
-  protected static function getPreviewElement(FileInterface $file, ImageStyleInterface $image_style, $image_data) {
+  protected static function getPreviewElement(FileInterface $file, ImageStyleInterface $image_style = NULL, $image_data) {
     /** @var \Drupal\Core\Image\ImageFactory $image_factory */
     $image_factory = \Drupal::service('image.factory');
+    if ($image_style === NULL) {
+      $image = $image_factory->get($file->getFileUri());
+      return [
+        '#theme' => 'image',
+        '#width' => $image->getWidth(),
+        '#height' => $image->getHeight(),
+        '#uri' => $file->getFileUri(),
+      ];
+    }
     $derivative_uri = $image_style->buildUri($file->getFileUri());
     if (!file_exists($derivative_uri)) {
       $image_style->createDerivative($file->getFileUri(), $derivative_uri);
