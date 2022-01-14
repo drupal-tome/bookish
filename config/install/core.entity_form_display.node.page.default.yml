@@ -38,7 +38,7 @@ content:
     region: content
     settings:
       progress_indicator: throbber
-      preview_image_style: thumbnail
+      preview_image_style: social_card
     third_party_settings: {  }
   path:
     type: path

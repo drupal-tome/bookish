@@ -79,7 +79,7 @@ class BookishImageForm extends FormBase {
       '#title' => t('Image Style'),
       '#type' => 'select',
       '#options' => $options,    
-      '#default_value' => $image_style_name ?? 'none',
+      '#default_value' => $image_style ? $image_style->getName() : 'none',
       '#ajax' => static::getAjaxSettings($form, $preview_id),
       '#attributes' => [
         'class' => [

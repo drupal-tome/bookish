@@ -17,7 +17,7 @@ effects:
   07d83a9f-7b44-4533-b96c-8a5d7ba4523b:
     uuid: 07d83a9f-7b44-4533-b96c-8a5d7ba4523b
     id: bookish_image_scale_and_crop
-    weight: 2
+    weight: -10
     data:
       width: '500'
       height: '500'

@@ -84,17 +84,35 @@ class BookishImageFilter extends FilterBase implements ContainerFactoryPluginInt
       $xpath = new \DOMXPath($dom);
       foreach ($xpath->query('//*[@data-entity-type="file" and @data-entity-uuid and @data-bookish-image-style]') as $node) {
         $uuid = $node->getAttribute('data-entity-uuid');
-        if ($node->nodeName === 'img') {
-          $file = $this->entityRepository->loadEntityByUuid('file', $uuid);
-          if ($file instanceof FileInterface) {
-            $image_style = ImageStyle::load($node->getAttribute('data-bookish-image-style'));
-            if ($image_style) {
-              $result->addCacheableDependency($image_style);
-              $url = $image_style->buildUrl($file->getFileUri());
-              $url .= (strpos($url, '?') !== FALSE ? '&' : '?') . 't=' . time();
-              $node->setAttribute('src', $url);
-            }
-          }
+        if ($node->nodeName !== 'img') {
+          continue;
+        }
+        /** @var FileInterface $file */
+        $file = $this->entityRepository->loadEntityByUuid('file', $uuid);
+        if (!($file instanceof FileInterface)) {
+          continue;
+        }
+        $image_style = ImageStyle::load($node->getAttribute('data-bookish-image-style'));
+        if (!$image_style) {
+          continue;
+        }
+        $file_uri = $file->getFileUri();
+        $result->addCacheableDependency($image_style);
+        $url = $image_style->buildUrl($file_uri);
+        $url .= (strpos($url, '?') !== FALSE ? '&' : '?') . 't=' . time();
+        $node->setAttribute('src', $url);
+
+        $derivative_uri = $image_style->buildUri($file_uri);
+        if (!file_exists($derivative_uri)) {
+          $image_style->createDerivative($file_uri, $derivative_uri);
+        }
+
+        $image = $this->imageFactory->get($derivative_uri);
+        $width = $image->getWidth();
+        $height = $image->getHeight();
+        if ($width !== NULL && $height !== NULL) {
+          $node->setAttribute('width', $width);
+          $node->setAttribute('height', $height);
         }
       }
       $result->setProcessedText(Html::serialize($dom));

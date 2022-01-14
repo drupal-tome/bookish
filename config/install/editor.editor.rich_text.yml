@@ -1,3 +1,4 @@
+uuid: fb75e4e6-4b11-42c1-82db-1e368c253b3a
 langcode: en
 status: true
 dependencies:
@@ -5,6 +6,8 @@ dependencies:
     - filter.format.rich_text
   module:
     - ckeditor5
+_core:
+  default_config_hash: 78Khyt2cvhEIB6NADdiOw2F-GSGl5ZWErVHrNaSUd20
 format: rich_text
 editor: ckeditor5
 settings:

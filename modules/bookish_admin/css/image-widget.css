@@ -65,6 +65,7 @@
 }
 
 div.field--widget-bookish-image .form-managed-file,
+div.field--widget-bookish-image .form-managed-file.has-value.is-multiple,
 .bookish-admin-image-form {
   display: flex;
   flex-direction: row;
@@ -76,7 +77,7 @@ div.field--widget-bookish-image .form-managed-file__main {
 }
 
 div.field--widget-bookish-image .form-managed-file__meta-wrapper {
-  flex-basis: 65%;
+  margin-right: 50px;
 }
 
 .bookish-admin-image-form [id*=edit-preview-wrapper] {

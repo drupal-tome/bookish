@@ -36,19 +36,21 @@ export default class BookishImage extends Plugin {
 				const { writer } = conversionApi;
 				const imageStyle = viewItem.getAttribute('data-bookish-image-style');
 				const uuid = viewItem.getAttribute('data-entity-uuid');
-
 				if (!imageStyle || !uuid) {
 					return;
 				}
-				for (const value of data.modelRange) {
-					const { item } = value;
-					if ( (item.name === 'imageInline' || item.name === 'imageBlock') && item.getAttribute('dataEntityUuid') === uuid) {
-						writer.setAttribute(
-							'dataBookishImageStyle',
-							imageStyle,
-							item,
-						);
-					}
+				const modelRange = data.modelRange;
+				const item = modelRange && modelRange.start.nodeAfter;
+				if (!item) {
+					return;
+				}
+				if ( (item.name === 'imageInline' || item.name === 'imageBlock') && item.getAttribute('dataEntityUuid') === uuid) {
+					writer.setAttribute(
+						'dataBookishImageStyle',
+						imageStyle,
+						item,
+					);
+					conversionApi.consumable.consume(viewItem, { attributes: 'data-bookish-image-style' });
 				}
 			});
 		} );
@@ -69,7 +71,7 @@ export default class BookishImage extends Plugin {
 				if ( data.attributeNewValue !== null ) {
 					writer.setAttribute( 'data-bookish-image-style', data.attributeNewValue, imageInFigure || viewElement );
 				} else {
-					writer.removeAttribute( 'data-bookish-image-style', img, imageInFigure || viewElement );
+					writer.removeAttribute( 'data-bookish-image-style', imageInFigure || viewElement );
 				}
 			} );
 		} );
@@ -89,12 +91,13 @@ export default class BookishImage extends Plugin {
 				const selectedElement = selection.getSelectedElement() || first( selection.getSelectedBlocks() );		
 				const dataEntityUuid = selectedElement.getAttribute( 'dataEntityUuid' );
 				const dataEntityType = selectedElement.getAttribute( 'dataEntityType' );
+				const imageStyle = selectedElement.getAttribute('dataBookishImageStyle');
 				if (!dataEntityType || dataEntityType != 'file' || !dataEntityUuid) {
 					return;
 				}
 				const element_settings = {
           url: drupalSettings.path.baseUrl + drupalSettings.path.pathPrefix +
-						`admin/bookish-image-effect-form/${dataEntityUuid}?imageStyle=${selectedElement.getAttribute('dataBookishImageStyle')}`,
+						`admin/bookish-image-effect-form/${dataEntityUuid}`,
           event: 'click',
 					dialogType: 'modal',
 					dialog: {
@@ -105,6 +108,9 @@ export default class BookishImage extends Plugin {
             type: 'none'
           }
         };
+				if (imageStyle) {
+					element_settings.url += `?imageStyle=${encodeURIComponent(imageStyle)}`;
+				}
 				Drupal.ajax(element_settings).execute();
 				window.bookishImageAjaxCallback = function (src, imageStyle) {
 					model.change(writer => {

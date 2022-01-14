@@ -1,9 +1,13 @@
+uuid: ca7e5bf2-d4cc-47f4-8b30-ea89d252cf07
 langcode: en
 status: true
 dependencies:
   module:
+    - bookish_admin
     - editor
     - highlight_php
+_core:
+  default_config_hash: ehuN7Jnc99on80slqpdJZXMPCUz-moZ3UEHHTNHl6Mo
 name: 'Rich text'
 format: rich_text
 weight: 0
@@ -12,32 +16,69 @@ filters:
     id: filter_html
     provider: filter
     status: true
-    weight: -10
+    weight: -50
     settings:
-      allowed_html: '<code class> <pre class="text-align-left text-align-center text-align-right text-align-justify"> <br> <p class="text-align-left text-align-center text-align-right text-align-justify"> <h2 class="text-align-left text-align-center text-align-right text-align-justify"> <h3 class="text-align-left text-align-center text-align-right text-align-justify"> <h4 class="text-align-left text-align-center text-align-right text-align-justify"> <h5 class="text-align-left text-align-center text-align-right text-align-justify"> <h6 class="text-align-left text-align-center text-align-right text-align-justify"> <strong> <em> <u> <s> <blockquote class="text-align-left text-align-center text-align-right text-align-justify"> <a href> <ul class="text-align-left text-align-center text-align-right text-align-justify"> <ol class="text-align-left text-align-center text-align-right text-align-justify"> <li> <hr class="text-align-left text-align-center text-align-right text-align-justify"> <table class="text-align-left text-align-center text-align-right text-align-justify"> <tr> <td> <th> <thead> <tbody> <tfoot class="text-align-left text-align-center text-align-right text-align-justify"> <img src alt data-entity-uuid data-entity-type height width data-caption data-align>'
+      allowed_html: '<code class> <pre class="text-align-left text-align-center text-align-right text-align-justify"> <img data-bookish-image-style src alt data-entity-uuid data-entity-type height width data-caption data-align> <br> <p class="text-align-left text-align-center text-align-right text-align-justify"> <h2 class="text-align-left text-align-center text-align-right text-align-justify"> <h3 class="text-align-left text-align-center text-align-right text-align-justify"> <h4 class="text-align-left text-align-center text-align-right text-align-justify"> <h5 class="text-align-left text-align-center text-align-right text-align-justify"> <h6 class="text-align-left text-align-center text-align-right text-align-justify"> <strong> <em> <u> <s> <blockquote class="text-align-left text-align-center text-align-right text-align-justify"> <a href> <ul class="text-align-left text-align-center text-align-right text-align-justify"> <ol class="text-align-left text-align-center text-align-right text-align-justify"> <li> <hr class="text-align-left text-align-center text-align-right text-align-justify"> <table class="text-align-left text-align-center text-align-right text-align-justify"> <tr> <td> <th> <thead> <tbody> <tfoot class="text-align-left text-align-center text-align-right text-align-justify">'
       filter_html_help: true
       filter_html_nofollow: false
   editor_file_reference:
     id: editor_file_reference
     provider: editor
     status: true
-    weight: 0
+    weight: -49
     settings: {  }
   filter_align:
     id: filter_align
     provider: filter
     status: true
-    weight: 0
+    weight: -48
     settings: {  }
   filter_caption:
     id: filter_caption
     provider: filter
     status: true
-    weight: 0
+    weight: -47
+    settings: {  }
+  bookish_image_filter:
+    id: bookish_image_filter
+    provider: bookish_admin
+    status: true
+    weight: -46
     settings: {  }
   filter_highlight_php:
     id: filter_highlight_php
     provider: highlight_php
     status: true
-    weight: 10
+    weight: -45
+    settings: {  }
+  filter_html_image_secure:
+    id: filter_html_image_secure
+    provider: filter
+    status: false
+    weight: -41
+    settings: {  }
+  filter_url:
+    id: filter_url
+    provider: filter
+    status: false
+    weight: -42
+    settings:
+      filter_url_length: 72
+  filter_html_escape:
+    id: filter_html_escape
+    provider: filter
+    status: false
+    weight: -44
+    settings: {  }
+  filter_htmlcorrector:
+    id: filter_htmlcorrector
+    provider: filter
+    status: false
+    weight: -40
+    settings: {  }
+  filter_autop:
+    id: filter_autop
+    provider: filter
+    status: false
+    weight: -43
     settings: {  }
