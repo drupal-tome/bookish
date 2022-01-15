@@ -1,0 +1,10 @@
+<?php
+
+use Drupal\Component\Utility\Html;
+
+/**
+ * Implements hook_preprocess_HOOK() for block templates.
+ */
+function bookish_theme_preprocess_block(&$variables) {
+  $variables['attributes']['class'][] = 'block-' . Html::cleanCssIdentifier($variables['plugin_id']);
+}

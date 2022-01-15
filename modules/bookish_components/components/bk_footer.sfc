@@ -1,12 +1,5 @@
 <template>
   <footer class="bk-footer container">
-    <ul class="bk-footer__menu">
-      <li><a href="/search">Search</a></li>
-      <li><a href="/blog">Blog</a></li>
-      <li><a href="/work">Work</a></li>
-      <li><a href="/gallery">Gallery</a></li>
-      <li><a href="mailto:samuel@bookish.coffee">Contact</a></li>
-    </ul>
     <div class="bk-footer__copyright">©{{ 'now'|date('Y') }} Your Name</div>
     <a class="bk-footer__rss" href="/feed.xml">
       <span class="visually-hidden">RSS Feed</span>
@@ -16,29 +9,6 @@
 </template>
 
 <style>
-  .bk-footer__menu {
-    list-style: none;
-    margin: 0;
-    grid-column: 10 / 11;
-    padding-left: 20px;
-    border-left: 2px solid var(--font-color);
-  }
-  .bk-footer__menu li {
-    margin: var(--spacer-1) 0;
-  }
-  .bk-footer__menu a {
-    color: var(--font-color);
-    text-transform: uppercase;
-    font-size: 1rem;
-    line-height: 1rem;
-    letter-spacing: 2px;
-    font-weight: var(--font-weight-semibold);
-  }
-  .bk-footer__menu a:hover,
-  .bk-footer__menu a:focus {
-    color: var(--font-color);
-    text-decoration: underline;
-  }
   .bk-footer__copyright {
     grid-column: 1 / 11;
     font-size: 0.75rem;

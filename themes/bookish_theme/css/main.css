@@ -136,6 +136,39 @@ div[data-drupal-messages] {
   padding: 20px 100px;
 }
 
+#region-before > * {
+  grid-column: 1/11;
+}
+
+.block-system-menu-blockmain ul {
+  display: flex;
+  list-style: none;
+  justify-content: flex-end;
+  padding: 0;
+  margin: 0;
+  margin-top: var(--spacer-2);
+}
+
+.block-system-menu-blockmain li {
+  margin-right: var(--spacer-2);
+}
+
+.block-system-menu-blockmain li:last-child {
+  margin-right: 0;
+}
+
+.block-system-menu-blockmain a,
+.block-system-menu-blockmain a:hover,
+.block-system-menu-blockmain a:focus {
+  color: var(--font-color);
+  letter-spacing: 3px;
+}
+
+.block-system-menu-blockmain a:hover,
+.block-system-menu-blockmain a:focus {
+  text-decoration: underline;
+}
+
 body.dark {
   --font-color: var(--font-color-light);
   --background-color: var(--background-color-dark);

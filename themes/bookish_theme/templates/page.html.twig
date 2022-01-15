@@ -1,5 +1,8 @@
 {% include 'sfc--bk-header' %}
-<main id="main-content">
+<div id="region-before" class="container">
+  {{ page.before }}
+</div>
+<main id="region-content main-content">
   {{ page.content }}
 </main>
 {% include 'sfc--bk-footer' %}

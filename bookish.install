@@ -5,6 +5,7 @@
  * Install, update and uninstall functions for the Bookish installation profile.
  */
 
+use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\user\Entity\User;
 use Drupal\shortcut\Entity\Shortcut;
 
@@ -73,4 +74,31 @@ function bookish_install() {
     'weight' => $weight += 1,
   ]);
   $shortcut->save();
+
+  $menu_link = MenuLinkContent::create([
+    'enabled' => TRUE,
+    'title' => t('blog'),
+    'menu_name' => 'main',
+    'link' => ['uri' => 'internal:/blog'],
+    'weight' => 0,
+  ]);
+  $menu_link->save();
+
+  $menu_link = MenuLinkContent::create([
+    'enabled' => TRUE,
+    'title' => t('about'),
+    'menu_name' => 'main',
+    'link' => ['uri' => 'internal:/about'],
+    'weight' => 1,
+  ]);
+  $menu_link->save();
+
+  $menu_link = MenuLinkContent::create([
+    'enabled' => TRUE,
+    'title' => t('search'),
+    'menu_name' => 'main',
+    'link' => ['uri' => 'internal:/search'],
+    'weight' => 2,
+  ]);
+  $menu_link->save();
 }

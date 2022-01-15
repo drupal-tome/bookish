@@ -1,0 +1,25 @@
+uuid: ca52c030-4f55-47c3-933d-04bc07c9e664
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.main
+  module:
+    - system
+  theme:
+    - bookish_theme
+id: mainnavigation
+theme: bookish_theme
+region: before
+weight: -1
+provider: null
+plugin: 'system_menu_block:main'
+settings:
+  id: 'system_menu_block:main'
+  label: 'Main navigation'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 1
+  expand_all_items: false
+visibility: {  }
