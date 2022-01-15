@@ -9,7 +9,7 @@
           'text': node.body|view({
             'label': 'hidden',
             'type': 'text_summary_or_trimmed',
-            'settings': {'trim_length': 300},
+            'settings': {'trim_length': 250},
           }),
           'image': node.field_image|view({
             'label': 'hidden',
@@ -36,6 +36,11 @@
   }
   .bk-blog-page .bk-blog-title {
     grid-column: 1 / 11;
+  }
+  @media screen and (max-width: 1300px) {
+    .bk-blog-page__blogs {
+      grid-template-columns: 1fr 1fr;
+    }
   }
   @media screen and (max-width: 800px) {
     .bk-blog-page__blogs {

@@ -1,37 +1,79 @@
 <template>
   {% set title_element = title_element ? title_element : 'h2' %}
   <article class="bk-blog-teaser" role="article">
-    <div class="bk-blog-teaser__image">{{ image }}</div>
-    <div class="bk-blog-teaser__bottom">
-      <a class="bk-blog-teaser__title" href="{{ link }}">
-        <{{ title_element }} class="bk-blog-teaser__title-element">
-          {{ title }}
-        </{{ title_element }}>
-      </a>
-      <div class="bk-blog-teaser__text bk-text">{{ text }}</div>
-    </div>
+    <a class="bk-blog-teaser__link" href="{{ link }}">
+      <div class="bk-blog-teaser__image">{{ image }}</div>
+      <div class="bk-blog-teaser__bottom">
+        <div class="bk-blog-teaser__title">
+          <{{ title_element }} class="bk-blog-teaser__title-element">
+            {{ title }}
+          </{{ title_element }}>
+        </div>
+        <div class="bk-blog-teaser__text bk-text">{{ text }}</div>
+      </div>
+    </a>
   </article>
 </template>
 
 <style>
+  .bk-blog-teaser {
+    padding: 20px;
+    position: relative;
+  }
+  .bk-blog-teaser__link,
+  .bk-blog-teaser__link:hover {
+    color: var(--font-color);
+    font-weight: normal;
+    text-decoration: none;
+  }
+  .bk-blog-teaser::before {
+    right: -5px;
+    bottom: -5px;
+    opacity: .5;
+  }
+  .bk-blog-teaser::after {
+    left: -5px;
+    top: -5px;
+    opacity: .8;
+  }
+  .bk-blog-teaser:hover::before {
+    right: -8px;
+    bottom: -8px;
+    opacity: .3;
+  }
+  .bk-blog-teaser:hover::after {
+    left: -8px;
+    top: -8px;
+    opacity: 1;
+  }
+  .bk-blog-teaser::before,
+  .bk-blog-teaser::after {
+    content: " ";
+    display: block;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    border: 2px solid var(--border-color);
+    pointer-events: none;
+    transition: .2s;
+  }
+  .bk-blog-teaser__image {
+    margin: 0 15px;
+  }
   .bk-blog-teaser__image img {
     width: 100%;
     height: auto;
     display: block;
   }
   .bk-blog-teaser__bottom {
-    padding: 15px;
-    border: 2px solid var(--border-color);
-    border-top: none;
+    margin-top: var(--spacer-2);
   }
   .bk-blog-teaser__title {
     margin-bottom: var(--spacer-1);
     display: block;
-    color: var(--font-color);
   }
-  .bk-blog-teaser__title:hover,
-  .bk-blog-teaser__title:focus {
-    color: var(--font-color);
+  .bk-blog-teaser:hover .bk-blog-teaser__title,
+  .bk-blog-teaser:hover .bk-blog-teaser__title {
     text-decoration: underline;
   }
   .bk-blog-teaser__title-element {

@@ -5,14 +5,14 @@ dependencies:
   config:
     - field.field.node.blog.body
     - field.field.node.blog.field_image
-    - image.style.thumbnail
+    - image.style.blog_teaser
     - node.type.blog
   module:
-    - image
+    - bookish_admin
     - path
     - text
 _core:
-  default_config_hash: SWLX7SJAkCAniYLl-3_LUX1aMMWnj1NLuXd-lQoLmnc
+  default_config_hash: orCjpGXRJHs2Z1-sunk2S_HtRJ2YzOiASXplvx4H3ho
 id: node.blog.default
 targetEntityType: node
 bundle: blog
@@ -35,12 +35,12 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_image:
-    type: image_image
+    type: bookish_image
     weight: 122
     region: content
     settings:
+      preview_image_style: blog_teaser
       progress_indicator: throbber
-      preview_image_style: thumbnail
     third_party_settings: {  }
   path:
     type: path
