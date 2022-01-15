@@ -7,10 +7,15 @@
           'title': node.label(),
           'link': path('entity.node.canonical', {'node': node.id}),
           'text': node.body|view({
-          'label': 'hidden',
-          'type': 'text_summary_or_trimmed',
-          'settings': {'trim_length': 350}
-        })
+            'label': 'hidden',
+            'type': 'text_summary_or_trimmed',
+            'settings': {'trim_length': 300},
+          }),
+          'image': node.field_image|view({
+            'label': 'hidden',
+            'type': 'image',
+            'settings': {'image_style': 'blog_teaser'}
+          }),
         }%}
       {% endfor %}
       {{ sfc_cache(nodes) }}
@@ -23,7 +28,7 @@
   .bk-blog-page__blogs {
     grid-row: 5;
     grid-column: 2 / 10;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     display: grid;
     grid-row-gap: var(--spacer-3);
     grid-column-gap: var(--spacer-3);

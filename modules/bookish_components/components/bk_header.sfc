@@ -24,7 +24,6 @@
     font-size: 3rem;
     line-height: 3rem;
     font-weight: bold;
-    text-transform: uppercase;
     grid-column: 1 / 11;
     display: flex;
     justify-content: flex-end;

@@ -14,6 +14,10 @@ body {
   --accent-color-2: #AADFFF;
   --background-color: white;
   --background-color-dark: #1E1E1E;
+  --border-color: #a1a1a1;
+  --border-hover: #404040;
+  --border-color-light: #a1a1a1;
+  --border-color-dark: #404040;
   --spacer-1: 10px;
   --spacer-2: 25px;
   --spacer-3: 50px;
@@ -57,13 +61,40 @@ a:focus {
   display: block;
 }
 
+.bk-text {
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  letter-spacing: 0.4px;
+}
+
+.bk-text p:first-child {
+  margin-top: 0;
+}
+
+.bk-text p:last-child {
+  margin-bottom: 0;
+}
+
+.bk-text img {
+  max-width: 100%;
+  height: auto;
+
+}
+.bk-text img.align-left {
+  margin-right: var(--spacer-1);
+}
+
+.bk-text img.align-right {
+  margin-left: var(--spacer-1);
+}
+
 /* Match .hljs styles. */
 .monospace {
   background: #fefefe;
   font-family: monospace;
 }
 
-#block-mortenson-local-tasks ul,
+#block-tabs ul,
 .lunr-search-page-form,
 .lunr-search-results,
 div[data-drupal-messages] {
@@ -72,16 +103,36 @@ div[data-drupal-messages] {
   margin: 0 auto;
 }
 
-#block-mortenson-local-tasks ul {
+#block-tabs {
+  margin-bottom: 10px;
+  text-align: right;
+  border-bottom: 2px solid var(--border-color);
+}
+
+#block-tabs ul {
   list-style: none;
   display: flex;
 }
 
-#block-mortenson-local-tasks li {
-  margin-right: var(--spacer-1);
+#block-tabs a,
+#block-tabs a:hover,
+#block-tabs a:focus {
+  display: block;
+  color: var(--font-color);
+  padding: 8px 10px;
+  border-bottom: 2px solid var(--border-color);
+  margin-bottom: -2px;
+  transition: border-color .2s;
+}
+
+#block-tabs a:hover,
+#block-tabs a:focus {
+  text-decoration: none;
+  border-color: var(--border-color-hover);
 }
 
 div[data-drupal-messages] {
+  margin: var(--spacer-1) auto;
   padding: 20px 100px;
 }
 
@@ -91,6 +142,8 @@ body.dark {
   --accent-color-2: #527286;
   --font-color-link: var(--font-color-link-light);
   --font-color-link-hover: var(--font-color-link-light-hover);
+  --border-color: var(--border-color-dark);
+  --border-color-hover: var(--border-color-light);
 }
 
 body.dark .monospace {
@@ -104,6 +157,8 @@ body.dark .monospace {
     --accent-color-2: #527286;
     --font-color-link: var(--font-color-link-light);
     --font-color-link-hover: var(--font-color-link-light-hover);
+    --border-color: var(--border-color-dark);
+    --border-color-hover: var(--border-color-light);
   }
   .monospace {
     background: black;
@@ -111,7 +166,7 @@ body.dark .monospace {
 }
 
 @media screen and (max-width: 800px) {
-  #block-mortenson-local-tasks ul,
+  #block-tabs ul,
   .lunr-search-page-form,
   .lunr-search-results,
   div[data-drupal-messages],

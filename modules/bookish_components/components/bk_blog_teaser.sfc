@@ -1,31 +1,47 @@
 <template>
   {% set title_element = title_element ? title_element : 'h2' %}
   <article class="bk-blog-teaser" role="article">
-    <a class="bk-blog-teaser__title" href="{{ link }}">
-      <{{ title_element }} class="bk-blog-teaser__title-element">
-        {{ title }}
-      </{{ title_element }}>
-    </a>
-    <div class="bk-blog-teaser__text">{{ text }}</div>
+    <div class="bk-blog-teaser__image">{{ image }}</div>
+    <div class="bk-blog-teaser__bottom">
+      <a class="bk-blog-teaser__title" href="{{ link }}">
+        <{{ title_element }} class="bk-blog-teaser__title-element">
+          {{ title }}
+        </{{ title_element }}>
+      </a>
+      <div class="bk-blog-teaser__text bk-text">{{ text }}</div>
+    </div>
   </article>
 </template>
 
 <style>
+  .bk-blog-teaser__image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .bk-blog-teaser__bottom {
+    padding: 15px;
+    border: 2px solid var(--border-color);
+    border-top: none;
+  }
   .bk-blog-teaser__title {
     margin-bottom: var(--spacer-1);
     display: block;
+    color: var(--font-color);
+  }
+  .bk-blog-teaser__title:hover,
+  .bk-blog-teaser__title:focus {
+    color: var(--font-color);
+    text-decoration: underline;
   }
   .bk-blog-teaser__title-element {
     margin: 0;
     font-size: 1.5rem;
-    line-height: 1.5rem;
-    text-transform: uppercase;
+    line-height: 1.6rem;
     font-weight: var(--font-weight-bold);
   }
-  .bk-blog-teaser__text p:first-child {
-    margin-top: 0;
-  }
-  .bk-blog-teaser__text p:last-child {
-    margin-bottom: 0;
+  .bk-blog-teaser__text.bk-text {
+    font-size: 1rem;
+    line-height: 1.3rem;
   }
 </style>

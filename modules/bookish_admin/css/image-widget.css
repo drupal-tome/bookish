@@ -155,7 +155,7 @@ div.bookish-image-tabs input:focus + label {
   border-radius: 2px;
   display: flex;
   flex-direction: column;
-  transition: .2s;
+  transition: background-color .2s;
   cursor: pointer;
 }
 

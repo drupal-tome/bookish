@@ -25,7 +25,6 @@
     line-height: 4rem;
     margin: 0;
     font-weight: var(--font-weight-black);
-    text-transform: uppercase;
   }
   @media screen and (max-width: 560px) {
     .bk-blog-title__bg {

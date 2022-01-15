@@ -7,7 +7,7 @@
       <li><a href="/gallery">Gallery</a></li>
       <li><a href="mailto:samuel@bookish.coffee">Contact</a></li>
     </ul>
-    <div class="bk-footer__copyright">©{{ 'now'|date('Y') }} Samuel Mortenson</div>
+    <div class="bk-footer__copyright">©{{ 'now'|date('Y') }} Your Name</div>
     <a class="bk-footer__rss" href="/feed.xml">
       <span class="visually-hidden">RSS Feed</span>
       <img alt="RSS feed icon" src="/core/misc/feed.svg" />
@@ -29,8 +29,8 @@
   .bk-footer__menu a {
     color: var(--font-color);
     text-transform: uppercase;
-    font-size: 1.25rem;
-    line-height: 1.25rem;
+    font-size: 1rem;
+    line-height: 1rem;
     letter-spacing: 2px;
     font-weight: var(--font-weight-semibold);
   }
