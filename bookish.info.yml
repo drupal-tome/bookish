@@ -6,6 +6,7 @@ core_version_requirement: '^9'
 install:
   - node
   - block
+  - block_content
   - breakpoint
   - ckeditor
   - color

@@ -7,8 +7,6 @@
 
 <style>
   .bk-more-link {
-    grid-row: 6;
-    grid-column: 1 / 11;
     display: flex;
     justify-content: center;
     font-weight: var(--font-weight-semibold);

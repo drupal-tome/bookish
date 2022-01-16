@@ -48,6 +48,8 @@
   .bk-blog-list .bk-more-link {
     --font-color-link-hover: var(--font-color);
     --font-color-link: var(--font-color);
+    grid-row: 6;
+    grid-column: 1 / 11;
   }
   @media screen and (max-width: 560px) {
     .bk-blog-list__blogs {

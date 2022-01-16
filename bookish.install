@@ -5,6 +5,7 @@
  * Install, update and uninstall functions for the Bookish installation profile.
  */
 
+use Drupal\block_content\Entity\BlockContent;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\file\Entity\File;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
@@ -179,7 +180,6 @@ function bookish_install() {
       'type' => 'blog',
       'body' => [
         'value' => $body,
-        'summary' => '',
         'format' => 'rich_text',
       ],
       'status' => 1,
@@ -201,4 +201,28 @@ function bookish_install() {
     }
     $node->save();
   }
+
+  $filename = 'cristofer-maximilian-V1YPvfNzvtw-unsplash.jpg';
+  $alt = 'A bridge in front of a waterfall.';
+  $bookish_image_data = [];
+  $file_src = __DIR__ . "/assets/$filename";
+  $file_dest = "public://$filename";
+  _bookish_admin_flush_image_styles($file_dest);
+  $file = $fileRepository->writeData(file_get_contents($file_src), $file_dest, FileSystemInterface::EXISTS_REPLACE);
+  $file->setPermanent();
+  $file->bookish_image_data = json_encode($bookish_image_data);
+  $file->save();
+  BlockContent::create([
+    'uuid' => '9d7ae167-dad8-46fd-b69d-9a6f353c7613',
+    'type' => 'bookish_callout',
+    'info' => 'Homepage callout',
+    'body' => [
+      'value' => '<p>Welcome to your new Bookish site! You can edit this intro block by visiting the custom block library page.</p>',
+      'format' => 'rich_text',
+    ],
+    'field_image' => [
+      'target_id' => $file->id(),
+      'alt' => $alt,
+    ],
+  ])->save();
 }

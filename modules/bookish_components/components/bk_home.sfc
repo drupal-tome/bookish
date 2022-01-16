@@ -1,4 +1,3 @@
 <template>
- {# {% include 'sfc--bk-home-intro' %}
-  {% include 'sfc--bk-blog-list' %} #}
+  {# Left empty so you can place blocks on the homepage without hacking a Page node. #}
 </template>

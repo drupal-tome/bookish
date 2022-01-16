@@ -1,0 +1,26 @@
+uuid: 063dad57-bc94-4c0c-a8ab-fb7f01fc4b11
+langcode: en
+status: true
+dependencies:
+  module:
+    - bookish_components
+    - system
+  theme:
+    - bookish_theme
+id: bloglisting
+theme: bookish_theme
+region: content
+weight: 0
+provider: null
+plugin: 'single_file_component_block:bk_blog_list'
+settings:
+  id: 'single_file_component_block:bk_blog_list'
+  label: 'Blog listing'
+  label_display: '0'
+  provider: bookish_components
+  component_context: {  }
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /home
