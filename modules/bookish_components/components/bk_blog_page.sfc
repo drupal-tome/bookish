@@ -64,6 +64,8 @@ $prepareContext = function(&$context) {
   $ids = \Drupal::entityQuery('node')
     ->condition('type', 'blog')
     ->condition('status', 1)
+    ->condition('created', time(), '<=')
+    ->sort('sticky', 'DESC')
     ->sort('created', 'DESC')
     ->accessCheck()
     ->execute();

@@ -113,6 +113,10 @@ function bookish_install() {
 
   $nodes = [
     [
+      'title' => 'Images just can\'t describe it',
+      'type' => 'blog',
+    ],
+    [
       'title' => 'A day at the Japanese Garden',
       'type' => 'blog',
       'file' => [
@@ -173,24 +177,24 @@ function bookish_install() {
       ],
     ],
     [
-      'title' => 'Images just can\'t describe it',
-      'type' => 'blog',
-    ],
-    [
       'title' => 'About',
       'type' => 'page',
     ],
   ];
 
+  $i = 0;
   foreach ($nodes as $values) {
     $node = Node::create([
       'title' => $values['title'],
       'type' => $values['type'],
+      'created' => time() + ++$i,
       'body' => [
         'value' => $body,
         'format' => 'rich_text',
       ],
       'status' => 1,
+      'promote' => 1,
+      'sticky' => 0,
     ]);
     if (isset($values['file'])) {
       $file_src = __DIR__ . "/assets/{$values['file']['filename']}";
