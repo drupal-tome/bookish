@@ -31,7 +31,7 @@
   }
   .bookish-toolbar .bookish-toolbar__home {
     background-image: url(assets/drupal-logo.svg);
-    height: 100%;
+    height: calc(100% + 1px);
     background-size: 100% 70%;
     width: 20px;
     background-position: center;
@@ -51,7 +51,7 @@
   .bookish-toolbar a:hover,
   .bookish-toolbar a:focus {
     color: white;
-    background-color: black;
+    background-color: #282828;
   }
   .bookish-toolbar ul {
     margin: 0;

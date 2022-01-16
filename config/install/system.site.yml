@@ -1,0 +1,11 @@
+langcode: en
+name: 'Bookish'
+mail: ''
+slogan: 'A blogging profile for Tome users'
+page:
+  403: '/403'
+  404: '/404'
+  front: /home
+admin_compact_mode: false
+weight_select_max: 100
+default_langcode: en

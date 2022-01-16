@@ -1,0 +1,23 @@
+uuid: 3b95a42b-53b1-47ff-89d9-f0c91f19fe5f
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.bookish_callout
+    - field.storage.block_content.body
+  module:
+    - text
+id: block_content.bookish_callout.body
+field_name: body
+entity_type: block_content
+bundle: bookish_callout
+label: Body
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+  required_summary: false
+field_type: text_with_summary

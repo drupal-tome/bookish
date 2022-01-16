@@ -1,3 +1,4 @@
 <template>
-  {% include 'sfc--bk-blog-list' %}
+ {# {% include 'sfc--bk-home-intro' %}
+  {% include 'sfc--bk-blog-list' %} #}
 </template>

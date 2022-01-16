@@ -5,7 +5,10 @@
  * Install, update and uninstall functions for the Bookish installation profile.
  */
 
+use Drupal\Core\File\FileSystemInterface;
+use Drupal\file\Entity\File;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
+use Drupal\node\Entity\Node;
 use Drupal\user\Entity\User;
 use Drupal\shortcut\Entity\Shortcut;
 
@@ -101,4 +104,101 @@ function bookish_install() {
     'weight' => 2,
   ]);
   $menu_link->save();
+
+  $body = <<<EOT
+  <p>Bitters brunch selvage celiac migas cred salvia flannel ethical gluten-free pop-up. Succulents photo booth authentic, skateboard tousled vinyl hell of single-origin coffee aesthetic chia farm-to-table gentrify pop-up affogato tattooed. Readymade lo-fi 90's asymmetrical hoodie, yr intelligentsia synth unicorn single-origin coffee edison bulb put a bird on it next level. Neutra godard master cleanse whatever tilde, copper mug before they sold out photo booth shoreditch pinterest next level snackwave sartorial. Cloud bread fanny pack street art fam, 90's flexitarian ugh snackwave biodiesel slow-carb ramps squid venmo.</p>
+  <p>Brunch fashion axe helvetica affogato blue bottle, fixie shoreditch venmo. Post-ironic hexagon truffaut vegan crucifix, waistcoat ugh chillwave flannel. Deep v pop-up iPhone chia, live-edge blog pork belly etsy PBR&B. Vape disrupt air plant XOXO wayfarers coloring book banh mi knausgaard. Roof party fanny pack forage raw denim poutine humblebrag. Semiotics swag tumblr, vaporware truffaut bushwick tote bag poutine fam enamel pin salvia affogato.</p>
+  EOT;
+
+  $blogs = [
+    [
+      'title' => 'A day at the Japanese Garden',
+      'file' => [
+        'filename' => 'jeremy-bezanger-71lJHZqXJ6I-unsplash.jpg',
+        'alt' => 'A trail at the Japanese Garden in Portland, Oregon.',
+        'bookish_image_data' => [
+          'brightness' => -28,
+          'contrast' => 0,
+          'saturation' => -31,
+          'blur' => 0,
+          'grayscale' => 0,
+          'hue' => 0,
+          'red' => 42,
+          'green' => 23,
+          'blue' => 0,
+          'focal_point' => [734, 632],
+        ],
+      ],
+    ],
+    [
+      'title' => 'If monkeys can take baths, so can you',
+      'file' => [
+        'filename' => 'steven-diaz-Shuj-9LqHwk-unsplash.jpg',
+        'alt' => 'A monkey in a Japanese hot springs.',
+        'bookish_image_data' => [
+          'brightness' => 7,
+          'contrast' => -7,
+          'saturation' => 13,
+          'blur' => 0,
+          'grayscale' => 0,
+          'hue' => 0,
+          'red' => 0,
+          'green' => 0,
+          'blue' => -7,
+          'focal_point' => [888, 860],
+        ],
+      ],
+    ],
+    [
+      'title' => 'Learning to ride moose',
+      'file' => [
+        'filename' => 'madhu-shesharam-YvQ2--lOghs-unsplash.jpg',
+        'alt' => 'A moose in the forest.',
+        'bookish_image_data' => [
+          'brightness' => 23,
+          'contrast' => -15,
+          'saturation' => 0,
+          'blur' => 0,
+          'grayscale' => 0,
+          'hue' => 0,
+          'red' => 1,
+          'green' => 12,
+          'blue' => 15,
+          'focal_point' => [1086, 658],
+        ],
+      ],
+    ],
+    [
+      'title' => 'Images just can\'t describe it',
+    ],
+  ];
+
+  foreach ($blogs as $blog) {
+    $node = Node::create([
+      'title' => $blog['title'],
+      'type' => 'blog',
+      'body' => [
+        'value' => $body,
+        'summary' => '',
+        'format' => 'rich_text',
+      ],
+      'status' => 1,
+    ]);
+    if (isset($blog['file'])) {
+      $file_src = __DIR__ . "/assets/{$blog['file']['filename']}";
+      $file_dest = "public://{$blog['file']['filename']}";
+      _bookish_admin_flush_image_styles($file_dest);
+      /** @var \Drupal\file\FileRepositoryInterface $fileRepository */
+      $fileRepository = \Drupal::service('file.repository');
+      $file = $fileRepository->writeData(file_get_contents($file_src), $file_dest, FileSystemInterface::EXISTS_REPLACE);
+      $file->setPermanent();
+      $file->bookish_image_data = json_encode($blog['file']['bookish_image_data']);
+      $file->save();
+      $node->field_image = [
+        'target_id' => $file->id(),
+        'alt' => $blog['file']['alt'],
+      ];
+    }
+    $node->save();
+  }
 }

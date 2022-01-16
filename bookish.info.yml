@@ -46,11 +46,6 @@ install:
   - highlight_php
   - coffee
 
-dependencies:
-  - node
-  - block
-  - views
-
 themes:
   - bookish_theme
   - claro

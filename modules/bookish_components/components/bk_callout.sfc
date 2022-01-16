@@ -1,0 +1,39 @@
+<template>
+  <div class="bk-callout container">
+    <div class="bk-callout__inner">
+      <div class="bk-callout__image">
+        {{ image }}
+      </div>
+      <div class="bk-callout__text bk-text">
+        {{ text }}
+      </div>
+    </div>
+  </div>
+</template>
+
+<style>
+  .bk-callout.container {
+    margin-top: var(--spacer-3);
+    margin-bottom: var(--spacer-3);
+  }
+  .bk-callout__inner {
+    display: flex;
+    flex-wrap: wrap;
+    grid-column: 1 / 10;
+  }
+  .bk-callout__image {
+    grid-column: 1 / 6;
+  }
+  .bk-callout__image img {
+    display: block;
+  }
+  .bk-callout__text {
+    flex-grow: 1;
+    padding: var(--spacer-4);
+    background: var(--background-color);
+    border: 1px solid var(--border-color);
+    margin-top: var(--spacer-3);
+    margin-bottom: var(--spacer-3);
+    margin-left: calc(-1 * var(--spacer-4));
+  }
+</style>

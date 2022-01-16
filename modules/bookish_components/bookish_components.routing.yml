@@ -32,11 +32,3 @@ bookish_components.404:
     text: "The page you're looking for doesn't exist..."
   requirements:
     _access: 'TRUE'
-bookish_components.components:
-  path: '/components'
-  defaults:
-    _controller: '\Drupal\sfc\Controller\ComponentController::build'
-    component_id: 'bk_components'
-    _title: 'Mortenson Components'
-  requirements:
-    _access: 'TRUE'

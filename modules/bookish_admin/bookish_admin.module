@@ -83,6 +83,9 @@ function bookish_admin_entity_update(EntityInterface $entity) {
 }
 
 function _bookish_admin_flush_image_styles($uri) {
+  if (empty($uri)) {
+    return;
+  }
   /** @var \Drupal\image\ImageStyleInterface[] $image_styles */
   $image_styles = \Drupal::entityTypeManager()->getStorage('image_style')->loadMultiple();
   foreach ($image_styles as $image_style) {

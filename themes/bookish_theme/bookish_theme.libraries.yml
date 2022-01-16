@@ -3,7 +3,6 @@ main:
   css:
     base:
       css/main.css: {}
-      css/fonts.css: {}
 lunr:
   version: VERSION
   css:

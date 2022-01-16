@@ -1,0 +1,30 @@
+uuid: 8da76aec-5479-44a9-bcd2-3edebc08ed43
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:bookish_callout:9d7ae167-dad8-46fd-b69d-9a6f353c7613'
+  module:
+    - block_content
+    - system
+  theme:
+    - bookish_theme
+id: homepagecallout
+theme: bookish_theme
+region: content
+weight: -1
+provider: null
+plugin: 'block_content:9d7ae167-dad8-46fd-b69d-9a6f353c7613'
+settings:
+  id: 'block_content:9d7ae167-dad8-46fd-b69d-9a6f353c7613'
+  label: 'Homepage callout'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /home

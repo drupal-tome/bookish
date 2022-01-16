@@ -14,7 +14,6 @@
     grid-column: 1 / 11;
   }
   .bk-error-page__title {
-    text-transform: uppercase;
     margin-top: 0;
     margin-bottom: var(--spacer-1);
     font-size: 3.125rem;

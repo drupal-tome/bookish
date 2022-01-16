@@ -1,0 +1,21 @@
+uuid: 9df948ab-d1ca-4473-a52c-48ffefb48d08
+langcode: en
+status: true
+dependencies:
+  module:
+    - bookish_admin
+name: callout_block
+label: 'Callout block'
+effects:
+  69610676-155f-422f-859e-a81a22a91554:
+    uuid: 69610676-155f-422f-859e-a81a22a91554
+    id: bookish_image_scale_and_crop
+    weight: 1
+    data:
+      width: '600'
+      height: '450'
+  f6cad519-8576-47d6-ba37-f20f8eb45843:
+    uuid: f6cad519-8576-47d6-ba37-f20f8eb45843
+    id: bookish_image_effect
+    weight: 2
+    data: {  }

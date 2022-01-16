@@ -1,10 +1,9 @@
 <template>
   <div class="bk-blog-list container container--margin">
     {% include 'sfc--bk-blog-title' with {
-      'title': 'Blog' | t,
+      'title': 'Recent posts' | t,
       'element': 'h2'
     } %}
-    <div class="bk-blog-list__subtitle">{{ 'The latest from my mind to yours' | t }}</div>
     <div class="bk-blog-list__blogs">
       {% for node in nodes %}
         {% include 'sfc--bk-blog-teaser' with {
@@ -16,12 +15,17 @@
             'settings': {'trim_length': 350}
           }),
           'title_element': 'h3',
+          'image': node.field_image|view({
+            'label': 'hidden',
+            'type': 'image',
+            'settings': {'image_style': 'blog_teaser'}
+          }),
         }%}
       {% endfor %}
       {{ sfc_cache(nodes) }}
       {{ sfc_cache('node_list') }}
     </div>
-    {% include 'sfc--bk-more-link' with {'link': '/blog', 'text': 'More posts' | t} %}
+    {% include 'sfc--bk-more-link' with {'link': '/blog', 'text': 'all posts' | t} %}
   </div>
 </template>
 
@@ -29,17 +33,13 @@
   .bk-blog-list .bk-blog-title {
     grid-column: 1 / 11;
   }
-  .bk-blog-list__subtitle {
-    grid-row: 4;
-    grid-column: 2 / 11;
-    font-weight: var(--font-weight-semibold);
-    font-size: 1.5rem;
-    text-transform: uppercase;
+  .bk-blog-list .bk-blog-title__title {
+    font-size: 3.5rem;
   }
   .bk-blog-list__blogs {
     grid-row: 5;
     grid-column: 2 / 10;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     display: grid;
     grid-row-gap: var(--spacer-3);
     grid-column-gap: var(--spacer-3);
@@ -50,16 +50,10 @@
     --font-color-link: var(--font-color);
   }
   @media screen and (max-width: 560px) {
-    .bk-blog-list__subtitle {
-      font-size: 1.25rem;
-    }
     .bk-blog-list__blogs {
       grid-template-columns: 1fr;
       margin: var(--spacer-2) 0;
       grid-row-gap: var(--spacer-2);
-      grid-column: 1 / 11;
-    }
-    .bk-blog-list__subtitle {
       grid-column: 1 / 11;
     }
   }
@@ -72,10 +66,14 @@ $prepareContext = function(&$context) {
     ->condition('type', 'blog')
     ->condition('status', 1)
     ->sort('created', 'DESC')
-    ->range(0, 4)
+    ->range(0, 3)
     ->accessCheck()
     ->execute();
   $context['nodes'] = \Drupal::entityTypeManager()
     ->getStorage('node')
     ->loadMultiple($ids);
 };
+
+$definition['block'] = [
+  'admin_label' => 'Blog listing',
+];
