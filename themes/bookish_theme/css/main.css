@@ -97,7 +97,7 @@ main {
   font-family: monospace;
 }
 
-#block-tabs ul,
+.block-local-tasks-block ul,
 .lunr-search-page-form,
 .lunr-search-results,
 div[data-drupal-messages] {
@@ -106,20 +106,20 @@ div[data-drupal-messages] {
   margin: 0 auto;
 }
 
-#block-tabs {
+.block-local-tasks-block {
   margin-bottom: 10px;
   text-align: right;
   border-bottom: 2px solid var(--border-color);
 }
 
-#block-tabs ul {
+.block-local-tasks-block ul {
   list-style: none;
   display: flex;
 }
 
-#block-tabs a,
-#block-tabs a:hover,
-#block-tabs a:focus {
+.block-local-tasks-block a,
+.block-local-tasks-block a:hover,
+.block-local-tasks-block a:focus {
   display: block;
   color: var(--font-color);
   padding: 8px 10px;
@@ -128,8 +128,8 @@ div[data-drupal-messages] {
   transition: border-color .2s;
 }
 
-#block-tabs a:hover,
-#block-tabs a:focus {
+.block-local-tasks-block a:hover,
+.block-local-tasks-block a:focus {
   text-decoration: none;
   border-color: var(--border-color-hover);
 }
@@ -202,7 +202,7 @@ body.dark .monospace {
 }
 
 @media screen and (max-width: 800px) {
-  #block-tabs ul,
+  .block-local-tasks-block ul,
   .lunr-search-page-form,
   .lunr-search-results,
   div[data-drupal-messages],
