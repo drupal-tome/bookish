@@ -51,6 +51,11 @@
     grid-row: 6;
     grid-column: 1 / 11;
   }
+  @media screen and (max-width: 1300px) {
+    .bk-blog-list__blogs {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
   @media screen and (max-width: 560px) {
     .bk-blog-list__blogs {
       grid-template-columns: 1fr;

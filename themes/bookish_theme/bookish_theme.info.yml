@@ -6,6 +6,9 @@ core_version_requirement: '^9'
 libraries:
   - core/normalize
   - bookish_theme/main
+libraries-extend:
+  lunr/search:
+    - bookish_theme/lunr
 regions:
   before: Before
   content: Content

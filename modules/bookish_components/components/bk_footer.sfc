@@ -1,6 +1,6 @@
 <template>
   <footer class="bk-footer container">
-    <div class="bk-footer__copyright">©{{ 'now'|date('Y') }} Your Name</div>
+    <div class="bk-footer__copyright">©{{ 'now'|date('Y') }}</div>
     <a class="bk-footer__rss" href="/feed.xml">
       <span class="visually-hidden">RSS Feed</span>
       <img alt="RSS feed icon" src="/core/misc/feed.svg" />

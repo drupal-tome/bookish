@@ -13,22 +13,45 @@
 
 .lunr-search-page-form label {
   display: block;
-  text-transform: uppercase;
   font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacer-1);
 }
 
 .lunr-search-page-form input[type="search"] {
+  border: none;
   max-width: 300px;
+  padding-bottom: 5px;
+  border-bottom: 2px solid var(--border-color);
+  background: transparent;
+  transition: .2s;
+}
+
+.lunr-search-page-form input[type="search"]:focus {
+  outline: none;
+  border-color: var(--font-color);
+}
+
+.lunr-search-page-form input[type="submit"] {
+  min-width: 0;
+  width: auto;
+  color: var(--font-color);
+  background: transparent;
+  border: 2px solid var(--border-color);
+  padding: 5px 10px;
+  transition: .2s;
+}
+
+.lunr-search-page-form input[type="submit"]:focus,
+.lunr-search-page-form input[type="submit"]:hover {
+  border-color: var(--font-color);
 }
 
 .lunr-search-result__title {
   margin: 0;
-  text-transform: uppercase;
 }
 
 .lunr-search-result__type {
   font-weight: var(--font-weight-bold);
-  text-transform: uppercase;
   display: inline-block;
   font-size: 13px;
   line-height: 13px;
@@ -40,4 +63,17 @@
 
 .lunr-search-pager a.active {
   text-decoration: underline;
+}
+
+.lunr-search-result-row {
+  margin: var(--spacer-2) 0;
+}
+
+.lunr-search-result-row p {
+  margin: 0;
+  margin-top: var(--spacer-1);
+}
+
+.lunr-search-results-count {
+  color: var(--font-color);
 }

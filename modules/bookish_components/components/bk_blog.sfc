@@ -2,7 +2,7 @@
   <article class="bk-blog container container--margin" role="article">
     {% include 'sfc--bk-blog-title' with {'title': title} %}
     <div class="bk-blog__byline">
-      {{ time | date('M jS, Y') }}
+      {{ time | date('F jS, Y') }}
     </div>
     <div class="bk-blog__image">{{ image }}</div>
     <div class="bk-blog__text bk-text">

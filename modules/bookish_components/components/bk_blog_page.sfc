@@ -5,6 +5,7 @@
       {% for node in nodes %}
         {% include 'sfc--bk-blog-teaser' with {
           'title': node.label(),
+          'time': node.created.value,
           'link': path('entity.node.canonical', {'node': node.id}),
           'text': node.body|view({
             'label': 'hidden',

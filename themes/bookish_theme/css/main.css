@@ -10,13 +10,12 @@ body {
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
   --font-weight-black: 800;
-  --accent-color-1: #458947;
+  --accent-color-1: #723434;
   --accent-color-2: #AADFFF;
   --background-color: white;
   --background-color-dark: #1E1E1E;
-  --border-color: #a1a1a1;
-  --border-hover: #404040;
-  --border-color-light: #a1a1a1;
+  --border-color: #e1e1e1;
+  --border-color-light: #e1e1e1;
   --border-color-dark: #404040;
   --spacer-1: 10px;
   --spacer-2: 25px;
@@ -38,6 +37,10 @@ a {
 a:hover,
 a:focus {
   color: var(--font-color-link-hover);
+}
+
+main {
+  min-height: 800px;
 }
 
 .container {

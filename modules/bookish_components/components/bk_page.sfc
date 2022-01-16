@@ -1,0 +1,42 @@
+<template>
+  <div class="bk-page container">
+    <h1 class="bk-page__title">
+      <div class="bk-page__title-inner">
+        <div class="bk-page__title-bg"></div>
+        {{ title }}
+      </div>
+    </h1>
+    <div class="bk-page__text bk-text">{{ text }}</div>
+  </div>
+</template>
+
+<style>
+  .bk-page__title {
+    grid-row: 1;
+    grid-column: 1 / 11;
+    font-size: 4rem;
+    line-height: 4rem;
+    margin: 0;
+    font-weight: var(--font-weight-black);
+    margin: var(--spacer-3) 0;
+    text-align: center;
+  }
+  .bk-page__title-inner {
+    position: relative;
+    display: inline-block;
+  }
+  .bk-page__title-bg {
+    position: absolute;
+    background: #723434;
+    width: 120px;
+    height: 30px;
+    left: -35px;
+    top: 15px;
+    z-index: -1;
+    transform: rotate(315deg);
+  }
+  .bk-page__text {
+    grid-row: 2;
+    grid-column: 3 / 9;
+  }
+</style>

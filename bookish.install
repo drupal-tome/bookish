@@ -111,9 +111,10 @@ function bookish_install() {
   <p>Brunch fashion axe helvetica affogato blue bottle, fixie shoreditch venmo. Post-ironic hexagon truffaut vegan crucifix, waistcoat ugh chillwave flannel. Deep v pop-up iPhone chia, live-edge blog pork belly etsy PBR&B. Vape disrupt air plant XOXO wayfarers coloring book banh mi knausgaard. Roof party fanny pack forage raw denim poutine humblebrag. Semiotics swag tumblr, vaporware truffaut bushwick tote bag poutine fam enamel pin salvia affogato.</p>
   EOT;
 
-  $blogs = [
+  $nodes = [
     [
       'title' => 'A day at the Japanese Garden',
+      'type' => 'blog',
       'file' => [
         'filename' => 'jeremy-bezanger-71lJHZqXJ6I-unsplash.jpg',
         'alt' => 'A trail at the Japanese Garden in Portland, Oregon.',
@@ -133,6 +134,7 @@ function bookish_install() {
     ],
     [
       'title' => 'If monkeys can take baths, so can you',
+      'type' => 'blog',
       'file' => [
         'filename' => 'steven-diaz-Shuj-9LqHwk-unsplash.jpg',
         'alt' => 'A monkey in a Japanese hot springs.',
@@ -152,6 +154,7 @@ function bookish_install() {
     ],
     [
       'title' => 'Learning to ride moose',
+      'type' => 'blog',
       'file' => [
         'filename' => 'madhu-shesharam-YvQ2--lOghs-unsplash.jpg',
         'alt' => 'A moose in the forest.',
@@ -171,32 +174,37 @@ function bookish_install() {
     ],
     [
       'title' => 'Images just can\'t describe it',
+      'type' => 'blog',
+    ],
+    [
+      'title' => 'About',
+      'type' => 'page',
     ],
   ];
 
-  foreach ($blogs as $blog) {
+  foreach ($nodes as $values) {
     $node = Node::create([
-      'title' => $blog['title'],
-      'type' => 'blog',
+      'title' => $values['title'],
+      'type' => $values['type'],
       'body' => [
         'value' => $body,
         'format' => 'rich_text',
       ],
       'status' => 1,
     ]);
-    if (isset($blog['file'])) {
-      $file_src = __DIR__ . "/assets/{$blog['file']['filename']}";
-      $file_dest = "public://{$blog['file']['filename']}";
+    if (isset($values['file'])) {
+      $file_src = __DIR__ . "/assets/{$values['file']['filename']}";
+      $file_dest = "public://{$values['file']['filename']}";
       _bookish_admin_flush_image_styles($file_dest);
       /** @var \Drupal\file\FileRepositoryInterface $fileRepository */
       $fileRepository = \Drupal::service('file.repository');
       $file = $fileRepository->writeData(file_get_contents($file_src), $file_dest, FileSystemInterface::EXISTS_REPLACE);
       $file->setPermanent();
-      $file->bookish_image_data = json_encode($blog['file']['bookish_image_data']);
+      $file->bookish_image_data = json_encode($values['file']['bookish_image_data']);
       $file->save();
       $node->field_image = [
         'target_id' => $file->id(),
-        'alt' => $blog['file']['alt'],
+        'alt' => $values['file']['alt'],
       ];
     }
     $node->save();

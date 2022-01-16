@@ -10,6 +10,11 @@
           </{{ title_element }}>
         </div>
         <div class="bk-blog-teaser__text bk-text">{{ text }}</div>
+        {% if time %}
+          <div class="bk-blog-teaser__byline">
+          {{ time | date('n/j/y') }}
+          </div>
+        {% endif %}
       </div>
     </a>
   </article>
@@ -25,6 +30,9 @@
     color: var(--font-color);
     font-weight: normal;
     text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
   .bk-blog-teaser::before {
     right: -5px;
@@ -67,6 +75,9 @@
   }
   .bk-blog-teaser__bottom {
     margin-top: var(--spacer-2);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
   }
   .bk-blog-teaser__title {
     margin-bottom: var(--spacer-1);
@@ -85,5 +96,12 @@
   .bk-blog-teaser__text.bk-text {
     font-size: 1rem;
     line-height: 1.3rem;
+  }
+  .bk-blog-teaser__byline {
+    font-size: .8rem;
+    font-style: italic;
+    text-align: right;
+    margin-top: auto;
+    padding-top: var(--spacer-1);
   }
 </style>

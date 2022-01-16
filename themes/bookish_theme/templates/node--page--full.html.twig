@@ -1,0 +1,8 @@
+{% include 'sfc--bk-page' with {
+  'title': node.label(),
+  'text': node.body|view({
+    'label': 'hidden',
+    'type': 'text_default',
+  }),
+} %}
+{{ sfc_cache(node) }}
