@@ -3,6 +3,7 @@
 'use strict';
 
 module.exports = {
+	root: true,
 	extends: 'ckeditor5',
 	rules: {
 		// This rule disallows importing core DLL packages directly. Imports should be done using the `ckeditor5` package.
@@ -20,5 +21,8 @@ module.exports = {
 				'ckeditor5-rules/ckeditor-imports': 'off'
 			}
 		}
-	]
+	],
+	env: {
+		browser: true
+	}
 };
