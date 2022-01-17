@@ -1,6 +1,14 @@
 <?php
 
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Form\FormStateInterface;
+
+function bookish_theme_preprocess_html(&$variables) {
+  $color_mode = theme_get_setting('bookish_color_mode');
+  if ($color_mode === 'light' || $color_mode === 'dark') {
+    $variables['attributes']['class'][] = $color_mode;
+  }
+}
 
 /**
  * Implements hook_preprocess_HOOK() for block templates.
@@ -16,4 +24,29 @@ function bookish_theme_theme_suggestions_block_alter(array &$suggestions, array 
   if (isset($variables['elements']['content']['#block_content'])) {
     array_splice($suggestions, 1, 0, 'block__bundle__' . $variables['elements']['content']['#block_content']->bundle());
   }
+}
+
+function bookish_theme_form_system_theme_settings_alter(&$form, FormStateInterface $form_state, $form_id = NULL) {
+  if (isset($form_id)) {
+    return;
+  }
+
+  $form['bookish_copyright_name'] = [
+    '#type' => 'textfield',
+    '#title' => t('Copyright name'),
+    '#default_value' => theme_get_setting('bookish_copyright_name'),
+    '#description' => t('The name displayed in the footer next to the copyright date.'),
+  ];
+
+  $form['bookish_color_mode'] = [
+    '#type' => 'select',
+    '#options' => [
+      'none' => t('User preference'),
+      'dark' => t('Always dark'),
+      'light' => t('Always light'),
+    ],
+    '#title' => t('Color mode'),
+    '#default_value' => theme_get_setting('bookish_color_mode'),
+    '#description' => t('Overrides user/browser preferences for light/dark mode.'),
+  ];
 }

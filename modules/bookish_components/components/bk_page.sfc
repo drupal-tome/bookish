@@ -27,7 +27,7 @@
   }
   .bk-page__title-bg {
     position: absolute;
-    background: #723434;
+    background: var(--accent-color-1);
     width: 120px;
     height: 30px;
     left: -35px;
@@ -38,5 +38,10 @@
   .bk-page__text {
     grid-row: 2;
     grid-column: 3 / 9;
+  }
+  @media screen and (max-width: 800px) {
+    .bk-page__text {
+      grid-column: 1 / 11;
+    }
   }
 </style>

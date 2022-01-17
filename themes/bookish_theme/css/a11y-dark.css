@@ -1,0 +1,143 @@
+/*!
+  Theme: a11y-dark
+  Author: @ericwbailey
+  Maintainer: @ericwbailey
+
+  Based on the Tomorrow Night Eighties theme: https://github.com/isagalaev/highlight.js/blob/master/src/styles/tomorrow-night-eighties.css
+*/
+
+@media (prefers-color-scheme: dark) {
+  .hljs {
+    background: #2b2b2b;
+    color: #f8f8f2;
+  }
+
+  /* Comment */
+  .hljs-comment,
+  .hljs-quote {
+    color: #d4d0ab;
+  }
+
+  /* Red */
+  .hljs-variable,
+  .hljs-template-variable,
+  .hljs-tag,
+  .hljs-name,
+  .hljs-selector-id,
+  .hljs-selector-class,
+  .hljs-regexp,
+  .hljs-deletion {
+    color: #ffa07a;
+  }
+
+  /* Orange */
+  .hljs-number,
+  .hljs-built_in,
+  .hljs-literal,
+  .hljs-type,
+  .hljs-params,
+  .hljs-meta,
+  .hljs-link {
+    color: #f5ab35;
+  }
+
+  /* Yellow */
+  .hljs-attribute {
+    color: #ffd700;
+  }
+
+  /* Green */
+  .hljs-string,
+  .hljs-symbol,
+  .hljs-bullet,
+  .hljs-addition {
+    color: #abe338;
+  }
+
+  /* Blue */
+  .hljs-title,
+  .hljs-section {
+    color: #00e0e0;
+  }
+
+  /* Purple */
+  .hljs-keyword,
+  .hljs-selector-tag {
+    color: #dcc6e0;
+  }
+
+  .hljs-emphasis {
+    font-style: italic;
+  }
+
+  .hljs-strong {
+    font-weight: bold;
+  }
+}
+
+body.dark .hljs {
+    background: #2b2b2b;
+    color: #f8f8f2;
+  }
+
+  /* Comment */
+body.dark .hljs-comment,
+body.dark .hljs-quote {
+  color: #d4d0ab;
+}
+
+/* Red */
+body.dark .hljs-variable,
+body.dark .hljs-template-variable,
+body.dark .hljs-tag,
+body.dark .hljs-name,
+body.dark .hljs-selector-id,
+body.dark .hljs-selector-class,
+body.dark .hljs-regexp,
+body.dark .hljs-deletion {
+  color: #ffa07a;
+}
+
+/* Orange */
+body.dark .hljs-number,
+body.dark .hljs-built_in,
+body.dark .hljs-literal,
+body.dark .hljs-type,
+body.dark .hljs-params,
+body.dark .hljs-meta,
+body.dark .hljs-link {
+  color: #f5ab35;
+}
+
+/* Yellow */
+body.dark .hljs-attribute {
+  color: #ffd700;
+}
+
+/* Green */
+body.dark .hljs-string,
+body.dark .hljs-symbol,
+body.dark .hljs-bullet,
+body.dark .hljs-addition {
+  color: #abe338;
+}
+
+/* Blue */
+body.dark .hljs-title,
+body.dark .hljs-section {
+  color: #00e0e0;
+}
+
+/* Purple */
+body.dark .hljs-keyword,
+body.dark .hljs-selector-tag {
+  color: #dcc6e0;
+}
+
+body.dark .hljs-emphasis {
+  font-style: italic;
+}
+
+body.dark .hljs-strong {
+  font-weight: bold;
+}

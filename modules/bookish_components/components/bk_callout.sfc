@@ -59,15 +59,23 @@
   @media screen and (max-width: 800px) {
     .bk-callout.container {
       grid-template-rows: none;
+      grid-row: 1 / 4;
     }
     .bk-callout__image {
-      grid-column: 2 / 10;
-      grid-row: 1;
+      grid-column: 2 / 9;
     }
     .bk-callout__text {
       padding: var(--spacer-3);
-      grid-column: 2 / 10;
+      grid-column: 3 / 10;
       grid-row: 2;
+    }
+  }
+  @media screen and (max-width: 600px) {
+    .bk-callout__image {
+      display: none;
+    }
+    .bk-callout__text {
+      grid-column: 1 / 11;
     }
   }
 </style>

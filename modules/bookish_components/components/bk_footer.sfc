@@ -1,6 +1,6 @@
 <template>
   <footer class="bk-footer container">
-    <div class="bk-footer__copyright">©{{ 'now'|date('Y') }}</div>
+    <div class="bk-footer__copyright">©{{ 'now'|date('Y') }} {{ user }}</div>
     <a class="bk-footer__rss" href="/feed.xml">
       <span class="visually-hidden">RSS Feed</span>
       <img alt="RSS feed icon" src="/core/misc/feed.svg" />
@@ -40,3 +40,9 @@
     }
   }
 </style>
+
+<?php
+
+$prepareContext = function (&$context) {
+  $context['user'] = theme_get_setting('bookish_copyright_name');
+};

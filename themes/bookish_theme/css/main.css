@@ -10,7 +10,7 @@ body {
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
   --font-weight-black: 800;
-  --accent-color-1: #723434;
+  --accent-color-1: #cb6a6a;
   --accent-color-2: #AADFFF;
   --background-color: white;
   --background-color-dark: #1E1E1E;
@@ -107,7 +107,7 @@ div[data-drupal-messages] {
 }
 
 .block-local-tasks-block {
-  margin-bottom: 10px;
+  margin: var(--spacer-2) 0;
   text-align: right;
   border-bottom: 2px solid var(--border-color);
 }
@@ -175,6 +175,7 @@ div[data-drupal-messages] {
 body.dark {
   --font-color: var(--font-color-light);
   --background-color: var(--background-color-dark);
+  --accent-color-1: #723434;
   --accent-color-2: #527286;
   --font-color-link: var(--font-color-link-light);
   --font-color-link-hover: var(--font-color-link-light-hover);
@@ -187,16 +188,17 @@ body.dark .monospace {
 }
 
 @media (prefers-color-scheme: dark) {
-  body {
+  body:not(.light) {
     --font-color: var(--font-color-light);
     --background-color: var(--background-color-dark);
+    --accent-color-1: #723434;
     --accent-color-2: #527286;
     --font-color-link: var(--font-color-link-light);
     --font-color-link-hover: var(--font-color-link-light-hover);
     --border-color: var(--border-color-dark);
     --border-color-hover: var(--border-color-light);
   }
-  .monospace {
+  body:not(.light) .monospace {
     background: black;
   }
 }
@@ -211,5 +213,8 @@ body.dark .monospace {
   }
   .container--margin {
     margin: var(--spacer-3) auto;
+  }
+  .block-system-menu-blockmain ul {
+    margin-top: var(--spacer-1);
   }
 }

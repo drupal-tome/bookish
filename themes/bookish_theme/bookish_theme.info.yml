@@ -9,8 +9,8 @@ libraries:
 libraries-extend:
   lunr/search:
     - bookish_theme/lunr
+  highlight_php/main:
+    - bookish_theme/highlight_php
 regions:
   before: Before
   content: Content
-# ckeditor_stylesheets:
-#   - css/components/media-embed-error.css
