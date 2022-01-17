@@ -76,11 +76,11 @@
 }
 
 body.dark .hljs {
-    background: #2b2b2b;
-    color: #f8f8f2;
-  }
+  background: #2b2b2b;
+  color: #f8f8f2;
+}
 
-  /* Comment */
+/* Comment */
 body.dark .hljs-comment,
 body.dark .hljs-quote {
   color: #d4d0ab;

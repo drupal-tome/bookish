@@ -5,19 +5,28 @@ namespace Drupal\bookish_admin\Controller;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\StreamWrapper\StreamWrapperManager;
-use Drupal\Core\Url;
 use Drupal\file\FileInterface;
 use Drupal\image\ImageStyleInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @todo
+ * Controller for previewing Bookish image effect settings.
  */
 class BookishImagePreview extends ControllerBase {
 
   /**
-   * @todo
+   * Generates a temporary image style derivative using effect settings.
+   *
+   * @param \Drupal\file\FileInterface $file
+   *   The image.
+   * @param \Drupal\image\ImageStyleInterface $image_style
+   *   The image style.
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   The current request.
+   *
+   * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+   *   The contents of the preview image.
    */
   public function build(FileInterface $file, ImageStyleInterface $image_style, Request $request) {
     /** @var \Drupal\Core\File\FileSystemInterface $file_system */
@@ -41,6 +50,17 @@ class BookishImagePreview extends ControllerBase {
     return $response;
   }
 
+  /**
+   * Determines access to the preview and form routes.
+   *
+   * @param \Drupal\file\FileInterface $file
+   *   The image.
+   * @param \Drupal\image\ImageStyleInterface $image_style
+   *   The image style.
+   *
+   * @return \Drupal\Core\Access\AccessResult
+   *   An access result.
+   */
   public static function access(FileInterface $file, ImageStyleInterface $image_style = NULL) {
     $uri = $file->getFileUri();
     $scheme = StreamWrapperManager::getScheme($uri);

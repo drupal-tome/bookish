@@ -63,6 +63,11 @@
     margin: 0;
     padding: 0;
   }
+  @media screen and (max-width: 800px) {
+    .bookish-toolbar .toolbar-menu li:not(:first-child) {
+      display: none;
+    }
+  }
 </style>
 
 <?php

@@ -40,7 +40,8 @@ class BookishImageCrop extends ResizeImageEffect {
       if ($y < 0) {
         $y = 0;
       }
-    } else {
+    }
+    else {
       $x = floor($this->configuration['width'] / 2);
       $y = floor($this->configuration['height'] / 2);
     }
@@ -53,7 +54,12 @@ class BookishImageCrop extends ResizeImageEffect {
       $y -= $overflowY;
     }
     if (!$image->crop($x, $y, $this->configuration['width'], $this->configuration['height'])) {
-      $this->logger->error('Bookish image crop failed using the %toolkit toolkit on %path (%mimetype, %dimensions)', ['%toolkit' => $image->getToolkitId(), '%path' => $image->getSource(), '%mimetype' => $image->getMimeType(), '%dimensions' => $image->getWidth() . 'x' . $image->getHeight()]);
+      $this->logger->error('Bookish image crop failed using the %toolkit toolkit on %path (%mimetype, %dimensions)', [
+        '%toolkit' => $image->getToolkitId(),
+        '%path' => $image->getSource(),
+        '%mimetype' => $image->getMimeType(),
+        '%dimensions' => $image->getWidth() . 'x' . $image->getHeight(),
+      ]);
       return FALSE;
     }
     return TRUE;

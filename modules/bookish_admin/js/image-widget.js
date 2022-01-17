@@ -27,7 +27,7 @@
         $(this).find('input[type="range"]').each(function () {
           var $resetButton = $('<button class="bookish-image-reset"><span class="visually-hidden">Reset</span></button>');
           var $range = $(this);
-          $resetButton.click(function(e) {
+          $resetButton.click(function (e) {
             e.preventDefault();
             $range.val(0);
             $range.trigger('change');
@@ -40,7 +40,7 @@
         });
       });
 
-      $('.bookish-image-focal-point-container', context).once('bookish-image-focal-point').each(function() {
+      $('.bookish-image-focal-point-container', context).once('bookish-image-focal-point').each(function () {
         $(this).show();
         var $dot = $('<div class="bookish-image-focal-point-dot"></div>');
         var $img = $(this).find('img');
@@ -66,13 +66,13 @@
 
         var $container = $(this);
         var dragging = false;
-        var updateDot = function(e) {
+        var updateDot = function (e) {
           var x = e.pageX - $img.offset().left;
           var y = e.pageY - $img.offset().top;
           $dot.css('left', x);
           $dot.css('top', y);
         }
-        var updateInput = debounce(function(e) {
+        var updateInput = debounce(function (e) {
           var x = e.pageX - $img.offset().left;
           var y = e.pageY - $img.offset().top;
           var differenceX = $img.attr('width') / $img.width();
@@ -100,8 +100,8 @@
         });
       });
 
-      $('.bookish-image-filter', context).once('bookish-image-filter').each(function() {
-        $(this).on('click', function(e) {
+      $('.bookish-image-filter', context).once('bookish-image-filter').each(function () {
+        $(this).on('click', function (e) {
           e.preventDefault();
           var data = JSON.parse($(this).attr('data-image-data'));
           $container = $(this).closest('.bookish-image-container');

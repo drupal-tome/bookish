@@ -10,7 +10,8 @@
     display: flex;
     justify-content: center;
     font-weight: var(--font-weight-semibold);
-    font-size: 1.25rem;
+    font-size: 1rem;
+    letter-spacing: 3px;
     align-items: center;
     margin: 0 auto;
     border-bottom: 2px solid transparent;
@@ -18,7 +19,7 @@
   .bk-more-link svg {
     fill: var(--font-color);
     transition: .2s;
-    margin-left: 5px;
+    margin-left: 4px;
   }
   .bk-more-link:hover,
   .bk-more-link:focus {
@@ -26,7 +27,7 @@
   }
   .bk-more-link:hover svg,
   .bk-more-link:focus svg {
-    margin-right: -5px;
-    margin-left: 10px;
+    margin-right: -4px;
+    margin-left: 8px;
   }
 </style>

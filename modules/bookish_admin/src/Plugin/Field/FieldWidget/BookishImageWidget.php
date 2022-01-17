@@ -25,6 +25,9 @@ class BookishImageWidget extends ImageWidget {
 
   use BookishImageFormTrait;
 
+  /**
+   * {@inheritdoc}
+   */
   public static function process($element, FormStateInterface $form_state, $form) {
     $element = parent::process($element, $form_state, $form);
 
@@ -46,7 +49,22 @@ class BookishImageWidget extends ImageWidget {
     return $element;
   }
 
-  public static function updatePreview(&$form, FormStateInterface &$form_state, Request $request) {
+  /**
+   * Updates the preview element after an AJAX call.
+   *
+   * @param array $form
+   *   The form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   The current request.
+   *
+   * @return array
+   *   The render array representing the preview.
+   *
+   * @see \Drupal\bookish_admin\BookishImageFormTrait::getAjaxSettings
+   */
+  public static function updatePreview(array &$form, FormStateInterface &$form_state, Request $request) {
     $form_parents = explode('/', $request->query->get('element_parents'));
     $form_parents = array_filter($form_parents, [Element::class, 'child']);
     $element = NestedArray::getValue($form, $form_parents);
@@ -57,7 +75,10 @@ class BookishImageWidget extends ImageWidget {
     /** @var \Drupal\file\FileInterface $file */
     $file = reset($element['#files']);
     $image_data = json_decode($file->bookish_image_data->getString(), TRUE);
-    $new_image_data = $form_state->getValue(array_merge($element['#parents'], ['bookish_image', 'bookish_image_data']));
+    $new_image_data = $form_state->getValue(array_merge($element['#parents'], [
+      'bookish_image',
+      'bookish_image_data',
+    ]));
     $image_data = array_merge(_bookish_admin_coerce_data($image_data), _bookish_admin_coerce_data($new_image_data));
 
     $new_preview = static::getPreviewElement($file, ImageStyle::load($element['preview']['#style_name']), $image_data);

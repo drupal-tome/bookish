@@ -8,9 +8,23 @@ use Drupal\file\FileInterface;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\image\ImageStyleInterface;
 
+/**
+ * Shared functions for the Bookish image CKEditor form and field widget.
+ */
 trait BookishImageFormTrait {
 
-  protected static function getAjaxSettings($element, $preview_id) {
+  /**
+   * Gets AJAX settings for form elements.
+   *
+   * @param array $element
+   *   The form element, which may be nested.
+   * @param string $preview_id
+   *   The HTML ID of the preview element.
+   *
+   * @return array
+   *   An array of AJAX settings.
+   */
+  protected static function getAjaxSettings(array $element, $preview_id) {
     return [
       'callback' => [static::class, 'updatePreview'],
       'options' => [
@@ -26,7 +40,20 @@ trait BookishImageFormTrait {
     ];
   }
 
-  protected static function buildImageForm($element, $unique_id, FileInterface $file) {
+  /**
+   * Builds the Bookish image form elements that configure bookish_image_data.
+   *
+   * @param array $element
+   *   The form element, which may be nested.
+   * @param string $unique_id
+   *   A partial HTML ID that is unique to this form build.
+   * @param \Drupal\file\FileInterface $file
+   *   The current image.
+   *
+   * @return array
+   *   A render array representing the image settings.
+   */
+  protected static function buildImageForm(array $element, $unique_id, FileInterface $file) {
     $tabs_class = 'bookish-image-tabs-' . $unique_id;
     $preview_id = 'bookish-image-preview-' . $unique_id;
 
@@ -56,11 +83,11 @@ trait BookishImageFormTrait {
         ],
       ],
       '#prefix' => '<div class="bookish-image-tabs">',
-      '#suffix' => '</div>'
+      '#suffix' => '</div>',
     ];
 
     $ajax_settings = static::getAjaxSettings($element, $preview_id);
-    $element['bookish_image']['bookish_image_data'] =[
+    $element['bookish_image']['bookish_image_data'] = [
       '#type' => 'container',
       '#attributes' => [
         'class' => [
@@ -169,7 +196,10 @@ trait BookishImageFormTrait {
           'bookish-image-re-render',
         ],
       ],
-      '#ajax' => array_merge($ajax_settings, ['disable-refocus' => TRUE, 'event' => 'click']),
+      '#ajax' => array_merge($ajax_settings, [
+        'disable-refocus' => TRUE,
+        'event' => 'click',
+      ]),
     ];
 
     $image_data = _bookish_admin_coerce_data(json_decode($file->bookish_image_data->getString(), TRUE));
@@ -186,7 +216,8 @@ trait BookishImageFormTrait {
       }
       if ($key === 'focal_point') {
         $element['bookish_image']['bookish_image_data'][$key]['#default_value'] = implode(',', $image_data[$key]);
-      } else {
+      }
+      else {
         $element['bookish_image']['bookish_image_data'][$key]['#default_value'] = $image_data[$key];
       }
     }
@@ -208,7 +239,7 @@ trait BookishImageFormTrait {
         ],
       ],
       'description' => [
-        '#markup' => '<div class="form-item__description">' . t('Drupal crops images according to configured image styles. Click the image above to choose the point you want centered when cropped.') . '</div>'
+        '#markup' => '<div class="form-item__description">' . t('Drupal crops images according to configured image styles. Click the image above to choose the point you want centered when cropped.') . '</div>',
       ],
       '#states' => [
         'visible' => [
@@ -385,7 +416,20 @@ trait BookishImageFormTrait {
     return $element;
   }
 
-  protected static function getPreviewElement(FileInterface $file, ImageStyleInterface $image_style = NULL, $image_data) {
+  /**
+   * Builds the preview element.
+   *
+   * @param \Drupal\file\FileInterface $file
+   *   The image.
+   * @param \Drupal\image\ImageStyleInterface|null $image_style
+   *   The image style.
+   * @param array $image_data
+   *   The current bookish_image_data.
+   *
+   * @return array
+   *   A render array for the image preview.
+   */
+  protected static function getPreviewElement(FileInterface $file, ImageStyleInterface $image_style = NULL, array $image_data) {
     /** @var \Drupal\Core\Image\ImageFactory $image_factory */
     $image_factory = \Drupal::service('image.factory');
     if ($image_style === NULL) {
@@ -409,10 +453,12 @@ trait BookishImageFormTrait {
     // @todo Change after https://www.drupal.org/project/drupal/issues/2630920
     // is fixed.
     $token = \Drupal::csrfToken()->get($url->getInternalPath());
-    $url->setOptions(['query' => [
-      'token' => $token,
-      'bookish_image_data' => json_encode($image_data),
-    ]]);
+    $url->setOptions([
+      'query' => [
+        'token' => $token,
+        'bookish_image_data' => json_encode($image_data),
+      ],
+    ]);
     return [
       '#theme' => 'image',
       '#width' => $image->getWidth(),

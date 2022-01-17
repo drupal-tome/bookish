@@ -6,6 +6,9 @@ use Drupal\Component\Uuid\Uuid;
 use Drupal\Core\ParamConverter\EntityConverter;
 use Symfony\Component\Routing\Route;
 
+/**
+ * Converts file UUIDs for the Bookish image form route.
+ */
 class BookishUuidConverter extends EntityConverter {
 
   /**

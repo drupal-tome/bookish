@@ -1,19 +1,19 @@
 body {
   --font-family: Helvetica, sans-serif;
-  --font-color: #1E1E1E;
+  --font-color: #1e1e1e;
   --font-color-light: #e3e3e3;
-  --font-color-link: #1F7DB5;
+  --font-color-link: #1f7db5;
   --font-color-link-hover: #175680;
-  --font-color-link-light: #238CCA;
+  --font-color-link-light: #238cca;
   --font-color-link-light-hover: #23a5e4;
   --font-weight-regular: 400;
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
   --font-weight-black: 800;
   --accent-color-1: #cb6a6a;
-  --accent-color-2: #AADFFF;
+  --accent-color-2: #aadfff;
   --background-color: white;
-  --background-color-dark: #1E1E1E;
+  --background-color-dark: #1e1e1e;
   --border-color: #e1e1e1;
   --border-color-light: #e1e1e1;
   --border-color-dark: #404040;
@@ -53,7 +53,7 @@ main {
 }
 
 .container > * {
-    min-width: 0;
+  min-width: 0;
 }
 
 .container--margin {
@@ -81,7 +81,6 @@ main {
 .bk-text img {
   max-width: 100%;
   height: auto;
-
 }
 .bk-text img.align-left {
   margin-right: var(--spacer-1);

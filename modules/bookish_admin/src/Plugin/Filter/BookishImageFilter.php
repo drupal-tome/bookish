@@ -13,6 +13,7 @@ use Drupal\image\Entity\ImageStyle;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
+ * A filter that renders an image based on a given image style.
  *
  * @Filter(
  *   id = "bookish_image_filter",
@@ -38,6 +39,7 @@ class BookishImageFilter extends FilterBase implements ContainerFactoryPluginInt
   protected $imageFactory;
 
   /**
+   * Constructs a BookishImageFilter object.
    *
    * @param array $configuration
    *   A configuration array containing information about the plugin instance.
@@ -87,7 +89,7 @@ class BookishImageFilter extends FilterBase implements ContainerFactoryPluginInt
         if ($node->nodeName !== 'img') {
           continue;
         }
-        /** @var FileInterface $file */
+        /** @var \Drupal\file\FileInterface $file */
         $file = $this->entityRepository->loadEntityByUuid('file', $uuid);
         if (!($file instanceof FileInterface)) {
           continue;
