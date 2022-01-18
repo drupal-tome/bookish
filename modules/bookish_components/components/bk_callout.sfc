@@ -65,7 +65,6 @@
       grid-column: 2 / 9;
     }
     .bk-callout__text {
-      padding: var(--spacer-3);
       grid-column: 3 / 10;
       grid-row: 2;
     }
@@ -76,6 +75,7 @@
     }
     .bk-callout__text {
       grid-column: 1 / 11;
+      padding: var(--spacer-3) var(--spacer-2);
     }
   }
 </style>

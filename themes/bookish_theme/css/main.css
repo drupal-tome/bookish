@@ -186,6 +186,21 @@ body.dark .monospace {
   background: black;
 }
 
+[data-oembed-url] > div {
+  position: relative;
+  padding-bottom: 100%;
+  height: 0;
+  padding-bottom: 56.2493%;
+}
+
+[data-oembed-url] iframe {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
 @media (prefers-color-scheme: dark) {
   body:not(.light) {
     --font-color: var(--font-color-light);

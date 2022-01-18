@@ -52,7 +52,7 @@
   @media screen and (max-width: 600px) {
     .bk-blog-page__blogs {
       grid-template-columns: 1fr;
-      margin: var(--spacer-2) 0;
+      grid-column: 1 / 11;
     }
   }
 </style>

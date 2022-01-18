@@ -29,7 +29,7 @@ bookish_admin_mediaembed:
       mediaEmbed:
         label: Media Embed
     elements:
-      - <iframe src style frameborder allow allowfullscreen>
+      - <iframe src style frameborder allow allowfullscreen width height>
       - <div class style data-oembed-url>
       - <figure class>
 

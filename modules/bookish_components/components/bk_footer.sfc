@@ -44,5 +44,5 @@
 <?php
 
 $prepareContext = function (&$context) {
-  $context['user'] = theme_get_setting('bookish_copyright_name');
+  $context['user'] = theme_get_setting('bookish_copyright_name') ?? t('Your Name');
 };

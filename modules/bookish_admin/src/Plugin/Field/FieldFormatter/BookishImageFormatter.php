@@ -55,6 +55,7 @@ class BookishImageFormatter extends ImageFormatter {
       $image->save($temp_name);
       $type = pathinfo($file->getFilename(), PATHINFO_EXTENSION);
       $data = file_get_contents($temp_name);
+      $file_system->delete($temp_name);
       $data_uri = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
       $element['#item_attributes']['class'][] = 'bookish-image-blur-image';
