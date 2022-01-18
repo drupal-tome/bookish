@@ -1,0 +1,28 @@
+.bookish-image-blur-container {
+  overflow: hidden;
+  position: relative;
+}
+
+.bookish-image-blur-blur {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-size: contain;
+  filter: blur(25px);
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+}
+
+.bookish-image-blur-image {
+  display: block;
+}
+
+.bookish-image-blur-image.loading {
+  opacity: 0;
+}
+
+.bookish-image-blur-image.loaded {
+  opacity: 1;
+  transition: .5s opacity;
+}

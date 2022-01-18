@@ -30,6 +30,17 @@ imageWidget:
     - core/drupal.ajax
     - core/drupal.debounce
 
+imageBlur:
+  js:
+    js/image-blur.js: { }
+  css:
+    theme:
+      css/image-blur.css: { }
+  dependencies:
+    - core/jquery
+    - core/once
+    - core/drupal
+
 codeblock.admin:
   css:
     theme:

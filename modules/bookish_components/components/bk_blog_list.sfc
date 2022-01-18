@@ -17,7 +17,7 @@
           'title_element': 'h3',
           'image': node.field_image|view({
             'label': 'hidden',
-            'type': 'image',
+            'type': 'bookish_image',
             'settings': {'image_style': 'blog_teaser'}
           }),
         }%}
