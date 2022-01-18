@@ -14,6 +14,25 @@ bookish_admin_codeblock:
       - <code class>
       - <pre>
 
+bookish_admin_mediaembed:
+  ckeditor5:
+    plugins:
+      - mediaEmbed.MediaEmbed
+    config:
+      mediaEmbed:
+        previewsInData: true
+  drupal:
+    label: Media Embed
+    library: bookish_admin/mediaEmbed
+    admin_library: bookish_admin/mediaEmbed.admin
+    toolbar_items:
+      mediaEmbed:
+        label: Media Embed
+    elements:
+      - <iframe src style frameborder allow allowfullscreen>
+      - <div class style data-oembed-url>
+      - <figure class>
+
 bookish_admin_image:
   ckeditor5:
     plugins:

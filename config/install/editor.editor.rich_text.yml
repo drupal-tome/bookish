@@ -7,7 +7,7 @@ dependencies:
   module:
     - ckeditor5
 _core:
-  default_config_hash: 78Khyt2cvhEIB6NADdiOw2F-GSGl5ZWErVHrNaSUd20
+  default_config_hash: cpqmJjk1IUTWoxanXfujjiWmdPwAjW2E-40X7qW37zg
 format: rich_text
 editor: ckeditor5
 settings:
@@ -30,6 +30,7 @@ settings:
       - uploadImage
       - insertTable
       - codeBlock
+      - mediaEmbed
   plugins:
     ckeditor5_heading:
       enabled_headings:

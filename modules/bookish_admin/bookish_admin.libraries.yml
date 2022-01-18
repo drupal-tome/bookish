@@ -4,6 +4,12 @@ codeblock:
   dependencies:
     - ckeditor5/drupal.ckeditor5
 
+mediaEmbed:
+  js:
+    js/media-embed.js: { preprocess: false, minified: true }
+  dependencies:
+    - ckeditor5/drupal.ckeditor5
+
 image-ckeditor:
   js:
     js/ckeditor5-bookish-image/build/bookish-image.js: { preprocess: false, minified: true }
@@ -28,6 +34,11 @@ codeblock.admin:
   css:
     theme:
       css/codeblock.admin.css: { }
+
+mediaEmbed.admin:
+  css:
+    theme:
+      css/mediaEmbed.admin.css: { }
 
 node_form:
   css:

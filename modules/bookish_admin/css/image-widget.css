@@ -76,11 +76,8 @@ div.field--widget-bookish-image .form-managed-file__main {
   flex-basis: 100%;
 }
 
+.bookish-admin-image-form [id*=edit-preview-wrapper],
 div.field--widget-bookish-image .form-managed-file__meta-wrapper {
-  margin-right: 50px;
-}
-
-.bookish-admin-image-form [id*=edit-preview-wrapper] {
   margin-right: 50px;
   align-self: flex-start;
 }
