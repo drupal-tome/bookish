@@ -1,0 +1,8 @@
+span.tagify__input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.tagify--focus {
+  box-shadow: 0 0 0 2px #fff, 0 0 0 5px #26a769;
+}
