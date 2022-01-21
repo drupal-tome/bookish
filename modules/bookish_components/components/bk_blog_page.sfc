@@ -3,6 +3,12 @@
     {% include 'sfc--bk-blog-title' with {'title': 'Blog' | t} %}
     <div class="bk-blog-page__blogs">
       {% for node in nodes %}
+        {% set tags = [] %}
+        {% for tag in node.field_tags %}
+          {% if tag.entity.bundle() == "tags" %}
+            {% set tags = tags|merge([tag.entity.label()]) %}
+          {% endif %}
+        {% endfor %}
         {% include 'sfc--bk-blog-teaser' with {
           'title': node.label(),
           'time': node.created.value,
@@ -17,6 +23,7 @@
             'type': 'bookish_image',
             'settings': {'image_style': 'blog_teaser'}
           }),
+          'tags': tags,
         }%}
       {% endfor %}
       {{ sfc_cache(nodes) }}

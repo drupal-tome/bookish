@@ -1,3 +1,9 @@
+{% set tags = [] %}
+{% for key,tag in node.field_tags %}
+  {% if tag.entity.bundle() == "tags" %}
+    {% set tags = tags|merge([tag.entity.label()]) %}
+  {% endif %}
+{% endfor %}
 {% include 'sfc--bk-blog' with {
   'title': node.label(),
   'time': node.created.value,
@@ -10,5 +16,6 @@
     'type': 'bookish_image',
     'settings': {'image_style': 'blog_large'}
   }),
+  'tags': tags,
 } %}
 {{ sfc_cache(node) }}

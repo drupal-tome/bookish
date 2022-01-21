@@ -132,7 +132,7 @@ div.bookish-image-tabs input:hover + label {
 }
 
 div.bookish-image-tabs input:checked + label {
-  border-bottom-color: #2b8eff;
+  border-bottom-color: #82bcff;
 }
 
 div.bookish-image-tabs input:focus + label {

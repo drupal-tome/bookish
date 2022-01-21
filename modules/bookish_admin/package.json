@@ -3,13 +3,14 @@
   "version": "1.0.0",
   "description": "This package is only used for copying existing CKEditor 5 plugins.",
   "scripts": {
-    "copy": "cp node_modules/@ckeditor/ckeditor5-code-block/build/code-block.js js/ && cp node_modules/@ckeditor/ckeditor5-media-embed/build/media-embed.js js/ && cp node_modules/@yaireo/tagify/dist/jQuery.tagify.min.js js/ && cp node_modules/@yaireo/tagify/dist/tagify.css css/"
+    "copy": "cp node_modules/@ckeditor/ckeditor5-code-block/build/code-block.js js/ && cp node_modules/@ckeditor/ckeditor5-media-embed/build/media-embed.js js/ && cp node_modules/@yaireo/tagify/dist/jQuery.tagify.min.js js/ && cp node_modules/@yaireo/tagify/dist/tagify.css css/ && cp node_modules/@yaireo/dragsort/dist/dragsort.css css/ && cp node_modules/@yaireo/dragsort/dist/dragsort.js js/"
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
     "@ckeditor/ckeditor5-code-block": "^31.1.0",
     "@ckeditor/ckeditor5-media-embed": "^31.1.0",
+    "@yaireo/dragsort": "^1.2.0",
     "@yaireo/tagify": "^4.9.4"
   }
 }

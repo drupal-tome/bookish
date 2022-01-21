@@ -8,6 +8,16 @@
             whitelist:[],
           }),
           controller;
+
+        new DragSort(tagify.DOM.scope, {
+          selector:'.'+tagify.settings.classNames.tag,
+          callbacks: {
+              dragEnd: function (elm) {
+                tagify.updateValueByDOMTags()
+              }
+          }
+        })
+
         var onInput = Drupal.debounce(function (e) {
           var value = e.detail.value;
           tagify.whitelist = null;

@@ -10,6 +10,8 @@ use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\FieldableEntityInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\file\FileInterface;
+use Drupal\lunr\LunrSearchInterface;
+use Drupal\taxonomy\Entity\Term;
 
 /**
  * Implements hook_page_top().
@@ -115,4 +117,40 @@ function _bookish_admin_coerce_data($data) {
     }
   }
   return $data;
+}
+
+/**
+ * Implements hook_lunr_search_page_alter().
+ */
+function bookish_admin_lunr_search_page_alter(array &$build, LunrSearchInterface $lunr_search) {
+  if ($lunr_search->id() === 'default') {
+    $terms = Term::loadMultiple();
+    $build['form']['tags_container'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['bookish-search-tags']],
+      '#attached' => [
+        'drupalSettings' => [
+          'lunrOperators' => ['field_tags' => 'OR'],
+        ],
+      ],
+      '#weight' => 2,
+      'label' => [
+        '#markup' => '<div class="bookish-search-tags-label">' . t('Tags') . '</div>',
+      ],
+    ];
+    foreach ($terms as $id => $term) {
+      $build['form']['tags_container']['tags'][$term->label()] = [
+        '#type' => 'checkbox',
+        '#title' => $term->label(),
+        '#return_value' => $term->label(),
+        '#attributes' => [
+          'data-lunr-search-field' => 'field_tags',
+          'data-lunr-auto-submit' => 1,
+          'class' => ['visually-hidden'],
+        ],
+        '#id' => 'bookish-search-tag-' . $id,
+      ];
+    }
+    ksort($build['form']['tags_container']['tags']);
+  }
 }

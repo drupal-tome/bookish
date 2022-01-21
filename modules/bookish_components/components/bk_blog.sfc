@@ -4,6 +4,11 @@
     <div class="bk-blog__byline">
       {{ time | date('F jS, Y') }}
     </div>
+    <div class="bk-blog__tags">
+      {% for tag in tags %}
+        <a class="bk-blog__tag" href="{{ url('<front>') }}/search?field_tags={{ tag }} ">{{ tag }}</a>
+      {% endfor %}
+    </div>
     <div class="bk-blog__image">{{ image }}</div>
     <div class="bk-blog__text bk-text">
       {{ text }}
@@ -14,11 +19,41 @@
 <style>
   .bk-blog__byline {
     grid-row: 2;
-    grid-column: 2 / 11;
-    margin-bottom: var(--spacer-2);
+    grid-column: 2 / 5;
+    margin-bottom: var(--spacer-1);
     font-size: 1rem;
     line-height: 1rem;
     font-style: italic;
+    display: flex;
+    align-items: center;
+  }
+  .bk-blog__tags {
+    display: flex;
+    grid-column: 5 / 10;
+    justify-content: flex-end;
+    margin-bottom: var(--spacer-1);
+  }
+  .bk-blog__tag {
+    color: var(--font-color);
+    font-size: .8rem;
+    margin-right: 5px;
+    padding: 5px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    max-width: 50px;
+    white-space: pre;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    transition: background-color .2s;
+    font-weight: normal;
+  }
+  .bk-blog__tag:hover,
+  .bk-blog__tag:focus {
+    color: var(--font-color);
+    background-color: var(--border-color);
+  }
+  .bk-blog__tag:last-child {
+    margin-right: 0;
   }
   .bk-blog__image {
     grid-column: 2 / 10;

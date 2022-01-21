@@ -91,7 +91,16 @@ class BookishTagsWidget extends WidgetBase {
     $handler = \Drupal::service('plugin.manager.entity_reference_selection')->getInstance($selection_settings);
     $data = json_decode($values, TRUE);
     $items = [];
+    $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
     foreach ($data as $current) {
+      // Find if a tag already exists, to avoid duplicates.
+      $terms = $term_storage->loadByProperties([
+        'name' => $current['value'],
+      ]);
+      if (!empty($terms)) {
+        reset($terms);
+        $current['entity_id'] = key($terms);
+      }
       if (!empty($current['entity_id'])) {
         $items[] = ['target_id' => $current['entity_id']];
       }

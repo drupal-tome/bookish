@@ -1,0 +1,24 @@
+uuid: c083e721-bdf3-4454-94e6-3e4090175c44
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.lunr_search
+  module:
+    - views
+_core:
+  default_config_hash: e-jA9hEiTN3FxUGy8AQ1nppf2ypQ5nJF6KacEwh9ieU
+id: default
+label: Search
+path: /search
+view_id: lunr_search
+view_display_id: lunr_search_index_1
+index_fields:
+  title:
+    boost: 2
+  body:
+    boost: 1
+  field_tags:
+    boost: 1
+display_field: html
+results_per_page: 10

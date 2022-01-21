@@ -10,11 +10,20 @@
           </{{ title_element }}>
         </div>
         <div class="bk-blog-teaser__text bk-text">{{ text }}</div>
-        {% if time %}
-          <div class="bk-blog-teaser__byline">
-          {{ time | date('n/j/y') }}
+        <div class="bk-blog-teaser__footer">
+          {% if tags %}
+          <div class="bk-blog-teaser__tags">
+            {% for tag in tags|slice(0, 2) %}
+              <div class="bk-blog-teaser__tag">{{ tag }}</div>
+            {% endfor %}
           </div>
-        {% endif %}
+          {% endif %}
+          {% if time %}
+            <div class="bk-blog-teaser__byline">
+            {{ time | date('M j, Y') }}
+            </div>
+          {% endif %}
+        </div>
       </div>
     </a>
   </article>
@@ -100,11 +109,31 @@
     font-size: 1rem;
     line-height: 1.3rem;
   }
+  .bk-blog-teaser__tags {
+    display: flex;
+  }
+  .bk-blog-teaser__tag {
+    font-size: .8rem;
+    margin-right: 5px;
+    padding: 5px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    max-width: 50px;
+    white-space: pre;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  .bk-blog-teaser__footer {
+    margin-top: auto;
+    padding-top: var(--spacer-2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
   .bk-blog-teaser__byline {
     font-size: .8rem;
     font-style: italic;
     text-align: right;
-    margin-top: auto;
-    padding-top: var(--spacer-1);
+    margin-left: auto;
   }
 </style>
