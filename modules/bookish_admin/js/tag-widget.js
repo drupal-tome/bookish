@@ -10,7 +10,7 @@
           controller;
 
         new DragSort(tagify.DOM.scope, {
-          selector:'.'+tagify.settings.classNames.tag,
+          selector: '.' + tagify.settings.classNames.tag,
           callbacks: {
               dragEnd: function (elm) {
                 tagify.updateValueByDOMTags()
