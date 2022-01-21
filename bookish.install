@@ -12,6 +12,7 @@ use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\node\Entity\Node;
 use Drupal\user\Entity\User;
 use Drupal\shortcut\Entity\Shortcut;
+use Drupal\taxonomy\Entity\Term;
 
 /**
  * Implements hook_install().
@@ -119,6 +120,7 @@ function bookish_install() {
     [
       'title' => 'A day at the Japanese Garden',
       'type' => 'blog',
+      'tags' => ['nature', 'hiking'],
       'file' => [
         'filename' => 'jeremy-bezanger-71lJHZqXJ6I-unsplash.jpg',
         'alt' => 'A trail at the Japanese Garden in Portland, Oregon.',
@@ -159,6 +161,7 @@ function bookish_install() {
     [
       'title' => 'Learning to ride moose',
       'type' => 'blog',
+      'tags' => ['nature', 'wildlife'],
       'file' => [
         'filename' => 'madhu-shesharam-YvQ2--lOghs-unsplash.jpg',
         'alt' => 'A moose in the forest.',
@@ -183,6 +186,7 @@ function bookish_install() {
   ];
 
   $i = 0;
+  $tag_map = [];
   foreach ($nodes as $values) {
     $node = Node::create([
       'title' => $values['title'],
@@ -210,6 +214,21 @@ function bookish_install() {
         'target_id' => $file->id(),
         'alt' => $values['file']['alt'],
       ];
+    }
+    if (isset($values['tags'])) {
+      $field_tags = [];
+      foreach ($values['tags'] as $tag) {
+        if (!isset($tag_map[$tag])) {
+          $term = Term::create([
+            'name' => $tag,
+            'vid' => 'tags',
+          ]);
+          $term->save();
+          $tag_map[$tag] = $term->id();
+        }
+        $field_tags[] = ['target_id' => $tag_map[$tag]];
+      }
+      $node->field_tags = $field_tags;
     }
     $node->save();
   }
