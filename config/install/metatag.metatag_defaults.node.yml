@@ -1,6 +1,9 @@
+uuid: 4a6ddeaa-d89a-42d1-b0b0-1362c5253765
 langcode: en
 status: true
 dependencies: {  }
+_core:
+  default_config_hash: LpoX_b6yZ3BUpn7HRDAI2ecNYAf0me8uDhVDe6NGy4I
 id: node
 label: Content
 tags:
@@ -8,6 +11,7 @@ tags:
   canonical_url: '[node:url]'
   image_src: '[node:field_image:social_card]'
   title: '[node:title] | [site:name]'
+  og_image_alt: '[node:field_image:alt]'
   og_image: '[node:field_image:social_card]'
   og_description: '[node:summary]'
   og_image_height: '[node:field_image:social_card:height]'
@@ -18,6 +22,7 @@ tags:
   article_published_time: '[node:created:custom:Y-m-d\TH:i:sO]'
   og_url: '[node:url:absolute]'
   twitter_cards_title: '[node:title] | [site:name]'
+  twitter_cards_image_alt: '[node:field_image:alt]'
   twitter_cards_page_url: '[node:url:absolute]'
   twitter_cards_image_height: '[node:field_image:social_card:height]'
   twitter_cards_description: '[node:summary]'

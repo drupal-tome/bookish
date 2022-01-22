@@ -9,6 +9,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\FieldableEntityInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\file\FileInterface;
 use Drupal\lunr\LunrSearchInterface;
 use Drupal\taxonomy\Entity\Term;
@@ -153,4 +154,49 @@ function bookish_admin_lunr_search_page_alter(array &$build, LunrSearchInterface
     }
     ksort($build['form']['tags_container']['tags']);
   }
+}
+
+/**
+ * Implements hook_token_info().
+ */
+function bookish_admin_token_info() {
+  $info = [];
+
+  $info['types']['bookish'] = [
+    'name' => t('Bookish'),
+    'description' => t('Bookish tokens')
+  ];
+
+  $info['tokens']['bookish']['social_node'] = [
+    'name' => t('Default social node'),
+    'description' => t('The node ("social_node") that contains the default site description and image.'),
+    'type' => 'node',
+  ];
+
+  return $info;
+}
+
+/**
+ * Implements hook_tokens().
+ */
+function bookish_admin_tokens($type, $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata) {
+    $replacements = [];
+
+    if ($type !== 'bookish') {
+      return $replacements;
+    }
+
+    if ($tokens = \Drupal::token()->findWithPrefix($tokens, 'social_node')) {
+      $nodes = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties([
+        'title' => 'social_node',
+      ]);
+      if (empty($nodes)) {
+        return $replacements;
+      }
+      $node = reset($nodes);
+      $replacements += \Drupal::token()->generate('node', $tokens, ['node' => $node], $options, $bubbleable_metadata);
+    }
+
+    return $replacements;
+
 }

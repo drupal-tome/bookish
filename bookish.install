@@ -7,7 +7,6 @@
 
 use Drupal\block_content\Entity\BlockContent;
 use Drupal\Core\File\FileSystemInterface;
-use Drupal\file\Entity\File;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\node\Entity\Node;
 use Drupal\user\Entity\User;
@@ -182,6 +181,27 @@ function bookish_install() {
     [
       'title' => 'About',
       'type' => 'page',
+    ],
+    [
+      'title' => 'social_node',
+      'type' => 'page',
+      'status' => 0,
+      'file' => [
+        'filename' => 'jim-basio-tCW4f8-FTUs-unsplash.jpg',
+        'alt' => 'The Oregon coast.',
+        'bookish_image_data' => [
+          'brightness' => 0,
+          'contrast' => 0,
+          'saturation' => 0,
+          'blur' => 0,
+          'grayscale' => 0,
+          'hue' => 0,
+          'red' => 0,
+          'green' => 0,
+          'blue' => 0,
+          'focal_point' => [427, 652],
+        ],
+      ]
     ],
   ];
 
