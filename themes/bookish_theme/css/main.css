@@ -43,6 +43,59 @@ main {
   min-height: 800px;
 }
 
+label,
+.bookish-search-tags-label {
+  display: block;
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacer-1);
+  flex-basis: 100%;
+}
+
+input[type="search"],
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  border: none;
+  max-width: 300px;
+  padding-bottom: 5px;
+  border-bottom: 2px solid var(--border-color);
+  background: transparent;
+  transition: .2s;
+}
+
+input[type="search"]:focus,
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+  outline: none;
+  border-color: var(--font-color);
+}
+
+input[type="submit"] {
+  min-width: 0;
+  width: auto;
+  color: var(--font-color);
+  background: transparent;
+  border: 2px solid var(--border-color);
+  padding: 5px 10px;
+  transition: .2s;
+}
+
+input[type="submit"]:focus,
+input[type="submit"]:hover {
+  border-color: var(--font-color);
+}
+
+.form-item {
+  margin-bottom: var(--spacer-2);
+}
+
+.description {
+  font-size: .8rem;
+  line-height: .8rem;
+  margin-top: var(--spacer-1);
+}
+
 .container {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
@@ -99,7 +152,10 @@ main {
 .block-local-tasks-block ul,
 .lunr-search-page-form,
 .lunr-search-results,
-div[data-drupal-messages] {
+div[data-drupal-messages],
+.user-login-form,
+.user-pass,
+.user-form {
   max-width: 1280px;
   padding: 0 100px;
   margin: 0 auto;
@@ -138,7 +194,7 @@ div[data-drupal-messages] {
   padding: 20px 100px;
 }
 
-#region-before > * {
+.region-before > * {
   grid-column: 1/11;
 }
 
@@ -222,7 +278,10 @@ body.dark .monospace {
   .lunr-search-page-form,
   .lunr-search-results,
   div[data-drupal-messages],
-  .container {
+  .container,
+  .user-login-form,
+  .user-pass,
+  .user-form {
     padding: 0 25px;
   }
   .container--margin {
