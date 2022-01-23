@@ -1,12 +1,11 @@
-bookish_admin_codeblock:
+bookish_ckeditor_codeblock:
   ckeditor5:
     plugins:
       - codeBlock.CodeBlock
-
   drupal:
     label: Code Block
-    library: bookish_admin/codeblock
-    admin_library: bookish_admin/codeblock.admin
+    library: bookish_ckeditor/codeblock
+    admin_library: bookish_ckeditor/codeblock.admin
     toolbar_items:
       codeBlock:
         label: Code Block
@@ -14,7 +13,7 @@ bookish_admin_codeblock:
       - <code class>
       - <pre>
 
-bookish_admin_mediaembed:
+bookish_ckeditor_mediaembed:
   ckeditor5:
     plugins:
       - mediaEmbed.MediaEmbed
@@ -23,8 +22,8 @@ bookish_admin_mediaembed:
         previewsInData: true
   drupal:
     label: Media Embed
-    library: bookish_admin/mediaEmbed
-    admin_library: bookish_admin/mediaEmbed.admin
+    library: bookish_ckeditor/mediaEmbed
+    admin_library: bookish_ckeditor/mediaEmbed.admin
     toolbar_items:
       mediaEmbed:
         label: Media Embed

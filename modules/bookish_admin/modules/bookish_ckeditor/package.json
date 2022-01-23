@@ -1,0 +1,14 @@
+{
+  "name": "bookish_ckeditor",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "copy": "cp node_modules/@ckeditor/ckeditor5-code-block/build/code-block.js js/ && cp node_modules/@ckeditor/ckeditor5-media-embed/build/media-embed.js js/"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@ckeditor/ckeditor5-code-block": "^31.1.0",
+    "@ckeditor/ckeditor5-media-embed": "^31.1.0"
+  }
+}

@@ -1,25 +1,3 @@
-codeblock:
-  js:
-    js/code-block.js: { preprocess: false, minified: true }
-  dependencies:
-    - ckeditor5/drupal.ckeditor5
-
-mediaEmbed:
-  js:
-    js/media-embed.js: { preprocess: false, minified: true }
-  dependencies:
-    - ckeditor5/drupal.ckeditor5
-
-codeblock.admin:
-  css:
-    theme:
-      css/codeblock.admin.css: { }
-
-mediaEmbed.admin:
-  css:
-    theme:
-      css/mediaEmbed.admin.css: { }
-
 node_form:
   css:
     theme:

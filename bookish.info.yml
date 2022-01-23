@@ -33,6 +33,10 @@ install:
   - shortcut
   # Contrib module dependencies
   - bookish_admin
+  - bookish_image
+  - bookish_toolbar
+  - bookish_tags
+  - bookish_ckeditor
   - bookish_components
   - quicklink
   - tome
