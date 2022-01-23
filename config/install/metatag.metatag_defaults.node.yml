@@ -26,5 +26,5 @@ tags:
   twitter_cards_image_height: '[node:field_image:social_card:height]'
   twitter_cards_description: '[node:summary]'
   twitter_cards_image: '[node:field_image:social_card]'
-  twitter_cards_type: summary
+  twitter_cards_type: summary_large_image
   twitter_cards_image_width: '[node:field_image:social_card:width]'

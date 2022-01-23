@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html{{ html_attributes }}>
   <head>
+    {% include [directory  ~ '/templates/critical-styles.html.twig', '@bookish_theme/critical-styles.html.twig'] %}
     <head-placeholder token="{{ placeholder_token }}">
     <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="{{ url('<front>') }}feed.xml" />
     <title>{{ head_title|safe_join(' | ') }}</title>

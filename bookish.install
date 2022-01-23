@@ -186,6 +186,7 @@ function bookish_install() {
       'title' => 'social_node',
       'type' => 'page',
       'status' => 0,
+      'body' => '<p>An example Bookish site, built using Tome and Drupal!</p>',
       'file' => [
         'filename' => 'jim-basio-tCW4f8-FTUs-unsplash.jpg',
         'alt' => 'The Oregon coast.',
@@ -213,7 +214,7 @@ function bookish_install() {
       'type' => $values['type'],
       'created' => time() + ++$i,
       'body' => [
-        'value' => $body,
+        'value' => isset($values['body']) ? $values['body'] : $body,
         'format' => 'rich_text',
       ],
       'status' => isset($values['status']) ? $values['status'] : 1,
