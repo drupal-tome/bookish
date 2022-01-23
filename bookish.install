@@ -216,7 +216,7 @@ function bookish_install() {
         'value' => $body,
         'format' => 'rich_text',
       ],
-      'status' => 1,
+      'status' => isset($values['status']) ? $values['status'] : 1,
       'promote' => 1,
       'sticky' => 0,
     ]);
