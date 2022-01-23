@@ -6,7 +6,7 @@ _core:
 id: global
 label: Global
 tags:
-  description: '[bookish:social_node:body:summary]'
+  description: '[bookish:social_node:summary]'
   canonical_url: '[current-page:url]'
   image_src: '[bookish:social_node:field_image:social_card]'
   title: '[current-page:title] | [site:name]'
