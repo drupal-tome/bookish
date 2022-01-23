@@ -38,7 +38,6 @@ install:
   - bookish_tags
   - bookish_ckeditor
   - bookish_components
-  - quicklink
   - tome
   - lunr
   - sfc

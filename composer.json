@@ -27,7 +27,6 @@
       "drupal/core": "^9",
       "drupal/tome": "^1",
       "drupal-tome/tome_drush": "dev-master",
-      "drupal/quicklink": "^2",
       "drupal/lunr": "^1",
       "drupal/sfc": "^1",
       "drupal/twig_tweak": "^3",
