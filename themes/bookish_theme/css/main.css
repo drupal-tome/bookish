@@ -1,3 +1,27 @@
+@media (prefers-color-scheme: dark) {
+  body:not(.light) {
+    --font-color: var(--font-color-light);
+    --background-color: var(--background-color-dark);
+    --accent-color-1: #723434;
+    --accent-color-2: #527286;
+    --font-color-link: var(--font-color-link-light);
+    --font-color-link-hover: var(--font-color-link-light-hover);
+    --border-color: var(--border-color-dark);
+    --border-color-hover: var(--border-color-light);
+  }
+}
+
+body.dark {
+  --font-color: var(--font-color-light);
+  --background-color: var(--background-color-dark);
+  --accent-color-1: #723434;
+  --accent-color-2: #527286;
+  --font-color-link: var(--font-color-link-light);
+  --font-color-link-hover: var(--font-color-link-light-hover);
+  --border-color: var(--border-color-dark);
+  --border-color-hover: var(--border-color-light);
+}
+
 body {
   --font-family: Helvetica, sans-serif;
   --font-color: #1e1e1e;
@@ -272,21 +296,6 @@ div[data-drupal-messages] {
   text-decoration: underline;
 }
 
-body.dark {
-  --font-color: var(--font-color-light);
-  --background-color: var(--background-color-dark);
-  --accent-color-1: #723434;
-  --accent-color-2: #527286;
-  --font-color-link: var(--font-color-link-light);
-  --font-color-link-hover: var(--font-color-link-light-hover);
-  --border-color: var(--border-color-dark);
-  --border-color-hover: var(--border-color-light);
-}
-
-body.dark .monospace {
-  background: black;
-}
-
 [data-oembed-url] > div {
   position: relative;
   padding-bottom: 100%;
@@ -300,22 +309,6 @@ body.dark .monospace {
   height: 100%;
   top: 0;
   left: 0;
-}
-
-@media (prefers-color-scheme: dark) {
-  body:not(.light) {
-    --font-color: var(--font-color-light);
-    --background-color: var(--background-color-dark);
-    --accent-color-1: #723434;
-    --accent-color-2: #527286;
-    --font-color-link: var(--font-color-link-light);
-    --font-color-link-hover: var(--font-color-link-light-hover);
-    --border-color: var(--border-color-dark);
-    --border-color-hover: var(--border-color-light);
-  }
-  body:not(.light) .monospace {
-    background: black;
-  }
 }
 
 @media screen and (max-width: 800px) {
