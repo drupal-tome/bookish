@@ -1,4 +1,5 @@
 <template>
+  <div class="bookish-toolbar-spacer"></div>
   <nav class="bookish-toolbar" aria-label="Toolbar">
     <div>
       <ul>
@@ -22,7 +23,14 @@
 </template>
 
 <style>
+  .bookish-toolbar-spacer  {
+    height: 45px;
+  }
   .bookish-toolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
     font-family: BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
     line-height: 1.5;
     background: #343434;

@@ -6,3 +6,5 @@ dependencies:
   - drupal:ckeditor5
   - drupal:sfc
   - drupal:bookish_image
+  - drupal:bookish_toolbar
+  - drupal:bookish_tags

@@ -1,0 +1,14 @@
+{
+  "name": "bookish_tags",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "copy": "cp node_modules/@yaireo/tagify/dist/jQuery.tagify.min.js js/ && cp node_modules/@yaireo/tagify/dist/tagify.css css/ && cp node_modules/@yaireo/dragsort/dist/dragsort.css css/ && cp node_modules/@yaireo/dragsort/dist/dragsort.js js/"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@yaireo/dragsort": "^1.2.0",
+    "@yaireo/tagify": "^4.9.4"
+  }
+}

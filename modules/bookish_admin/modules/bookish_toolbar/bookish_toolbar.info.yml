@@ -1,0 +1,6 @@
+name: Bookish Toolbar
+type: module
+description: 'Provides a toolbar using the Shortcut module.'
+core_version_requirement: '^9'
+dependencies:
+  - drupal:shortcut

@@ -1,0 +1,15 @@
+tagify:
+  js:
+    js/jQuery.tagify.min.js: { }
+    js/dragsort.js: { }
+    js/tag-widget.js: { }
+  css:
+    theme:
+      css/tagify.css: { }
+      css/dragsort.css: { }
+      css/tags-widget.css: { }
+  dependencies:
+    - core/jquery
+    - core/once
+    - core/drupal
+    - core/drupal.debounce

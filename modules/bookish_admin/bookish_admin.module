@@ -10,20 +10,6 @@ use Drupal\lunr\LunrSearchInterface;
 use Drupal\taxonomy\Entity\Term;
 
 /**
- * Implements hook_page_top().
- */
-function bookish_admin_page_top(array &$page_top) {
-  $page_top['bookish_toolbar'] = [
-    '#type' => 'sfc',
-    '#component_id' => 'bookish_toolbar',
-    '#access' => \Drupal::currentUser()->hasPermission('administer site configuration'),
-    '#cache' => [
-      'contexts' => ['user'],
-    ],
-  ];
-}
-
-/**
  * Implements hook_form_FORM_ID_alter().
  */
 function bookish_admin_form_node_form_alter(&$form, &$form_state, $form_id) {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\bookish_admin\Plugin\Field\FieldWidget;
+namespace Drupal\bookish_tags\Plugin\Field\FieldWidget;
 
 use Drupal\Component\Utility\Crypt;
 use Drupal\Core\Field\FieldItemListInterface;
@@ -58,7 +58,7 @@ class BookishTagsWidget extends WidgetBase {
       '#type' => 'textfield',
       '#default_value' => json_encode($default_value),
       '#maxlength' => NULL,
-      '#attached' => ['library' => ['bookish_admin/tagify']],
+      '#attached' => ['library' => ['bookish_tags/tagify']],
       '#attributes' => [
         'class' => ['bookish-tags-widget'],
         'data-autocomplete-url' => Url::fromRoute('system.entity_autocomplete', [

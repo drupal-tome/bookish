@@ -1,0 +1,6 @@
+name: Bookish Tags
+type: module
+description: 'Provides a nice tagging field widget using Tagify.'
+core_version_requirement: '^9'
+dependencies:
+  - drupal:taxonomy
