@@ -10,6 +10,6 @@ tagify:
       css/tags-widget.css: { }
   dependencies:
     - core/jquery
-    - core/once
+    - core/jquery.once
     - core/drupal
     - core/drupal.debounce

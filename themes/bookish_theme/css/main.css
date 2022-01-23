@@ -110,7 +110,7 @@ input[type="password"] {
   padding-bottom: 5px;
   border-bottom: 2px solid var(--border-color);
   background: transparent;
-  transition: .2s;
+  transition: border-color .2s;
 }
 
 #coffee-q {

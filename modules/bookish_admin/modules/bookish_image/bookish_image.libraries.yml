@@ -13,7 +13,7 @@ imageWidget:
       css/image-widget.css: { }
   dependencies:
     - core/jquery
-    - core/once
+    - core/jquery.once
     - core/drupal
     - core/drupal.ajax
     - core/drupal.debounce
@@ -26,5 +26,5 @@ imageBlur:
       css/image-blur.css: { }
   dependencies:
     - core/jquery
-    - core/once
+    - core/jquery.once
     - core/drupal
