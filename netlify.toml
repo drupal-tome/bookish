@@ -2,7 +2,8 @@
 
 [build]
 command = """
-composer create-project drupal-tome/tome-project /tmp/my_site --stability dev --no-interaction \
+export BUILD_DIR=$(pwd) \
+&& composer create-project drupal-tome/tome-project /tmp/my_site --stability dev --no-interaction \
 && mkdir -p /tmp/my_site/web/profiles/bookish && cp -r * /tmp/my_site/web/profiles/bookish/ \
 && cd /tmp/my_site \
 && composer install \
@@ -10,9 +11,10 @@ composer create-project drupal-tome/tome-project /tmp/my_site --stability dev --
 && ./vendor/bin/drush si bookish -y \
 && LUNR_DRUSH=./vendor/bin/drush node web/modules/contrib/lunr/js/index.node.js default \
 && ./vendor/bin/drush tome:static -l $DEPLOY_PRIME_URL
+&& cp -r html "$BUILD_DIR/html"
 """
 
-publish = "/tmp/my_site/html"
+publish = "html"
 
 [build.environment]
 PHP_VERSION="7.4"
