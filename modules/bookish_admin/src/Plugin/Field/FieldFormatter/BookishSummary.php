@@ -31,7 +31,7 @@ class BookishSummary extends TextTrimmedFormatter {
       $text = $element['#text'];
       $dom = Html::load($text);
       $xpath = new \DOMXPath($dom);
-      foreach ($xpath->query("//*[not(contains('pre a br strong em u s div p html body', name()))]") as $node) {
+      foreach ($xpath->query("//*[not(contains('pre br strong em u s div p html body', name()))]") as $node) {
         $node->parentNode->removeChild($node);
       }
       $element['#text'] = Html::serialize($dom);
