@@ -56,6 +56,9 @@ trait BookishImageFormTrait {
   protected static function buildImageForm(array $element, $unique_id, FileInterface $file) {
     $tabs_class = 'bookish-image-tabs-' . $unique_id;
     $preview_id = 'bookish-image-preview-' . $unique_id;
+    /** @var \Drupal\Core\Image\ImageFactory $image_factory */
+    $image_factory = \Drupal::service('image.factory');
+    $image = $image_factory->get($file->getFileUri());
 
     $element['#attached']['library'][] = 'bookish_admin/imageWidget';
 
@@ -87,6 +90,33 @@ trait BookishImageFormTrait {
     ];
 
     $ajax_settings = static::getAjaxSettings($element, $preview_id);
+
+    $element['bookish_image']['focal_point'] = [
+      '#type' => 'container',
+      '#attributes' => [
+        'class' => [
+          'bookish-image-focal-point-container',
+        ],
+      ],
+      'thumbnail' => [
+        '#theme' => 'image',
+        '#uri' => $file->getFileUri(),
+        '#width' => $image->getWidth(),
+        '#height' => $image->getHeight(),
+        '#attributes' => [
+          'draggable' => 'false',
+        ],
+      ],
+      'description' => [
+        '#markup' => '<div class="form-item__description">' . t('Drupal crops images according to configured image styles. Click the image above to choose the point you want centered when cropped.') . '</div>',
+      ],
+      '#states' => [
+        'visible' => [
+          ".$tabs_class" => ['value' => 1],
+        ],
+      ],
+    ];
+
     $element['bookish_image']['bookish_image_data'] = [
       '#type' => 'container',
       '#attributes' => [
@@ -94,10 +124,10 @@ trait BookishImageFormTrait {
           'bookish-image-data-container',
         ],
       ],
-      '#states' => [
-        'visible' => [
-          ".$tabs_class" => ['value' => 0],
-        ],
+    ];
+    $states = [
+      'visible' => [
+        ".$tabs_class" => ['value' => 0],
       ],
     ];
     $element['bookish_image']['bookish_image_data']['brightness'] = [
@@ -105,6 +135,7 @@ trait BookishImageFormTrait {
       '#type' => 'range',
       '#min' => -255,
       '#max' => 255,
+      '#states' => $states,
       '#ajax' => $ajax_settings,
     ];
 
@@ -113,6 +144,7 @@ trait BookishImageFormTrait {
       '#type' => 'range',
       '#min' => -100,
       '#max' => 100,
+      '#states' => $states,
       '#ajax' => $ajax_settings,
     ];
 
@@ -121,6 +153,7 @@ trait BookishImageFormTrait {
       '#type' => 'range',
       '#min' => -100,
       '#max' => 100,
+      '#states' => $states,
       '#ajax' => $ajax_settings,
       '#default_value' => 0,
     ];
@@ -130,6 +163,7 @@ trait BookishImageFormTrait {
       '#type' => 'range',
       '#min' => 0,
       '#max' => 100,
+      '#states' => $states,
       '#ajax' => $ajax_settings,
       '#default_value' => 0,
     ];
@@ -139,6 +173,7 @@ trait BookishImageFormTrait {
       '#type' => 'range',
       '#min' => 0,
       '#max' => 1,
+      '#states' => $states,
       '#ajax' => $ajax_settings,
       '#default_value' => 0,
     ];
@@ -148,6 +183,7 @@ trait BookishImageFormTrait {
       '#type' => 'range',
       '#min' => 0,
       '#max' => 360,
+      '#states' => $states,
       '#ajax' => $ajax_settings,
       '#default_value' => 0,
     ];
@@ -157,6 +193,7 @@ trait BookishImageFormTrait {
       '#type' => 'range',
       '#min' => -255,
       '#max' => 255,
+      '#states' => $states,
       '#ajax' => $ajax_settings,
     ];
 
@@ -165,6 +202,7 @@ trait BookishImageFormTrait {
       '#type' => 'range',
       '#min' => -255,
       '#max' => 255,
+      '#states' => $states,
       '#ajax' => $ajax_settings,
     ];
 
@@ -173,6 +211,7 @@ trait BookishImageFormTrait {
       '#type' => 'range',
       '#min' => -255,
       '#max' => 255,
+      '#states' => $states,
       '#ajax' => $ajax_settings,
     ];
 
@@ -202,10 +241,21 @@ trait BookishImageFormTrait {
       ]),
     ];
 
+    $element['bookish_image']['bookish_image_data']['zoom'] = [
+      '#type' => 'range',
+      '#title' => t('Zoom'),
+      '#description' => t('Only used with the "Bookish image crop" image effect. Note that zooming in loses quality.'),
+      '#min' => -100,
+      '#max' => 100,
+      '#ajax' => $ajax_settings,
+      '#states' => [
+        'visible' => [
+          ".$tabs_class" => ['value' => 1],
+        ],
+      ],
+    ];
+
     $image_data = _bookish_admin_coerce_data(json_decode($file->bookish_image_data->getString(), TRUE));
-    /** @var \Drupal\Core\Image\ImageFactory $image_factory */
-    $image_factory = \Drupal::service('image.factory');
-    $image = $image_factory->get($file->getFileUri());
     $element['bookish_image']['bookish_image_data']['focal_point']['#default_value'] = implode(',', [
       floor($image->getWidth() / 2),
       floor($image->getHeight() / 2),
@@ -221,32 +271,6 @@ trait BookishImageFormTrait {
         $element['bookish_image']['bookish_image_data'][$key]['#default_value'] = $image_data[$key];
       }
     }
-
-    $element['bookish_image']['focal_point'] = [
-      '#type' => 'container',
-      '#attributes' => [
-        'class' => [
-          'bookish-image-focal-point-container',
-        ],
-      ],
-      'thumbnail' => [
-        '#theme' => 'image',
-        '#uri' => $file->getFileUri(),
-        '#width' => $image->getWidth(),
-        '#height' => $image->getHeight(),
-        '#attributes' => [
-          'draggable' => 'false',
-        ],
-      ],
-      'description' => [
-        '#markup' => '<div class="form-item__description">' . t('Drupal crops images according to configured image styles. Click the image above to choose the point you want centered when cropped.') . '</div>',
-      ],
-      '#states' => [
-        'visible' => [
-          ".$tabs_class" => ['value' => 1],
-        ],
-      ],
-    ];
 
     $element['bookish_image']['filters'] = [
       '#type' => 'container',

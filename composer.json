@@ -35,6 +35,7 @@
       "drupal/pathauto": "^1",
       "drupal/simple_sitemap": "^4",
       "drupal/highlight_php": "^1",
-      "drupal/coffee": "^1"
+      "drupal/coffee": "^1",
+      "drupal/coffee_extras": "^1"
     }
 }

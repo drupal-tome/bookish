@@ -11,7 +11,7 @@
           'link': path('entity.node.canonical', {'node': node.id}),
           'text': node.body|view({
             'label': 'hidden',
-            'type': 'text_summary_or_trimmed',
+            'type': 'bookish_summary',
             'settings': {'trim_length': 350}
           }),
           'title_element': 'h3',

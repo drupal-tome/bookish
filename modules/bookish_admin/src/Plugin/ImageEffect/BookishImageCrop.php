@@ -31,9 +31,29 @@ class BookishImageCrop extends ResizeImageEffect {
     }
     $file = reset($files);
     $data = _bookish_admin_coerce_data(json_decode($file->bookish_image_data->getString(), TRUE));
+    $scale = 1;
+    if (isset($data['zoom']) && $data['zoom'] !== 0) {
+      $new_scale = 1 + (2 * ($data['zoom'] / 100));
+      $new_width = $image->getWidth() * $new_scale;
+      $new_height = $image->getHeight() * $new_scale;
+      if ($new_width > $this->configuration['width'] && $new_height > $this->configuration['height']) {
+        $scale = $new_scale;
+        $image->scale($new_width, $new_height, TRUE);
+      }
+      else {
+        if ($image->getWidth() < $image->getHeight()) {
+          $scale = $this->configuration['width'] / $image->getWidth();
+          $image->scale($image->getWidth() * $scale, NULL, TRUE);
+        }
+        else {
+          $scale = $this->configuration['height'] / $image->getHeight();
+          $image->scale(NULL, $image->getHeight() * $scale, TRUE);
+        }
+      }
+    }
     if (isset($data['focal_point'])) {
-      $x = floor($data['focal_point'][0] - ($this->configuration['width'] / 2));
-      $y = floor($data['focal_point'][1] - ($this->configuration['height'] / 2));
+      $x = floor(($data['focal_point'][0] * $scale) - ($this->configuration['width'] / 2));
+      $y = floor(($data['focal_point'][1] * $scale) - ($this->configuration['height'] / 2));
       if ($x < 0) {
         $x = 0;
       }

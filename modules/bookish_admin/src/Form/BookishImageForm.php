@@ -4,6 +4,7 @@ namespace Drupal\bookish_admin\Form;
 
 use Drupal\bookish_admin\Ajax\BookishImageCKEditorCommand;
 use Drupal\bookish_admin\BookishImageFormTrait;
+use Drupal\bookish_admin\Plugin\ImageEffect\BookishImageScaleAndCrop;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\CloseModalDialogCommand;
 use Drupal\Core\Form\FormBase;
@@ -63,13 +64,20 @@ class BookishImageForm extends FormBase {
     $bookish_styles = [];
     $other_styles = [];
     $other_styles_states = [['value' => 'none']];
+    $bookish_scale_states = [];
     foreach ($image_styles as $name => $style) {
       $is_bookish = FALSE;
+      $is_bookish_scale = FALSE;
       foreach ($style->getEffects() as $effect) {
+        if ($effect instanceof BookishImageScaleAndCrop) {
+          $is_bookish_scale = TRUE;
+        }
         if (strpos(get_class($effect), 'bookish_admin') !== FALSE) {
           $is_bookish = TRUE;
-          break;
         }
+      }
+      if ($is_bookish_scale) {
+        $bookish_scale_states[] = ['value' => $name];
       }
       if ($is_bookish) {
         $bookish_styles[$name] = $style->label();
@@ -122,6 +130,8 @@ class BookishImageForm extends FormBase {
         ".bookish-image-image-style-$unique_id" => $other_styles_states,
       ],
     ];
+
+    $form['bookish_image']['bookish_image_data']['zoom']['#states']['invisible'][".bookish-image-image-style-$unique_id"] = $bookish_scale_states;
 
     $form['actions'] = [
       '#type' => 'actions',

@@ -63,6 +63,10 @@ input[type="password"] {
   transition: .2s;
 }
 
+#coffee-q {
+  max-width: none;
+}
+
 input[type="search"]:focus,
 input[type="text"]:focus,
 input[type="email"]:focus,
@@ -135,12 +139,27 @@ input[type="submit"]:hover {
   max-width: 100%;
   height: auto;
 }
-.bk-text img.align-left {
+
+.bk-text .align-left {
   margin-right: var(--spacer-1);
 }
 
-.bk-text img.align-right {
+.bk-text .align-right {
   margin-left: var(--spacer-1);
+}
+
+.bk-text figure {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.bk-text figcaption {
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  font-size: .8rem;
+  border-top: 0;
+  line-height: .8rem;
 }
 
 /* Match .hljs styles. */

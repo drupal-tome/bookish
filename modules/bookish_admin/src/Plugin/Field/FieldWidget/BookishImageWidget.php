@@ -4,6 +4,7 @@ namespace Drupal\bookish_admin\Plugin\Field\FieldWidget;
 
 use Drupal\bookish_admin\BookishImageFormTrait;
 use Drupal\Component\Utility\NestedArray;
+use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
 use Drupal\image\Entity\ImageStyle;
@@ -28,6 +29,24 @@ class BookishImageWidget extends ImageWidget {
   /**
    * {@inheritdoc}
    */
+  public static function defaultSettings() {
+    return [
+      'show_zoom' => 0,
+    ] + parent::defaultSettings();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
+    $element = parent::formElement($items, $delta, $element, $form, $form_state);
+    $element['#show_zoom'] = $this->getSetting('show_zoom');
+    return $element;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public static function process($element, FormStateInterface $form_state, $form) {
     $element = parent::process($element, $form_state, $form);
 
@@ -41,6 +60,7 @@ class BookishImageWidget extends ImageWidget {
       /** @var \Drupal\file\FileInterface $file */
       $file = reset($element['#files']);
       $element = static::buildImageForm($element, $unique_id, $file);
+      $element['bookish_image']['bookish_image_data']['zoom']['#access'] = !!$element['#show_zoom'];
     }
 
     $element['preview']['#prefix'] = '<div class="bookish-image-preview" id="' . $preview_id . '">';
@@ -85,6 +105,23 @@ class BookishImageWidget extends ImageWidget {
     $element['preview'] = array_merge($element['preview'], $new_preview);
 
     return $element['preview'];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function settingsForm(array $form, FormStateInterface $form_state) {
+    $element = parent::settingsForm($form, $form_state);
+
+    $element['show_zoom'] = [
+      '#title' => t('Show the "Zoom" slider.'),
+      '#description' => t('The "Zoom" slider is not always useful, so it\'s hidden by default.'),
+      '#type' => 'checkbox',
+      '#default_value' => $this->getSetting('show_zoom'),
+      '#weight' => 16,
+    ];
+
+    return $element;
   }
 
 }

@@ -23,7 +23,7 @@
         }, 100));
       });
 
-      $('.bookish-image-data-container', context).once('bookish-image-container').each(function () {
+      $('.bookish-image-container', context).once('bookish-image-container').each(function () {
         $(this).find('input[type="range"]').each(function () {
           var $resetButton = $('<button class="bookish-image-reset"><span class="visually-hidden">Reset</span></button>');
           var $range = $(this);
@@ -44,60 +44,66 @@
         $(this).show();
         var $dot = $('<div class="bookish-image-focal-point-dot"></div>');
         var $img = $(this).find('img');
-
-        // Set default value from form element.
-        var differenceX = $img.attr('width') / $img.width();
-        var differenceY = $img.attr('height') / $img.height();
-        var default_val = $(this).closest('.bookish-image-container')
-          .find('.bookish-image-focal-point-input')
-          .val();
-        var pos = default_val.split(',');
-        var defaultX = 0;
-        var defaultY = 0;
-        if (pos.length === 2) {
-          defaultX = parseInt(pos[0]) / differenceX;
-          defaultY = parseInt(pos[1]) / differenceY;
-        }
-        $dot.css('left', defaultX);
-        $dot.css('top', defaultY);
-
-        $(this).append($dot);
-        $(this).hide();
-
-        var $container = $(this);
-        var dragging = false;
-        var updateDot = function (e) {
-          var x = e.pageX - $img.offset().left;
-          var y = e.pageY - $img.offset().top;
-          $dot.css('left', x);
-          $dot.css('top', y);
-        }
-        var updateInput = debounce(function (e) {
-          var x = e.pageX - $img.offset().left;
-          var y = e.pageY - $img.offset().top;
+        var f = function () {
+          // Set default value from form element.
           var differenceX = $img.attr('width') / $img.width();
           var differenceY = $img.attr('height') / $img.height();
-          $container.parent()
+          var default_val = $(this).closest('.bookish-image-container')
             .find('.bookish-image-focal-point-input')
-            .val(Math.round(x * differenceX) + ',' + Math.round(y * differenceY));
-          $container.parent()
-          .find('.bookish-image-re-render')
-          .click();
-        }, 100);
-        $img.on('mousedown', function (e) {
-          dragging = true;
-          updateDot(e);
-          updateInput(e);
-        });
-        $img.on('mousemove', function (e) {
-          if (dragging) {
+            .val();
+          var pos = default_val.split(',');
+          var defaultX = 0;
+          var defaultY = 0;
+          if (pos.length === 2) {
+            defaultX = parseInt(pos[0]) / differenceX;
+            defaultY = parseInt(pos[1]) / differenceY;
+          }
+          $dot.css('left', defaultX);
+          $dot.css('top', defaultY);
+
+          $(this).append($dot);
+          $(this).hide();
+
+          var $container = $(this);
+          var dragging = false;
+          var updateDot = function (e) {
+            var x = e.pageX - $img.offset().left;
+            var y = e.pageY - $img.offset().top;
+            $dot.css('left', x);
+            $dot.css('top', y);
+          }
+          var updateInput = debounce(function (e) {
+            var x = e.pageX - $img.offset().left;
+            var y = e.pageY - $img.offset().top;
+            var differenceX = $img.attr('width') / $img.width();
+            var differenceY = $img.attr('height') / $img.height();
+            $container.parent()
+              .find('.bookish-image-focal-point-input')
+              .val(Math.round(x * differenceX) + ',' + Math.round(y * differenceY));
+            $container.parent()
+            .find('.bookish-image-re-render')
+            .click();
+          }, 100);
+          $img.on('mousedown', function (e) {
+            dragging = true;
             updateDot(e);
             updateInput(e);
-          }
-        });
-        $img.on('mouseup', function () {
-          dragging = false;
-        });
+          });
+          $img.on('mousemove', function (e) {
+            if (dragging) {
+              updateDot(e);
+              updateInput(e);
+            }
+          });
+          $img.on('mouseup', function () {
+            dragging = false;
+          });
+        }.bind(this);
+        if ($img.prop('complete')) {
+          f();
+        } else {
+          $img.on('load', f);
+        }
       });
 
       $('.bookish-image-filter', context).once('bookish-image-filter').each(function () {
@@ -125,7 +131,7 @@
   var beforeSend = Drupal.Ajax.prototype.beforeSend;
 
   Drupal.Ajax.prototype.beforeSend = function (xmlhttprequest, options) {
-    if (!$(this.element).is('.bookish-image-data-container input[type="range"]')) {
+    if (!$(this.element).is('.bookish-image-container input[type="range"]')) {
       beforeSend.call(this, xmlhttprequest, options);
       return;
     }

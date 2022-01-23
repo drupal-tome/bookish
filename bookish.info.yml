@@ -46,6 +46,7 @@ install:
   - simple_sitemap
   - highlight_php
   - coffee
+  - coffee_extras
 
 themes:
   - bookish_theme

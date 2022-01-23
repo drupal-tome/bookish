@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - bookish_admin
+name: square_crop
+label: 'Square crop'
+effects:
+  b2996822-99c4-42e6-a324-aa5250928d41:
+    uuid: b2996822-99c4-42e6-a324-aa5250928d41
+    id: bookish_image_crop
+    weight: 1
+    data:
+      width: '400'
+      height: '400'
+  2d9aba87-a149-432a-b432-c867edf71cba:
+    uuid: 2d9aba87-a149-432a-b432-c867edf71cba
+    id: bookish_image_effect
+    weight: 2
+    data: {  }

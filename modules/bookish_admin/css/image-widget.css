@@ -34,7 +34,7 @@
   margin-bottom: 15px;
 }
 
-.bookish-image-data-container input[type="range"] {
+.bookish-image-container input[type="range"] {
   width: calc(100% - 50px);
 }
 
