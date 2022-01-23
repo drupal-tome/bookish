@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\bookish_admin\Controller;
+namespace Drupal\bookish_image\Controller;
 
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Controller\ControllerBase;
@@ -35,7 +35,7 @@ class BookishImagePreview extends ControllerBase {
     $image_factory = \Drupal::service('image.factory');
     $original_image_data = json_decode($file->bookish_image_data->getString(), TRUE);
     $new_image_data = json_decode($request->query->get('bookish_image_data', []), TRUE);
-    $image_data = array_merge(_bookish_admin_coerce_data($original_image_data), _bookish_admin_coerce_data($new_image_data));
+    $image_data = array_merge(_bookish_image_coerce_data($original_image_data), _bookish_image_coerce_data($new_image_data));
     $file->bookish_image_data = json_encode($image_data);
     $derivative_uri = 'temporary://bookish-image-preview/' . preg_replace('|.*://|', '', $file->getFileUri());
     $file_system->delete($derivative_uri);

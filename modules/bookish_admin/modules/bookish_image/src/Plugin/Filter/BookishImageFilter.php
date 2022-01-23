@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\bookish_admin\Plugin\Filter;
+namespace Drupal\bookish_image\Plugin\Filter;
 
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Entity\EntityRepositoryInterface;

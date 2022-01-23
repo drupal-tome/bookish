@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\bookish_admin\Plugin\ImageEffect;
+namespace Drupal\bookish_image\Plugin\ImageEffect;
 
 use Drupal\Core\Image\ImageInterface;
 use Drupal\image\ImageEffectBase;
@@ -40,7 +40,7 @@ class BookishImageEffect extends ImageEffectBase {
       return TRUE;
     }
     $file = reset($files);
-    $data = _bookish_admin_coerce_data(json_decode($file->bookish_image_data->getString(), TRUE));
+    $data = _bookish_image_coerce_data(json_decode($file->bookish_image_data->getString(), TRUE));
     if (isset($data['saturation']) && $data['saturation'] !== 0) {
       $this->saturation($resource, $data['saturation']);
     }

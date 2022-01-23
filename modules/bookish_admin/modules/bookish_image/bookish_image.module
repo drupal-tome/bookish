@@ -1,0 +1,103 @@
+<?php
+
+/**
+ * @file
+ * Hook implementations for bookish_image.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Entity\FieldableEntityInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\file\FileInterface;
+
+/**
+ * Implements hook_entity_base_field_info().
+ */
+function bookish_image_entity_base_field_info(EntityTypeInterface $entity_type) {
+  $fields = [];
+
+  if ($entity_type->id() === 'file') {
+    $fields['bookish_image_data'] = BaseFieldDefinition::create('string_long')
+      ->setLabel(t('Image data'))
+      ->setDescription(t('Image data related to Bookish Image.'))
+      ->setRevisionable(TRUE)
+      ->setTranslatable(FALSE)
+      ->setDisplayConfigurable('form', FALSE)
+      ->setDisplayConfigurable('view', FALSE);
+  }
+
+  return $fields;
+}
+
+/**
+ * Implements hook_entity_insert().
+ *
+ * @see bookish_image_entity_update
+ */
+function bookish_image_entity_insert(EntityInterface $entity) {
+  bookish_image_entity_update($entity);
+}
+
+/**
+ * Implements hook_entity_update().
+ *
+ * Saves the focal point value for the image file entity about to be saved.
+ */
+function bookish_image_entity_update(EntityInterface $entity) {
+  if ($entity instanceof FieldableEntityInterface) {
+    foreach ($entity->getFieldDefinitions() as $field) {
+      if ($field->getType() === 'image' && $entity->hasField($field->getName())) {
+        foreach ($entity->{$field->getName()} as $item) {
+          if (!$item->entity instanceof FileInterface) {
+            continue;
+          }
+          if (!isset($item->bookish_image)) {
+            continue;
+          }
+          $data = json_decode($item->entity->bookish_image_data->getString(), TRUE);
+          $new_data = $item->bookish_image['bookish_image_data'];
+          $data = array_merge(_bookish_image_coerce_data($data), _bookish_image_coerce_data($new_data));
+          $item->entity->bookish_image_data = json_encode($data);
+          $item->entity->save();
+          _bookish_image_flush_image_styles($item->entity->getFileUri());  
+        }
+      }
+    }
+  }
+}
+
+function _bookish_image_flush_image_styles($uri) {
+  if (empty($uri)) {
+    return;
+  }
+  /** @var \Drupal\image\ImageStyleInterface[] $image_styles */
+  $image_styles = \Drupal::entityTypeManager()->getStorage('image_style')->loadMultiple();
+  foreach ($image_styles as $image_style) {
+    $image_style->flush($uri);
+  }
+}
+
+function bookish_image_form_node_form_alter(&$form, &$form_state, $form_id) {
+  $form['#attached']['library'][] = 'bookish_image/node_form';
+}
+
+function _bookish_image_coerce_data($data) {
+  if (!is_array($data)) {
+    return [];
+  }
+  foreach ($data as $key => &$value) {
+    if ($key === 'focal_point') {
+      if (!is_array($value)) {
+        $value = explode(',', $value);
+      }
+      if (count($value) < 2) {
+        $value = [0,0];
+      }
+      $value = array_map('intval', $value);
+    } else {
+      $value = (int) $value;
+    }
+  }
+  return $data;
+}

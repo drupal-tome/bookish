@@ -1,10 +1,10 @@
 <?php
 
-namespace Drupal\bookish_admin\Form;
+namespace Drupal\bookish_image\Form;
 
-use Drupal\bookish_admin\Ajax\BookishImageCKEditorCommand;
-use Drupal\bookish_admin\BookishImageFormTrait;
-use Drupal\bookish_admin\Plugin\ImageEffect\BookishImageScaleAndCrop;
+use Drupal\bookish_image\Ajax\BookishImageCKEditorCommand;
+use Drupal\bookish_image\BookishImageFormTrait;
+use Drupal\bookish_image\Plugin\ImageEffect\BookishImageScaleAndCrop;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\CloseModalDialogCommand;
 use Drupal\Core\Form\FormBase;
@@ -25,7 +25,7 @@ class BookishImageForm extends FormBase {
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'bookish_admin_image_form';
+    return 'bookish_image_image_form';
   }
 
   /**
@@ -54,7 +54,7 @@ class BookishImageForm extends FormBase {
       }
     }
 
-    $image_data = _bookish_admin_coerce_data(json_decode($file->bookish_image_data->getString(), TRUE));
+    $image_data = _bookish_image_coerce_data(json_decode($file->bookish_image_data->getString(), TRUE));
 
     $unique_id = $file->id() . '-modal';
     $preview_id = 'bookish-image-preview-' . $unique_id;
@@ -72,11 +72,11 @@ class BookishImageForm extends FormBase {
         if ($effect instanceof BookishImageScaleAndCrop) {
           $is_bookish_scale = TRUE;
         }
-        if (strpos(get_class($effect), 'bookish_admin') !== FALSE) {
+        if (strpos(get_class($effect), 'bookish_image') !== FALSE) {
           $is_bookish = TRUE;
         }
       }
-      if ($is_bookish_scale) {
+      if (!$is_bookish_scale) {
         $bookish_scale_states[] = ['value' => $name];
       }
       if ($is_bookish) {
@@ -131,7 +131,8 @@ class BookishImageForm extends FormBase {
       ],
     ];
 
-    $form['bookish_image']['bookish_image_data']['zoom']['#states']['invisible'][".bookish-image-image-style-$unique_id"] = $bookish_scale_states;
+    $form['bookish_image']['bookish_image_data']['zoom']['#states']['visible'][] = 'and';
+    $form['bookish_image']['bookish_image_data']['zoom']['#states']['visible'][".bookish-image-image-style-$unique_id"] = $bookish_scale_states;
 
     $form['actions'] = [
       '#type' => 'actions',
@@ -179,7 +180,7 @@ class BookishImageForm extends FormBase {
    * @return array
    *   The render array representing the preview.
    *
-   * @see \Drupal\bookish_admin\BookishImageFormTrait::getAjaxSettings
+   * @see \Drupal\bookish_image\BookishImageFormTrait::getAjaxSettings
    */
   public static function updatePreview(array &$form, FormStateInterface &$form_state) {
     $file = $form['#file'];
@@ -188,7 +189,7 @@ class BookishImageForm extends FormBase {
       'bookish_image',
       'bookish_image_data',
     ]);
-    $image_data = array_merge(_bookish_admin_coerce_data($image_data), _bookish_admin_coerce_data($new_image_data));
+    $image_data = array_merge(_bookish_image_coerce_data($image_data), _bookish_image_coerce_data($new_image_data));
 
     $form['preview_wrapper']['preview']['image'] = static::getPreviewElement($file, $form['#image_style'], $image_data);
 
@@ -257,9 +258,9 @@ class BookishImageForm extends FormBase {
       'bookish_image',
       'bookish_image_data',
     ]);
-    $image_data = array_merge(_bookish_admin_coerce_data($image_data), _bookish_admin_coerce_data($new_image_data));
+    $image_data = array_merge(_bookish_image_coerce_data($image_data), _bookish_image_coerce_data($new_image_data));
     $file->bookish_image_data = json_encode($image_data);
-    _bookish_admin_flush_image_styles($file->getFileUri());
+    _bookish_image_flush_image_styles($file->getFileUri());
     $file->save();
   }
 

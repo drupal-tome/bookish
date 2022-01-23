@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\bookish_admin\Plugin\Field\FieldFormatter;
+namespace Drupal\bookish_image\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\image\Entity\ImageStyle;
@@ -73,7 +73,7 @@ class BookishImageFormatter extends ImageFormatter {
             ],
           ],
           'image' => $element,
-          '#attached' => ['library' => ['bookish_admin/imageBlur']],
+          '#attached' => ['library' => ['bookish_image/imageBlur']],
         ],
       ];
     }

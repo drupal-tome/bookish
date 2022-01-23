@@ -1,6 +1,6 @@
 (function ($, Drupal, debounce) {
 
-  Drupal.behaviors.bookishAdminImageWidget = {
+  Drupal.behaviors.bookishImageWidget = {
     attach: function attach(context, settings) {
       $('.bookish-image-preview', context).once('bookish-image-preview').each(function () {
         var $img = $(this).find('img');
@@ -21,6 +21,9 @@
             $img.on('load', f);
           }
         }, 100));
+        var currentTab = $('.bookish-image-tabs input:checked');
+        currentTab.prop('checked', false).change();
+        currentTab.prop('checked', true).change();
       });
 
       $('.bookish-image-container', context).once('bookish-image-container').each(function () {

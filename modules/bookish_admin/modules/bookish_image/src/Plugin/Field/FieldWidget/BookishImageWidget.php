@@ -1,8 +1,8 @@
 <?php
 
-namespace Drupal\bookish_admin\Plugin\Field\FieldWidget;
+namespace Drupal\bookish_image\Plugin\Field\FieldWidget;
 
-use Drupal\bookish_admin\BookishImageFormTrait;
+use Drupal\bookish_image\BookishImageFormTrait;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -82,7 +82,7 @@ class BookishImageWidget extends ImageWidget {
    * @return array
    *   The render array representing the preview.
    *
-   * @see \Drupal\bookish_admin\BookishImageFormTrait::getAjaxSettings
+   * @see \Drupal\bookish_image\BookishImageFormTrait::getAjaxSettings
    */
   public static function updatePreview(array &$form, FormStateInterface &$form_state, Request $request) {
     $form_parents = explode('/', $request->query->get('element_parents'));
@@ -99,7 +99,7 @@ class BookishImageWidget extends ImageWidget {
       'bookish_image',
       'bookish_image_data',
     ]));
-    $image_data = array_merge(_bookish_admin_coerce_data($image_data), _bookish_admin_coerce_data($new_image_data));
+    $image_data = array_merge(_bookish_image_coerce_data($image_data), _bookish_image_coerce_data($new_image_data));
 
     $new_preview = static::getPreviewElement($file, ImageStyle::load($element['preview']['#style_name']), $image_data);
     $element['preview'] = array_merge($element['preview'], $new_preview);

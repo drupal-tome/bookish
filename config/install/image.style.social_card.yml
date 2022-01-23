@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   module:
-    - bookish_admin
+    - bookish_image
 _core:
   default_config_hash: 7QYgdhE6LiPbpyNwLne7zE_7cX8f7re8GgQcSKdFQeg
 name: social_card

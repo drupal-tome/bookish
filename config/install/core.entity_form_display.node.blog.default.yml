@@ -8,7 +8,7 @@ dependencies:
     - image.style.blog_teaser
     - node.type.blog
   module:
-    - bookish_admin
+    - bookish_image
     - path
     - text
 _core:

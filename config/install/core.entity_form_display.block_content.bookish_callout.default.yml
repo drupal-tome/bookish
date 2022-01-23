@@ -7,7 +7,7 @@ dependencies:
     - field.field.block_content.bookish_callout.field_image
     - image.style.social_card
   module:
-    - bookish_admin
+    - bookish_image
     - text
 id: block_content.bookish_callout.default
 targetEntityType: block_content

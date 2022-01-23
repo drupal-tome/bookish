@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\bookish_admin\ParamConverter;
+namespace Drupal\bookish_image\ParamConverter;
 
 use Drupal\Component\Uuid\Uuid;
 use Drupal\Core\ParamConverter\EntityConverter;

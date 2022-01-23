@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\bookish_admin\Plugin\ImageEffect;
+namespace Drupal\bookish_image\Plugin\ImageEffect;
 
 use Drupal\Core\Image\ImageInterface;
 use Drupal\image\Plugin\ImageEffect\ResizeImageEffect;
@@ -34,7 +34,7 @@ class BookishImageScaleAndCrop extends ResizeImageEffect {
       return TRUE;
     }
     $file = reset($files);
-    $data = _bookish_admin_coerce_data(json_decode($file->bookish_image_data->getString(), TRUE));
+    $data = _bookish_image_coerce_data(json_decode($file->bookish_image_data->getString(), TRUE));
     if (isset($data['focal_point'])) {
       $x = floor(($data['focal_point'][0] * $scale) - ($width / 2));
       $y = floor(($data['focal_point'][1] * $scale) - ($height / 2));

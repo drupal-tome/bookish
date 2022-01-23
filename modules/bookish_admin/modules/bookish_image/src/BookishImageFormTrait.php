@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\bookish_admin;
+namespace Drupal\bookish_image;
 
 use Drupal\Core\Render\Element;
 use Drupal\Core\Url;
@@ -60,7 +60,7 @@ trait BookishImageFormTrait {
     $image_factory = \Drupal::service('image.factory');
     $image = $image_factory->get($file->getFileUri());
 
-    $element['#attached']['library'][] = 'bookish_admin/imageWidget';
+    $element['#attached']['library'][] = 'bookish_image/imageWidget';
 
     $element['bookish_image'] = [
       '#type' => 'container',
@@ -247,6 +247,11 @@ trait BookishImageFormTrait {
       '#description' => t('Only used with the "Bookish image crop" image effect. Note that zooming in loses quality.'),
       '#min' => -100,
       '#max' => 100,
+      '#attributes' => [
+        'class' => [
+          'bookish-image-zoom',
+        ],
+      ],
       '#ajax' => $ajax_settings,
       '#states' => [
         'visible' => [
@@ -255,7 +260,7 @@ trait BookishImageFormTrait {
       ],
     ];
 
-    $image_data = _bookish_admin_coerce_data(json_decode($file->bookish_image_data->getString(), TRUE));
+    $image_data = _bookish_image_coerce_data(json_decode($file->bookish_image_data->getString(), TRUE));
     $element['bookish_image']['bookish_image_data']['focal_point']['#default_value'] = implode(',', [
       floor($image->getWidth() / 2),
       floor($image->getHeight() / 2),

@@ -66,7 +66,7 @@
 
 div.field--widget-bookish-image .form-managed-file,
 div.field--widget-bookish-image .form-managed-file.has-value.is-multiple,
-.bookish-admin-image-form {
+.bookish-image-image-form {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -76,13 +76,13 @@ div.field--widget-bookish-image .form-managed-file__main {
   flex-basis: 100%;
 }
 
-.bookish-admin-image-form [id*=edit-preview-wrapper],
+.bookish-image-image-form [id*=edit-preview-wrapper],
 div.field--widget-bookish-image .form-managed-file__meta-wrapper {
   margin-right: 50px;
   align-self: flex-start;
 }
 
-.bookish-admin-image-form .form-item--image-style {
+.bookish-image-image-form .form-item--image-style {
   flex-basis: 100%;
   margin: 0;
   margin-bottom: 20px;
@@ -93,7 +93,7 @@ div.field--widget-bookish-image .form-managed-file__meta {
 }
 
 div.field--widget-bookish-image .form-managed-file__meta-items,
-.bookish-admin-image-form .form-managed-file__meta-items {
+.bookish-image-image-form .form-managed-file__meta-items {
   flex: 1;
 }
 

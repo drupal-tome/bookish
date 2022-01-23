@@ -1,0 +1,16 @@
+bookish_image_preview:
+  path: '/admin/bookish-image-preview/{file}/{image_style}'
+  defaults:
+    _controller: '\Drupal\bookish_image\Controller\BookishImagePreview::build'
+  requirements:
+    _custom_access: 'Drupal\bookish_image\Controller\BookishImagePreview::access'
+    _csrf_token: 'TRUE'
+
+bookish_image_form:
+  path: '/admin/bookish-image-effect-form/{file}'
+  defaults:
+    _form: '\Drupal\bookish_image\Form\BookishImageForm'
+    _title: 'Edit image'
+  requirements:
+    _custom_access: 'Drupal\bookish_image\Controller\BookishImagePreview::access'
+    _convert_uuid: 'TRUE'

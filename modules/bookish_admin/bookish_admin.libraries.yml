@@ -10,37 +10,6 @@ mediaEmbed:
   dependencies:
     - ckeditor5/drupal.ckeditor5
 
-image-ckeditor:
-  js:
-    js/ckeditor5-bookish-image/build/bookish-image.js: { preprocess: false, minified: true }
-  dependencies:
-    - ckeditor5/drupal.ckeditor5
-    - ckeditor5/drupal.ckeditor5.image
-
-imageWidget:
-  js:
-    js/image-widget.js: { }
-  css:
-    theme:
-      css/image-widget.css: { }
-  dependencies:
-    - core/jquery
-    - core/once
-    - core/drupal
-    - core/drupal.ajax
-    - core/drupal.debounce
-
-imageBlur:
-  js:
-    js/image-blur.js: { }
-  css:
-    theme:
-      css/image-blur.css: { }
-  dependencies:
-    - core/jquery
-    - core/once
-    - core/drupal
-
 codeblock.admin:
   css:
     theme:

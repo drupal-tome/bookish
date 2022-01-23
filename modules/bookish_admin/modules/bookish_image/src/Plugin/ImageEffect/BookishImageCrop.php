@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\bookish_admin\Plugin\ImageEffect;
+namespace Drupal\bookish_image\Plugin\ImageEffect;
 
 use Drupal\Core\Image\ImageInterface;
 use Drupal\image\Plugin\ImageEffect\ResizeImageEffect;
@@ -30,7 +30,7 @@ class BookishImageCrop extends ResizeImageEffect {
       return TRUE;
     }
     $file = reset($files);
-    $data = _bookish_admin_coerce_data(json_decode($file->bookish_image_data->getString(), TRUE));
+    $data = _bookish_image_coerce_data(json_decode($file->bookish_image_data->getString(), TRUE));
     $scale = 1;
     if (isset($data['zoom']) && $data['zoom'] !== 0) {
       $new_scale = 1 + (2 * ($data['zoom'] / 100));

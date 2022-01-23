@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\bookish_admin\Ajax;
+namespace Drupal\bookish_image\Ajax;
 
 use Drupal\Core\Ajax\CommandInterface;
 

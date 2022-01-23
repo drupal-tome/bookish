@@ -1,0 +1,17 @@
+bookish_image_image:
+  ckeditor5:
+    plugins:
+      - bookishImage.BookishImage
+    config:
+      image:
+        toolbar:
+          - '|'
+          - bookishImageButton
+  drupal:
+    label: Bookish Image
+    library: bookish_image/image-ckeditor
+    conditions:
+      toolbarItem: uploadImage
+      imageUploadStatus: true
+    elements:
+      - <img data-bookish-image-style>

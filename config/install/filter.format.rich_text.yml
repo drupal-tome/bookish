@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   module:
-    - bookish_admin
+    - bookish_image
     - editor
     - highlight_php
 _core:
@@ -40,7 +40,7 @@ filters:
     settings: {  }
   bookish_image_filter:
     id: bookish_image_filter
-    provider: bookish_admin
+    provider: bookish_image
     status: true
     weight: -46
     settings: {  }
