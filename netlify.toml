@@ -8,7 +8,7 @@ composer create-project drupal-tome/tome-project /tmp/my_site --stability dev --
 && composer install \
 && composer require "drupal/quicklink:^2" "drupal/lunr:^1" "drupal/sfc:^1" "drupal/twig_tweak:^3" "drupal/metatag:^1" "drupal/pathauto:^1" "drupal/simple_sitemap:^4" "drupal/highlight_php:^1" "drupal/coffee:^1" "drupal/coffee_extras:^1" \
 && ./vendor/bin/drush si bookish -y \
-&& LUNR_DRUSH=./vendor/bin/drush nodejs web/modules/contrib/lunr/js/index.node.js default \
+&& LUNR_DRUSH=./vendor/bin/drush node web/modules/contrib/lunr/js/index.node.js default \
 && ./vendor/bin/drush tome:static -l $DEPLOY_PRIME_URL
 """
 
