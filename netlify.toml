@@ -3,8 +3,8 @@
 [build]
 command = """
 composer create-project drupal-tome/tome-project /tmp/my_site --stability dev --no-interaction \
-&& mkdir -p /tmp/my_site/profiles/bookish && cp -r * /tmp/my_site/profiles/bookish/
-&& cd /tmp/my_site
+&& mkdir -p /tmp/my_site/profiles/bookish && cp -r * /tmp/my_site/profiles/bookish/ \
+&& cd /tmp/my_site \
 && composer install \
 && composer require "drupal/quicklink:^2" "drupal/lunr:^1" "drupal/sfc:^1" "drupal/twig_tweak:^3" "drupal/metatag:^1" "drupal/pathauto:^1" "drupal/simple_sitemap:^4" "drupal/highlight_php:^1" "drupal/coffee:^1" "drupal/coffee_extras:^1" \
 && ./vendor/bin/drush si bookish -y \
