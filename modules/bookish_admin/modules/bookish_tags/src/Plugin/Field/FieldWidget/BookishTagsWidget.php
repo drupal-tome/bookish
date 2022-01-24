@@ -3,11 +3,17 @@
 namespace Drupal\bookish_tags\Plugin\Field\FieldWidget;
 
 use Drupal\Component\Utility\Crypt;
+use Drupal\Core\Entity\EntityReferenceSelection\SelectionPluginManagerInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\KeyValueStore\KeyValueFactoryInterface;
+use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\Core\Url;
+use Psr\Container\ContainerInterface;
 
 /**
  * Plugin implementation of the 'bookish_tags_widget' widget.
@@ -23,6 +29,81 @@ use Drupal\Core\Url;
  * )
  */
 class BookishTagsWidget extends WidgetBase {
+
+  /**
+   * The key value factory.
+   *
+   * @var \Drupal\Core\KeyValueStore\KeyValueFactoryInterface
+   */
+  protected $keyValueFactory;
+
+  /**
+   * The current user.
+   *
+   * @var \Drupal\Core\Session\AccountInterface
+   */
+  protected $currentUser;
+
+  /**
+   * The selection plugin manager.
+   *
+   * @var \Drupal\Core\Entity\EntityReferenceSelection\SelectionPluginManagerInterface
+   */
+  protected $selectionManager;
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * Constructs a BookishTagsWidget object.
+   *
+   * @param string $plugin_id
+   *   The plugin_id for the widget.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   * @param \Drupal\Core\Field\FieldDefinitionInterface $field_definition
+   *   The definition of the field to which the widget is associated.
+   * @param array $settings
+   *   The widget settings.
+   * @param array $third_party_settings
+   *   Any third party settings.
+   * @param \Drupal\Core\KeyValueStore\KeyValueFactoryInterface $key_value_factory
+   *   The key value factory.
+   * @param \Drupal\Core\Session\AccountInterface $current_user
+   *   The current user.
+   * @param \Drupal\Core\Entity\EntityReferenceSelection\SelectionPluginManagerInterface $selection_manager
+   *   The selection plugin manager.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
+   */
+  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, array $third_party_settings, KeyValueFactoryInterface $key_value_factory, AccountInterface $current_user, SelectionPluginManagerInterface $selection_manager, EntityTypeManagerInterface $entity_type_manager) {
+    parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $third_party_settings);
+    $this->keyValueFactory = $key_value_factory;
+    $this->currentUser = $current_user;
+    $this->selectionManager = $selection_manager;
+    $this->entityTypeManager = $entity_type_manager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $plugin_id,
+      $plugin_definition,
+      $configuration['field_definition'],
+      $configuration['settings'],
+      $configuration['third_party_settings'],
+      $container->get('keyvalue'),
+      $container->get('current_user'),
+      $container->get('plugin.manager.entity_reference_selection'),
+      $container->get('entity_type.manager'),
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -49,7 +130,7 @@ class BookishTagsWidget extends WidgetBase {
     $data = serialize($selection_settings) . $target_type . $selection_handler;
     $selection_settings_key = Crypt::hmacBase64($data, Settings::getHashSalt());
 
-    $key_value_storage = \Drupal::keyValue('entity_autocomplete');
+    $key_value_storage = $this->keyValueFactory->get('entity_autocomplete');
     if (!$key_value_storage->has($selection_settings_key)) {
       $key_value_storage->set($selection_settings_key, $selection_settings);
     }
@@ -86,12 +167,11 @@ class BookishTagsWidget extends WidgetBase {
       'target_type' => $target_type,
     ];
     $bundle = $this->getAutocreateBundle();
-    $uid = \Drupal::currentUser()->id();
-    /** @var \Drupal\Core\Entity\EntityReferenceSelection\SelectionWithAutocreateInterface $handler */
-    $handler = \Drupal::service('plugin.manager.entity_reference_selection')->getInstance($selection_settings);
+    $uid = $this->currentUser->id();
+    $handler = $this->selectionManager->getInstance($selection_settings);
     $data = json_decode($values, TRUE);
     $items = [];
-    $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+    $term_storage = $this->entityTypeManager->getStorage('taxonomy_term');
     foreach ($data as $current) {
       // Find if a tag already exists, to avoid duplicates.
       $terms = $term_storage->loadByProperties([
