@@ -2,8 +2,11 @@
 
 namespace Drupal\bookish_image\Plugin\ImageEffect;
 
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Image\ImageInterface;
 use Drupal\image\Plugin\ImageEffect\ResizeImageEffect;
+use Psr\Container\ContainerInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * Applies the scale and crop effect taking the focal point into account.
@@ -17,6 +20,34 @@ use Drupal\image\Plugin\ImageEffect\ResizeImageEffect;
 class BookishImageScaleAndCrop extends ResizeImageEffect {
 
   /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, LoggerInterface $logger, EntityTypeManagerInterface $entity_type_manager) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $logger);
+    $this->entityTypeManager = $entity_type_manager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('logger.factory')->get('image'),
+      $container->get('entity_type.manager')
+    );
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function applyEffect(ImageInterface $image) {
@@ -25,7 +56,7 @@ class BookishImageScaleAndCrop extends ResizeImageEffect {
     $scale = max($width / $image->getWidth(), $height / $image->getHeight());
 
     /** @var \Drupal\file\FileInterface[] $files */
-    $files = \Drupal::entityTypeManager()
+    $files = $this->entityTypeManager
       ->getStorage('file')
       ->loadByProperties([
         'uri' => $image->getSource(),

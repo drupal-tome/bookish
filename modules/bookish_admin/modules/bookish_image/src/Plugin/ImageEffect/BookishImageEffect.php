@@ -2,9 +2,12 @@
 
 namespace Drupal\bookish_image\Plugin\ImageEffect;
 
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Image\ImageInterface;
 use Drupal\image\ImageEffectBase;
 use Drupal\system\Plugin\ImageToolkit\GDToolkit;
+use Psr\Container\ContainerInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * Applies image edits made using the Bookish Image widget.
@@ -16,6 +19,34 @@ use Drupal\system\Plugin\ImageToolkit\GDToolkit;
  * )
  */
 class BookishImageEffect extends ImageEffectBase {
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, LoggerInterface $logger, EntityTypeManagerInterface $entity_type_manager) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $logger);
+    $this->entityTypeManager = $entity_type_manager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('logger.factory')->get('image'),
+      $container->get('entity_type.manager')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -31,7 +62,7 @@ class BookishImageEffect extends ImageEffectBase {
       return TRUE;
     }
     /** @var \Drupal\file\FileInterface[] $files */
-    $files = \Drupal::entityTypeManager()
+    $files = $this->entityTypeManager
       ->getStorage('file')
       ->loadByProperties([
         'uri' => $image->getSource(),

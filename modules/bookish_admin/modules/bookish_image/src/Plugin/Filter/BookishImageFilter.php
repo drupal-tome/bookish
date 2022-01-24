@@ -4,12 +4,12 @@ namespace Drupal\bookish_image\Plugin\Filter;
 
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Entity\EntityRepositoryInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Image\ImageFactory;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\file\FileInterface;
 use Drupal\filter\FilterProcessResult;
 use Drupal\filter\Plugin\FilterBase;
-use Drupal\image\Entity\ImageStyle;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -39,6 +39,13 @@ class BookishImageFilter extends FilterBase implements ContainerFactoryPluginInt
   protected $imageFactory;
 
   /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
    * Constructs a BookishImageFilter object.
    *
    * @param array $configuration
@@ -51,14 +58,13 @@ class BookishImageFilter extends FilterBase implements ContainerFactoryPluginInt
    *   The entity repository.
    * @param \Drupal\Core\Image\ImageFactory $image_factory
    *   The image factory.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityRepositoryInterface $entity_repository, ImageFactory $image_factory = NULL) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityRepositoryInterface $entity_repository, ImageFactory $image_factory, EntityTypeManagerInterface $entity_type_manager) {
     $this->entityRepository = $entity_repository;
-    if ($image_factory === NULL) {
-      @trigger_error('Calling ' . __METHOD__ . '() without the $image_factory argument is deprecated in drupal:9.1.0 and is required in drupal:10.0.0. See https://www.drupal.org/node/3173719', E_USER_DEPRECATED);
-      $image_factory = \Drupal::service('image.factory');
-    }
     $this->imageFactory = $image_factory;
+    $this->entityTypeManager = $entity_type_manager;
     parent::__construct($configuration, $plugin_id, $plugin_definition);
   }
 
@@ -71,7 +77,8 @@ class BookishImageFilter extends FilterBase implements ContainerFactoryPluginInt
       $plugin_id,
       $plugin_definition,
       $container->get('entity.repository'),
-      $container->get('image.factory')
+      $container->get('image.factory'),
+      $container->get('entity_type.manager')
     );
   }
 
@@ -80,6 +87,7 @@ class BookishImageFilter extends FilterBase implements ContainerFactoryPluginInt
    */
   public function process($text, $langcode) {
     $result = new FilterProcessResult($text);
+    $image_style_storage = $this->entityTypeManager->getStorage('image_style');
 
     if (stristr($text, 'data-bookish-image-style') !== FALSE) {
       $dom = Html::load($text);
@@ -94,7 +102,8 @@ class BookishImageFilter extends FilterBase implements ContainerFactoryPluginInt
         if (!($file instanceof FileInterface)) {
           continue;
         }
-        $image_style = ImageStyle::load($node->getAttribute('data-bookish-image-style'));
+        /** @var \Drupal\image\Entity\ImageStyle $image_style */
+        $image_style = $image_style_storage->load($node->getAttribute('data-bookish-image-style'));
         if (!$image_style) {
           continue;
         }

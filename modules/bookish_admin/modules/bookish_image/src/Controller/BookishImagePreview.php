@@ -4,9 +4,12 @@ namespace Drupal\bookish_image\Controller;
 
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\File\FileSystemInterface;
+use Drupal\Core\Image\ImageFactory;
 use Drupal\Core\StreamWrapper\StreamWrapperManager;
 use Drupal\file\FileInterface;
 use Drupal\image\ImageStyleInterface;
+use Psr\Container\ContainerInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -14,6 +17,43 @@ use Symfony\Component\HttpFoundation\Request;
  * Controller for previewing Bookish image effect settings.
  */
 class BookishImagePreview extends ControllerBase {
+
+  /**
+   * The file system.
+   *
+   * @var \Drupal\Core\File\FileSystemInterface
+   */
+  protected $fileSystem;
+
+  /**
+   * The image factory.
+   *
+   * @var \Drupal\Core\Image\ImageFactory
+   */
+  protected $imageFactory;
+
+  /**
+   * Constructs a new BookishImagePreview object.
+   *
+   * @param \Drupal\Core\File\FileSystemInterface $file_system
+   *   The file system.
+   * @param \Drupal\Core\Image\ImageFactory $image_factory
+   *   The image factory.
+   */
+  public function __construct(FileSystemInterface $file_system, ImageFactory $image_factory) {
+    $this->fileSystem = $file_system;
+    $this->imageFactory = $image_factory;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('file_system'),
+      $container->get('image.factory')
+    );
+  }
 
   /**
    * Generates a temporary image style derivative using effect settings.
@@ -29,18 +69,14 @@ class BookishImagePreview extends ControllerBase {
    *   The contents of the preview image.
    */
   public function build(FileInterface $file, ImageStyleInterface $image_style, Request $request) {
-    /** @var \Drupal\Core\File\FileSystemInterface $file_system */
-    $file_system = \Drupal::service('file_system');
-    /** @var \Drupal\Core\Image\ImageFactory $image_factory */
-    $image_factory = \Drupal::service('image.factory');
     $original_image_data = json_decode($file->bookish_image_data->getString(), TRUE);
     $new_image_data = json_decode($request->query->get('bookish_image_data', []), TRUE);
     $image_data = array_merge(_bookish_image_coerce_data($original_image_data), _bookish_image_coerce_data($new_image_data));
     $file->bookish_image_data = json_encode($image_data);
     $derivative_uri = 'temporary://bookish-image-preview/' . preg_replace('|.*://|', '', $file->getFileUri());
-    $file_system->delete($derivative_uri);
+    $this->fileSystem->delete($derivative_uri);
     $image_style->createDerivative($file->getFileUri(), $derivative_uri);
-    $image = $image_factory->get($derivative_uri);
+    $image = $this->imageFactory->get($derivative_uri);
     $headers = [
       'Content-Type' => $image->getMimeType(),
       'Content-Length' => $image->getFileSize(),

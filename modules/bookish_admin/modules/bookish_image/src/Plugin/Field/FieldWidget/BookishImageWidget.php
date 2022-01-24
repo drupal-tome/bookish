@@ -59,7 +59,7 @@ class BookishImageWidget extends ImageWidget {
     if (!empty($element['#files'])) {
       /** @var \Drupal\file\FileInterface $file */
       $file = reset($element['#files']);
-      $element = static::buildImageForm($element, $unique_id, $file);
+      $element = static::buildImageForm($element, $unique_id, $file, \Drupal::service('image.factory'), ImageStyle::load('bookish_image_thumbnail'));
       $element['bookish_image']['bookish_image_data']['zoom']['#access'] = !!$element['#show_zoom'];
     }
 
@@ -101,7 +101,7 @@ class BookishImageWidget extends ImageWidget {
     ]));
     $image_data = array_merge(_bookish_image_coerce_data($image_data), _bookish_image_coerce_data($new_image_data));
 
-    $new_preview = static::getPreviewElement($file, ImageStyle::load($element['preview']['#style_name']), $image_data);
+    $new_preview = static::getPreviewElement($file, ImageStyle::load($element['preview']['#style_name']), $image_data, \Drupal::service('image.factory'));
     $element['preview'] = array_merge($element['preview'], $new_preview);
 
     return $element['preview'];

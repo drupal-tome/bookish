@@ -7,10 +7,12 @@ use Drupal\bookish_image\BookishImageFormTrait;
 use Drupal\bookish_image\Plugin\ImageEffect\BookishImageScaleAndCrop;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\CloseModalDialogCommand;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Image\ImageFactory;
 use Drupal\file\FileInterface;
-use Drupal\image\Entity\ImageStyle;
+use Psr\Container\ContainerInterface;
 
 /**
  * Form handler for editing a file's bookish_image_data.
@@ -22,10 +24,47 @@ class BookishImageForm extends FormBase {
   use BookishImageFormTrait;
 
   /**
+   * The image factory.
+   *
+   * @var \Drupal\Core\Image\ImageFactory
+   */
+  protected $imageFactory;
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
    * {@inheritdoc}
    */
   public function getFormId() {
     return 'bookish_image_image_form';
+  }
+
+  /**
+   * Constructs a new BookishImageForm object.
+   *
+   * @param \Drupal\Core\Image\ImageFactory $image_factory
+   *   The image factory.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
+   */
+  public function __construct(ImageFactory $image_factory, EntityTypeManagerInterface $entity_type_manager) {
+    $this->imageFactory = $image_factory;
+    $this->entityTypeManager = $entity_type_manager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('image.factory'),
+      $container->get('entity_type.manager')
+    );
   }
 
   /**
@@ -36,9 +75,10 @@ class BookishImageForm extends FormBase {
       '#type' => 'status_messages',
     ];
     if (!$file) {
-      \Drupal::messenger()->addError('You cannot access this form.');
+      $this->messenger()->addError('You cannot access this form.');
       return $form;
     }
+    $image_style_storage = $this->entityTypeManager->getStorage('image_style');
     $user_input = $form_state->getUserInput();
     $image_style_name = isset($user_input['image_style']) ? (string) $user_input['image_style'] : '';
     if (!$image_style_name && $image_style_name !== 'none') {
@@ -47,9 +87,10 @@ class BookishImageForm extends FormBase {
 
     $image_style = NULL;
     if ($image_style_name && $image_style_name !== 'none') {
-      $image_style = ImageStyle::load($image_style_name);
+      /** @var \Drupal\image\Entity\ImageStyle $image_style */
+      $image_style = $image_style_storage->load($image_style_name);
       if (!$image_style) {
-        \Drupal::messenger()->addError('Could not load an image style use with the preview.');
+        $this->messenger()->addError('Could not load an image style use with the preview.');
         return $form;
       }
     }
@@ -59,7 +100,8 @@ class BookishImageForm extends FormBase {
     $unique_id = $file->id() . '-modal';
     $preview_id = 'bookish-image-preview-' . $unique_id;
 
-    $image_styles = ImageStyle::loadMultiple();
+    /** @var \Drupal\image\Entity\ImageStyle[] $image_styles */
+    $image_styles = $image_style_storage->loadMultiple();
     ksort($image_styles);
     $bookish_styles = [];
     $other_styles = [];
@@ -116,14 +158,14 @@ class BookishImageForm extends FormBase {
           'class' => ['bookish-image-preview'],
         ],
         '#id' => $preview_id,
-        'image' => static::getPreviewElement($file, $image_style, $image_data),
+        'image' => static::getPreviewElement($file, $image_style, $image_data, $this->imageFactory),
       ],
     ];
 
     $form['#file'] = $file;
     $form['#image_style'] = $image_style;
 
-    $form = $this->buildImageForm($form, $unique_id, $file);
+    $form = $this->buildImageForm($form, $unique_id, $file, $this->imageFactory, $image_style_storage->load('bookish_image_thumbnail'));
 
     $form['bookish_image']['#states'] = [
       'invisible' => [
@@ -191,7 +233,7 @@ class BookishImageForm extends FormBase {
     ]);
     $image_data = array_merge(_bookish_image_coerce_data($image_data), _bookish_image_coerce_data($new_image_data));
 
-    $form['preview_wrapper']['preview']['image'] = static::getPreviewElement($file, $form['#image_style'], $image_data);
+    $form['preview_wrapper']['preview']['image'] = static::getPreviewElement($file, $form['#image_style'], $image_data, \Drupal::service('image.factory'));
 
     return $form['preview_wrapper']['preview'];
   }

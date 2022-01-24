@@ -2,6 +2,20 @@
 
   Drupal.behaviors.bookishImageWidget = {
     attach: function attach(context, settings) {
+      var fixZoomStates = function() {
+        $('.bookish-image-tabs input:checked').each(function () {
+          if ($(this).val() != 1) {
+            return;
+          }
+          if (!$(this).closest('.bookish-image-container').find('.bookish-image-zoom:visible').length) {
+            $(this).prop('checked', false).change();
+            $(this).prop('checked', true).change();
+          };
+        });
+      }
+      $('.bookish-image-tabs').once('bookish-image-tab').each(function () {
+        $(this).on('click', fixZoomStates);
+      });
       $('.bookish-image-preview', context).once('bookish-image-preview').each(function () {
         var $img = $(this).find('img');
         var $wrapper = $(this).parent();
@@ -13,7 +27,8 @@
             $wrapper
               .css('background-image', 'url(' + $img.attr('src') + ')')
               .css('box-shadow', 'none')
-              .css('background-repeat', 'no-repeat');
+              .css('background-repeat', 'no-repeat')
+              .css('background-size', 'contain');
           }
           if ($img.prop('complete')) {
             f();
@@ -21,9 +36,7 @@
             $img.on('load', f);
           }
         }, 100));
-        var currentTab = $('.bookish-image-tabs input:checked');
-        currentTab.prop('checked', false).change();
-        currentTab.prop('checked', true).change();
+        fixZoomStates();
       });
 
       $('.bookish-image-container', context).once('bookish-image-container').each(function () {
@@ -44,14 +57,18 @@
       });
 
       $('.bookish-image-focal-point-container', context).once('bookish-image-focal-point').each(function () {
-        $(this).show();
-        var $dot = $('<div class="bookish-image-focal-point-dot"></div>');
         var $img = $(this).find('img');
         var f = function () {
+          $(this).show();
+          var $dot = $('<div class="bookish-image-focal-point-dot"></div>');
+          var $container = $(this).closest('.bookish-image-container');
+          var wasContainerVisible = $container.is(':visible');
+          $container.show();
+
           // Set default value from form element.
           var differenceX = $img.attr('width') / $img.width();
           var differenceY = $img.attr('height') / $img.height();
-          var default_val = $(this).closest('.bookish-image-container')
+          var default_val = $container
             .find('.bookish-image-focal-point-input')
             .val();
           var pos = default_val.split(',');
@@ -66,6 +83,9 @@
 
           $(this).append($dot);
           $(this).hide();
+          if (!wasContainerVisible) {
+            $container.hide();
+          }
 
           var $container = $(this);
           var dragging = false;

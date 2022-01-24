@@ -2,10 +2,10 @@
 
 namespace Drupal\bookish_image;
 
+use Drupal\Core\Image\ImageFactory;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Url;
 use Drupal\file\FileInterface;
-use Drupal\image\Entity\ImageStyle;
 use Drupal\image\ImageStyleInterface;
 
 /**
@@ -49,15 +49,17 @@ trait BookishImageFormTrait {
    *   A partial HTML ID that is unique to this form build.
    * @param \Drupal\file\FileInterface $file
    *   The current image.
+   * @param \Drupal\Core\Image\ImageFactory $image_factory
+   *   The image factory.
+   * @param \Drupal\image\ImageStyleInterface $image_style
+   *   The image style.
    *
    * @return array
    *   A render array representing the image settings.
    */
-  protected static function buildImageForm(array $element, $unique_id, FileInterface $file) {
+  protected static function buildImageForm(array $element, $unique_id, FileInterface $file, ImageFactory $image_factory, ImageStyleInterface $image_style) {
     $tabs_class = 'bookish-image-tabs-' . $unique_id;
     $preview_id = 'bookish-image-preview-' . $unique_id;
-    /** @var \Drupal\Core\Image\ImageFactory $image_factory */
-    $image_factory = \Drupal::service('image.factory');
     $image = $image_factory->get($file->getFileUri());
 
     $element['#attached']['library'][] = 'bookish_image/imageWidget';
@@ -435,7 +437,7 @@ trait BookishImageFormTrait {
             'bookish-image-filter',
           ],
         ],
-        'bookish_preview' => static::getPreviewElement($file, ImageStyle::load('bookish_image_thumbnail'), $image_data),
+        'bookish_preview' => static::getPreviewElement($file, $image_style, $image_data, $image_factory),
         'title' => [
           '#markup' => '<a href="#" class="bookish-image-filter-name">' . $name . '</a>',
         ],
@@ -454,13 +456,13 @@ trait BookishImageFormTrait {
    *   The image style.
    * @param array $image_data
    *   The current bookish_image_data.
+   * @param Drupal\Core\Image\ImageFactory $image_factory
+   *   The image factory.
    *
    * @return array
    *   A render array for the image preview.
    */
-  protected static function getPreviewElement(FileInterface $file, ImageStyleInterface $image_style = NULL, array $image_data) {
-    /** @var \Drupal\Core\Image\ImageFactory $image_factory */
-    $image_factory = \Drupal::service('image.factory');
+  protected static function getPreviewElement(FileInterface $file, ImageStyleInterface $image_style = NULL, array $image_data, ImageFactory $image_factory) {
     if ($image_style === NULL) {
       $image = $image_factory->get($file->getFileUri());
       return [
