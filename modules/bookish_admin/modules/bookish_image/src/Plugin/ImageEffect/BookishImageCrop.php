@@ -5,7 +5,7 @@ namespace Drupal\bookish_image\Plugin\ImageEffect;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Image\ImageInterface;
 use Drupal\image\Plugin\ImageEffect\ResizeImageEffect;
-use Psr\Container\ContainerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Psr\Log\LoggerInterface;
 
 /**

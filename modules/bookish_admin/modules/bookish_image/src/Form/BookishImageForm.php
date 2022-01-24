@@ -12,7 +12,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Image\ImageFactory;
 use Drupal\file\FileInterface;
-use Psr\Container\ContainerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Form handler for editing a file's bookish_image_data.
@@ -253,7 +253,7 @@ class BookishImageForm extends FormBase {
     /** @var \Drupal\file\FileInterface $file */
     $file = $form['#file'];
     $url = $file->getFileUri();
-    /** @var \Drupal\image\Entity\ImageStyleInterface|NULL $image_style  */
+    /** @var \Drupal\image\ImageStyleInterface|NULL $image_style  */
     $image_style = $form['#image_style'];
     $image_style_name = NULL;
     if ($image_style) {

@@ -208,6 +208,8 @@ function bookish_install() {
 
   $i = 0;
   $tag_map = [];
+  /** @var \Drupal\file\FileRepositoryInterface $fileRepository */
+  $fileRepository = \Drupal::service('file.repository');
   foreach ($nodes as $values) {
     $node = Node::create([
       'title' => $values['title'],
@@ -225,8 +227,6 @@ function bookish_install() {
       $file_src = __DIR__ . "/assets/{$values['file']['filename']}";
       $file_dest = "public://{$values['file']['filename']}";
       _bookish_image_flush_image_styles($file_dest);
-      /** @var \Drupal\file\FileRepositoryInterface $fileRepository */
-      $fileRepository = \Drupal::service('file.repository');
       $file = $fileRepository->writeData(file_get_contents($file_src), $file_dest, FileSystemInterface::EXISTS_REPLACE);
       $file->setPermanent();
       $file->bookish_image_data = json_encode($values['file']['bookish_image_data']);

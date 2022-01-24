@@ -456,7 +456,7 @@ trait BookishImageFormTrait {
    *   The image style.
    * @param array $image_data
    *   The current bookish_image_data.
-   * @param Drupal\Core\Image\ImageFactory $image_factory
+   * @param \Drupal\Core\Image\ImageFactory $image_factory
    *   The image factory.
    *
    * @return array

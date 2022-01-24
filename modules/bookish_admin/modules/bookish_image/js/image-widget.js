@@ -2,7 +2,9 @@
 
   Drupal.behaviors.bookishImageWidget = {
     attach: function attach(context, settings) {
-      var fixZoomStates = function() {
+      // Works around a #states issue where the Zoom slider was not always
+      // available. Tempting to just drop #states at this point.
+      var fixZoomStates = function () {
         $('.bookish-image-tabs input:checked').each(function () {
           if ($(this).val() != 1) {
             return;
@@ -16,6 +18,9 @@
       $('.bookish-image-tabs').once('bookish-image-tab').each(function () {
         $(this).on('click', fixZoomStates);
       });
+
+      // Adds a background image to the preview parent, to avoid flashes of
+      // white when waiting for images to load.
       $('.bookish-image-preview', context).once('bookish-image-preview').each(function () {
         var $img = $(this).find('img');
         var $wrapper = $(this).parent();
@@ -36,9 +41,11 @@
             $img.on('load', f);
           }
         }, 100));
+        // Piggy-back on this call to reflow #states.
         fixZoomStates();
       });
 
+      // Adds a reset button to every range element in the form.
       $('.bookish-image-container', context).once('bookish-image-container').each(function () {
         $(this).find('input[type="range"]').each(function () {
           var $resetButton = $('<button class="bookish-image-reset"><span class="visually-hidden">Reset</span></button>');
@@ -56,9 +63,10 @@
         });
       });
 
+      // Initializes the focal point selector.
       $('.bookish-image-focal-point-container', context).once('bookish-image-focal-point').each(function () {
         var $img = $(this).find('img');
-        var f = function () {
+        var imageLoaded = function () {
           $(this).show();
           var $dot = $('<div class="bookish-image-focal-point-dot"></div>');
           var $container = $(this).closest('.bookish-image-container');
@@ -87,7 +95,6 @@
             $container.hide();
           }
 
-          var $container = $(this);
           var dragging = false;
           var updateDot = function (e) {
             var x = e.pageX - $img.offset().left;
@@ -100,12 +107,12 @@
             var y = e.pageY - $img.offset().top;
             var differenceX = $img.attr('width') / $img.width();
             var differenceY = $img.attr('height') / $img.height();
-            $container.parent()
+            $container
               .find('.bookish-image-focal-point-input')
               .val(Math.round(x * differenceX) + ',' + Math.round(y * differenceY));
-            $container.parent()
-            .find('.bookish-image-re-render')
-            .click();
+            $container
+              .find('.bookish-image-re-render')
+              .click();
           }, 100);
           $img.on('mousedown', function (e) {
             dragging = true;
@@ -123,12 +130,13 @@
           });
         }.bind(this);
         if ($img.prop('complete')) {
-          f();
+          imageLoaded();
         } else {
-          $img.on('load', f);
+          $img.on('load', imageLoaded);
         }
       });
 
+      // Supports clicking a fitler to fill in filters automatically.
       $('.bookish-image-filter', context).once('bookish-image-filter').each(function () {
         $(this).on('click', function (e) {
           e.preventDefault();
@@ -145,12 +153,15 @@
     }
   };
 
+  // AJAX command to call a function in the CKEditor plugin's scope.
   Drupal.AjaxCommands.prototype.bookishImageCKEditor = function (ajax, response, status) {
     if (window.bookishImageAjaxCallback && response.url) {
       window.bookishImageAjaxCallback(response.url, response.imageStyle);
     }
   }
 
+  // Override Drupal.Ajax.prototype.beforeSend, against my best judgement, to
+  // not take focus away from range elements when dragging.
   var beforeSend = Drupal.Ajax.prototype.beforeSend;
 
   Drupal.Ajax.prototype.beforeSend = function (xmlhttprequest, options) {
@@ -192,7 +203,7 @@
     // interaction while the Ajax request is in progress. ajax.ajaxing prevents
     // the element from triggering a new request, but does not prevent the user
     // from changing its value.
-    // $(this.element).prop('disabled', true);
+    // $(this.element).prop('disabled', true); <-- OUR HACK
 
     if (!this.progress || !this.progress.type) {
       return;

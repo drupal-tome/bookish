@@ -6,7 +6,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Image\ImageInterface;
 use Drupal\image\ImageEffectBase;
 use Drupal\system\Plugin\ImageToolkit\GDToolkit;
-use Psr\Container\ContainerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -308,6 +308,7 @@ class BookishImageEffect extends ImageEffectBase {
       $del_G = ((($var_Max - $var_G) / 6) + ($del_Max / 2)) / $del_Max;
       $del_B = ((($var_Max - $var_B) / 6) + ($del_Max / 2)) / $del_Max;
 
+      $h = 0;
       if ($var_R == $var_Max) {
         $h = $del_B - $del_G;
       }

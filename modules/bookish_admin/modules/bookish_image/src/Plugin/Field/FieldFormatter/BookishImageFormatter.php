@@ -11,7 +11,7 @@ use Drupal\Core\Image\ImageFactory;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\image\Plugin\Field\FieldFormatter\ImageFormatter;
-use Psr\Container\ContainerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'bookish_image' formatter.

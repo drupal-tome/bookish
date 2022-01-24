@@ -13,6 +13,8 @@ use Drupal\file\FileInterface;
 
 /**
  * Implements hook_entity_base_field_info().
+ *
+ * Adds a custom base field to files, to store image filter data as JSON.
  */
 function bookish_image_entity_base_field_info(EntityTypeInterface $entity_type) {
   $fields = [];

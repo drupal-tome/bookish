@@ -30,6 +30,7 @@
   .bk-blog__tags {
     display: flex;
     grid-column: 5 / 10;
+    grid-row: 2;
     justify-content: flex-end;
     margin-bottom: var(--spacer-1);
   }
@@ -89,6 +90,9 @@
     }
     .bk-blog__image {
       grid-column: 1 / 11;
+    }
+    .bk-blog__tags {
+      grid-column: 5 / 11;
     }
   }
 </style>
