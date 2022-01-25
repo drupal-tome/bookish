@@ -5,14 +5,15 @@ dependencies:
     - field.field.node.blog.body
     - field.field.node.blog.field_image
     - field.field.node.blog.field_tags
-    - image.style.blog_teaser
+    - image.style.social_card
     - node.type.blog
   module:
     - bookish_image
+    - bookish_tags
     - path
     - text
 _core:
-  default_config_hash: 1lpByjkUsom8ziDRvVjgBzD54qkX3GC1XNMTJjlSm70
+  default_config_hash: 0PwirxVHU-YBKOYyVdvhKyhD6n9CTcyzvAzTnNHuCIc
 id: node.blog.default
 targetEntityType: node
 bundle: blog
@@ -39,8 +40,9 @@ content:
     weight: 122
     region: content
     settings:
-      preview_image_style: blog_teaser
+      preview_image_style: social_card
       progress_indicator: throbber
+      show_zoom: 0
     third_party_settings: {  }
   field_tags:
     type: bookish_tags_widget

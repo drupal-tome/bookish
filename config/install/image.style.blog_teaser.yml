@@ -3,6 +3,8 @@ status: true
 dependencies:
   module:
     - bookish_image
+_core:
+  default_config_hash: 4pzvBkPOsyPzRr4kLa-Ccr43NOGcju2zwkMT7nzTiqY
 name: blog_teaser
 label: 'Blog teaser'
 effects:
@@ -11,8 +13,8 @@ effects:
     id: bookish_image_scale_and_crop
     weight: 1
     data:
-      width: '300'
-      height: '350'
+      width: '530'
+      height: '620'
   f8a171cf-dea6-4551-be2c-82f3c267ce67:
     uuid: f8a171cf-dea6-4551-be2c-82f3c267ce67
     id: bookish_image_effect
