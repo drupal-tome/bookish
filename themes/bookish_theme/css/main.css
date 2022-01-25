@@ -67,11 +67,14 @@ main {
   min-height: 800px;
 }
 
-table, th, td {
+table,
+th,
+td {
   border: 1px solid var(--border-color);
 }
 
-th, td {
+th,
+td {
   padding: 5px 10px;
 }
 
@@ -309,6 +312,29 @@ div[data-drupal-messages] {
   height: 100%;
   top: 0;
   left: 0;
+}
+
+.bookish-heading-link-wrapper {
+  position: relative;
+  display: block;
+}
+
+.bookish-heading-link-wrapper:hover {
+  padding-left: 30px;
+  margin-left: -30px;
+}
+
+.bookish-heading-link-wrapper:hover .bookish-heading-link::before,
+.bookish-heading-link:hover .bookish-heading-link::before {
+  content: "#";
+}
+
+.bookish-heading-link::before {
+  font-size: 1rem;
+  line-height: 1rem;
+  position: absolute;
+  left: 10px;
+  top: calc(50% - 0.5rem);
 }
 
 @media screen and (max-width: 800px) {

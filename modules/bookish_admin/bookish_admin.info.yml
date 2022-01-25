@@ -3,6 +3,5 @@ type: module
 description: 'Overrides admin styling for a better user experience.'
 core_version_requirement: '^9'
 dependencies:
-  - drupal:ckeditor5
-  - drupal:sfc
-
+  - drupal:field
+  - drupal:filter

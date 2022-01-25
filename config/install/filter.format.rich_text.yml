@@ -2,11 +2,12 @@ langcode: en
 status: true
 dependencies:
   module:
+    - bookish_admin
     - bookish_image
     - editor
     - highlight_php
 _core:
-  default_config_hash: DHi-SaJ1fdtoL-GMGXrNabGXnEfTe2s7sL1UoROgMpY
+  default_config_hash: F0-yyT6n3ydfTAeERnsIe6CqmNIaxzGVrSZFz69NyxI
 name: 'Rich text'
 format: rich_text
 weight: 0
@@ -17,7 +18,7 @@ filters:
     status: true
     weight: -50
     settings:
-      allowed_html: '<code class> <pre class="text-align-left text-align-center text-align-right text-align-justify"> <iframe src style frameborder allow allowfullscreen> <div class style data-oembed-url> <figure class contenteditable> <img data-bookish-image-style src alt data-entity-uuid data-entity-type height width data-caption data-align> <br> <p class="text-align-left text-align-center text-align-right text-align-justify"> <h2 class="text-align-left text-align-center text-align-right text-align-justify"> <h3 class="text-align-left text-align-center text-align-right text-align-justify"> <h4 class="text-align-left text-align-center text-align-right text-align-justify"> <h5 class="text-align-left text-align-center text-align-right text-align-justify"> <h6 class="text-align-left text-align-center text-align-right text-align-justify"> <strong> <em> <u> <s> <blockquote class="text-align-left text-align-center text-align-right text-align-justify"> <a href> <ul class="text-align-left text-align-center text-align-right text-align-justify"> <ol class="text-align-left text-align-center text-align-right text-align-justify"> <li> <hr class="text-align-left text-align-center text-align-right text-align-justify"> <table class="text-align-left text-align-center text-align-right text-align-justify"> <tr> <td> <th> <thead> <tbody> <tfoot class="text-align-left text-align-center text-align-right text-align-justify">'
+      allowed_html: '<code class> <pre class="text-align-left text-align-center text-align-right text-align-justify"> <iframe src style frameborder allow allowfullscreen width height> <div class style data-oembed-url> <figure class> <img data-bookish-image-style src alt data-entity-uuid data-entity-type height width data-caption data-align> <br> <p class="text-align-left text-align-center text-align-right text-align-justify"> <h2 class="text-align-left text-align-center text-align-right text-align-justify"> <h3 class="text-align-left text-align-center text-align-right text-align-justify"> <h4 class="text-align-left text-align-center text-align-right text-align-justify"> <h5 class="text-align-left text-align-center text-align-right text-align-justify"> <h6 class="text-align-left text-align-center text-align-right text-align-justify"> <strong> <em> <u> <s> <blockquote class="text-align-left text-align-center text-align-right text-align-justify"> <a href> <ul class="text-align-left text-align-center text-align-right text-align-justify"> <ol class="text-align-left text-align-center text-align-right text-align-justify"> <li> <hr class="text-align-left text-align-center text-align-right text-align-justify"> <table class="text-align-left text-align-center text-align-right text-align-justify"> <tr> <td> <th> <thead> <tbody> <tfoot class="text-align-left text-align-center text-align-right text-align-justify">'
       filter_html_help: true
       filter_html_nofollow: false
   editor_file_reference:
@@ -80,4 +81,10 @@ filters:
     provider: filter
     status: false
     weight: -43
+    settings: {  }
+  bookish_heading_filter:
+    id: bookish_heading_filter
+    provider: bookish_admin
+    status: true
+    weight: 0
     settings: {  }
