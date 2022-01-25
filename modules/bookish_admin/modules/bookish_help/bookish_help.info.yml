@@ -1,0 +1,12 @@
+name: Bookish Help
+type: module
+description: 'Adds Help Topics for Bookish.'
+core_version_requirement: '^9'
+dependencies:
+  - drupal:help_topics
+  - drupal:block_content
+  - drupal:image
+  - drupal:shortcut
+  - drupal:menu_ui
+  - metatag:metatag
+  - simple_sitemap:simple_sitemap

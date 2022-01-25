@@ -1,0 +1,31 @@
+---
+label: 'Deploying your site with Tome'
+related:
+  - bookish_help.profile
+---
+<h2>{% trans %}Intro{% endtrans %}</h2>
+
+<p>{% trans %}Bookish is intended to be used alongside Tome, a static site generator for Drupal.{% endtrans %}</p>
+
+<p>{% trans %}The most consistent way to use Tome is with Drush. If you have Drush installed, try running "drush tome:static && drush tome:preview". If all goes well, you should see a clone of your site running in a local server.{% endtrans %}</p>
+
+<p>{% trans %}Once a static build is available (in ../html), it can be uploaded to any static host. From Netlify to GitHub Pages to GoDaddy.{% endtrans %}</p>
+
+<p>{% trans %}Tome is also always exporting config (in the sync directory) and content (../content) as you edit it. This allows you to commit your entire website to Git without running Drupal anywhere except your local machine. While this blog doesn't use Bookish, it does use Tome so you should check it out for an example of a "real" site: <a href="https://github.com/mortenson/mortenson.github.io">mortenson/mortenson.github.io</a>.{% endtrans %}</p>
+
+<h2>{% trans %}Digging deeper{% endtrans %}</h2>
+
+<p>{% trans %}Tome is already documented extensively, so instead of copy+pasting everything here I will redirect you to some other resources you should read over:{% endtrans %}</p>
+
+<ul>
+  <li><a href="https://tome.fyi/docs/getting-started/">{% trans %}Getting started{% endtrans %}</a></li>
+  <li><a href="https://tome.fyi/docs/hosting/netlify/">{% trans %}Hosting with Netlify{% endtrans %}</a></li>
+  <li><a href="https://tome.fyi/docs/using-the-command-line/">{% trans %}Using the command line{% endtrans %}</a></li>
+  <li><a href="https://tome.fyi/docs/sub-modules/">{% trans %}The difference between the Tome sub-modules{% endtrans %}</a></li>
+</ul>
+
+<p>{% trans %}Note that Bookish also uses Lunr.js for search - before running "drush tome:static", you'll need to index your search.{% endtrans %}</p>
+
+<p>{% trans %}To do this via the command line, run: "LUNR_DRUSH=./vendor/bin/drush node web/modules/contrib/lunr/js/index.node.js default" in your build.{% endtrans %}</p>
+
+<p>{% trans %}If in the end you decide you don't want/need Tome, that's fine! It's an optional dependency and can be uninstalled if you'd like.{% endtrans %}</p>

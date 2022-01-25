@@ -1,0 +1,44 @@
+---
+label: 'Content editing with Bookish'
+related:
+  - bookish_help.profile
+---
+<h2>{% trans %}Intro{% endtrans %}</h2>
+
+<p>{% trans %}A lot of work has gone into making little admin UI tweaks, but content editing is still pretty straightforward.{% endtrans %}</p>
+
+<p>{% trans %}There are two Content Types, Blog and Page. Blogs show up in listings on the front page if they are promoted, and on the /blogs page. Pages are standalone pieces of content that do not show up in listings.{% endtrans %}</p>
+
+<p>{% trans %}Blogs and Pages use CKEditor 5, which has a number of customizations applied to it for usability. They both also include an image field, which uses an image widget unique to Bookish. Let's dive in...{% endtrans %}</p>
+
+<h2>{% trans %}Using CKEditor 5{% endtrans %}</h2>
+
+<p>{% trans %}CKEditor 5 is used for editing the Body field. Most of the buttons are self explanatory, but three have been added or customized by Bookish.{% endtrans %}</p>
+
+<p>{% trans %}First, after using the "Insert image" button, the "Edit image" button can be clicked to configure Bookish Image styles. How the Filter/Adjust/Crop tabs work will be covered later, but the important thing to note here is that you can configure what image style is used for the embedded image.{% endtrans %}</p>
+
+<p>{% trans %}Next, the "Insert code block" button can be used to insert a code block. This is useful for more technical blogs. This button is provided by CKEditor 5, bug the <a href="https://www.drupal.org/project/highlight_php">highlight_php</a> module is used for adding syntax highlighting for you.{% endtrans %}</p>
+
+<p>{% trans %}Finally, the "Insert media" button can be used to embed various external content. Currently, Dailymotion, Spotify, YouTube, and Vimeo are supported as other OEmbed providers <a href="https://ckeditor.com/docs/ckeditor5/latest/features/media-embed.html#media-providers">have unpredictable output</a>.{% endtrans %}</p>
+
+<h2>{% trans %}Using the Bookish Image widget{% endtrans %}</h2>
+
+<p>{% trans %}When uploading images in CKEditor 5 or the Image/Social Image fields, a custom field widget is used that lets you customize how the image is displayed.{% endtrans %}</p>
+
+<p>{% trans %}The "Filter" tab contains preset filters to adjust the colors in your image. When selected, the image is re-rendered on the backend. To further tweak a filter, you can use the "Adjust" tab.{% endtrans %}</p>
+
+<p>{% trans %}The "Crop" tab allows you to set a focal point, which is the area of the image you want to keep intact when image styles perform a crop. A "Zoom" slider may also be present if enabled, which allows you to define a base zoom to use before performing the focal point crop.{% endtrans %}</p>
+
+<p>{% trans %}Note that all "Filter/Adjust/Crop" settings are stored alongside the file, so if you re-use the file those settings will also be re-used.{% endtrans %}</p>
+
+<h2>{% trans %}Using the Bookish Tags widget{% endtrans %}</h2>
+
+<p>{% trans %}The "Tags" field allows you to tag blogs for use in search and for display in the blog listing. If you start typing a tag that already exists, a dropdown will pop-up which you can then select to fill in the tag. Otherwise, you can press the enter or tab keys to confirm a typed tag. Tags can be re-ordered using drag and drop, or you can delete existing tags and re-type them in the order you choose.{% endtrans %}</p>
+
+<h2>{% trans %}Using the sidebar{% endtrans %}</h2>
+
+<p>{% trans %}There are some extra fields in the right sidebar next to the Blog/Page form.{% endtrans %}</p>
+
+<p>{% trans %}If you expand "URL alias", you'll see that an alias is automatically set using Pathauto. You can manually set an alias if you'd like, although this should only really be done for pages.{% endtrans %}</p>
+
+<p>{% trans %}If you expand "Promotion options" on a Blog, you can force posts to show up at the start of lists ("Sticky"), or remove a Blog from the homepage.{% endtrans %}</p>

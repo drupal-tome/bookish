@@ -1,0 +1,17 @@
+---
+label: 'Configuring your Bookish site'
+related:
+  - bookish_help.profile
+---
+<h2>{% trans %}Helpful links{% endtrans %}</h2>
+<p>{% trans %}There are a number of configuration pages you can visit to tweak your new site. Here's a list of them:{% endtrans %}</p>
+<ul>
+  <li><a href="{{ path('system.theme_settings_theme', {'theme': 'bookish_theme'}) }}">{% trans %}Change the copyright name and force light/dark mode{% endtrans %}</a></li>
+  <li><a href="{{ path('entity.shortcut_set.customize_form', {'shortcut_set': 'default'}) }}">{% trans %}Edit the toolbar links{% endtrans %}</a></li>
+  <li><a href="{{ path('entity.block_content.collection') }}">{% trans %}Edit the default homepage block{% endtrans %}</a></li>
+  <li><a href="{{ path('entity.menu.edit_form', {'menu' : 'main'}) }}">{% trans %}Edit the main menu{% endtrans %}</a></li>
+  <li><a href="{{ path('entity.image_style.collection') }}">{% trans %}Add/edit image styles{% endtrans %}</a></li>
+  <li><a href="{{ path('entity.metatag_defaults.collection') }}">{% trans %}Edit Metatags (tweak SEO settings){% endtrans %}</a></li>
+  <li><a href="{{ path('simple_sitemap.entities') }}">{% trans %}Re-configure your sitemap.xml file{% endtrans %}</a></li>
+</ul>
+<p>{% trans %}Did you also know you can press "alt + D" or "alt + k" to quickly search through admin menus? Try typing "Blog" or "Page" to see all you can change.{% endtrans %}</p>

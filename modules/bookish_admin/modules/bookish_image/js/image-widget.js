@@ -26,7 +26,8 @@
         var $wrapper = $(this).parent();
         $wrapper
           .css('width', $img.attr('width'))
-          .css('height', $img.attr('height'));
+          .css('height', $img.attr('height'))
+          .css('max-width', '500px');
         $(this).promise().done(debounce(function () {
           var f = function () {
             $wrapper
@@ -67,10 +68,11 @@
       $('.bookish-image-focal-point-container', context).once('bookish-image-focal-point').each(function () {
         var $img = $(this).find('img');
         var imageLoaded = function () {
-          $(this).show();
           var $dot = $('<div class="bookish-image-focal-point-dot"></div>');
           var $container = $(this).closest('.bookish-image-container');
           var wasContainerVisible = $container.is(':visible');
+          var wasVisible = $(this).is(':visible');
+          $(this).show();
           $container.show();
 
           // Set default value from form element.
@@ -90,7 +92,9 @@
           $dot.css('top', defaultY);
 
           $(this).append($dot);
-          $(this).hide();
+          if (!wasVisible) {
+            $(this).hide();
+          }
           if (!wasContainerVisible) {
             $container.hide();
           }

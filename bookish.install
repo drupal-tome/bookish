@@ -79,6 +79,14 @@ function bookish_install() {
   ]);
   $shortcut->save();
 
+  $shortcut = Shortcut::create([
+    'shortcut_set' => 'default',
+    'title' => t('Help'),
+    'link' => ['uri' => 'internal:/admin/help/topic/bookish_help.profile'],
+    'weight' => $weight += 1,
+  ]);
+  $shortcut->save();
+
   $menu_link = MenuLinkContent::create([
     'enabled' => TRUE,
     'title' => t('blog'),

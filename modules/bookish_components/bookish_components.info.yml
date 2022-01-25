@@ -4,3 +4,4 @@ description: 'Provides frontend components for Bookish.'
 core_version_requirement: '^9'
 dependencies:
   - drupal:sfc
+  - twig_tweak:twig_tweak

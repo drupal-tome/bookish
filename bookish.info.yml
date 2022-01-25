@@ -31,13 +31,15 @@ install:
   - views_ui
   - ckeditor5
   - shortcut
-  # Contrib module dependencies
+  # Bookish submodule dependencies
   - bookish_admin
   - bookish_image
   - bookish_toolbar
   - bookish_tags
   - bookish_ckeditor
+  - bookish_help
   - bookish_components
+  # Contrib module dependencies
   - tome
   - lunr
   - sfc

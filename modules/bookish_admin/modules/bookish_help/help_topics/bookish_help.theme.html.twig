@@ -1,0 +1,71 @@
+---
+label: 'Modifying the Bookish theme'
+related:
+  - bookish_help.profile
+---
+<h2>{% trans %}Intro{% endtrans %}</h2>
+<p>{% trans %}The Bookish theme uses <a href="https://www.drupal.org/project/sfc">Single File Components (SFCs)</a>, which can look odd to traditional Drupal themers. The purpose of a SFC is to put HTML, CSS, and JS all in the same file, for the purposes of simplifying component base development.{% endtrans %}</p>
+<p>{% trans %}These components are located in "modules/bookish_components/components", which may already seem odd. However, having the components in a module has a number of benefits:{% endtrans %}</p>
+<ul>
+  <li>{% trans %}You can re-use components in any themes (not just sub-themes){% endtrans %}</li>
+  <li>{% trans %}Components in modules can provide Blocks (ex: "modules/bookish_components/components/bk_blog_list.sfc"){% endtrans %}</li>
+  <li>{% trans %}Modules providing components can also provide routes{% endtrans %}</li>
+</ul>
+<p>{% trans %}However, themes can also provide components, and you're welcome to do that in your own themes or sub-theme.{% endtrans %}</p>
+
+<h2>{% trans %}Extending the theme{% endtrans %}</h2>
+
+<h3>{% trans %}Creating a sub-theme{% endtrans %}</h3>
+<p>{% trans %}Most of the techniques below assume you have a sub-theme of bookish_theme. For information on sub-themes, see <a href="https://www.drupal.org/docs/theming-drupal/creating-sub-themes">Creating sub-themes</a>.{% endtrans %}</p>
+
+<h3>{% trans %}Override CSS variables{% endtrans %}</h3>
+<p>{% trans %}The simplest way to change the theme is to define your own CSS variable values. Here are some variables you can override in your own CSS:{% endtrans %}</p>
+<pre>
+  <code>
+body {
+  --font-family: Helvetica, sans-serif;
+  --font-color: #1e1e1e;
+  --font-color-light: #e3e3e3;
+  --font-color-link: #1f7db5;
+  --font-color-link-hover: #175680;
+  --font-color-link-light: #23a5e4;
+  --font-color-link-light-hover: #4ebff7;
+  --font-weight-regular: 400;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-black: 800;
+  --accent-color-1: #cb6a6a;
+  --accent-color-2: #aadfff;
+  --background-color: white;
+  --background-color-dark: #1e1e1e;
+  --border-color: #e1e1e1;
+  --border-color-light: #e1e1e1;
+  --border-color-dark: #404040;
+  --spacer-1: 10px;
+  --spacer-2: 25px;
+  --spacer-3: 50px;
+  --spacer-4: 75px;
+}
+  </code>
+</pre>
+
+<h3>{% trans %}Override templates{% endtrans %}</h3>
+<p>{% trans %}To override a template provided by bookish_theme, you can copy it into your theme's "/templates" directory.{% endtrans %}</p>
+<p>{% trans %}The naming format for SFC templates, as in the Twig inside the template tag in an SFC, is "sfc--bk-[name].html.twig". Note that when overriding an SFC template, you also need to include the boilerplate prepended to all SFC templates:{% endtrans %}</p>
+<pre>
+  <code>
+{{ "{{ sfc_prepare_context('bk_[name]') }}" }}
+{{ "{{ attach_library('sfc/component.bk_[name]') }}" }}
+  </code>
+</pre>
+
+<h3>{% trans %}Override libraries{% endtrans %}</h3>
+<p>{% trans %}Using the "libraries-override" key in your theme's ".info.yml" file, you can override any component's CSS or JS. The library name format for a component is "sfc/component.bk_[name]".{% endtrans %}</p>
+<p>{% trans %}For more information see <a href="https://www.drupal.org/node/2497313">Libraries can now be overridden and extended by themes</a>.{% endtrans %}</p>
+
+<h3>{% trans %}Override components{% endtrans %}</h3>
+<p>{% trans %}SFCs can also be completely overriden by themes. To do this, copy the target ".sfc" file into the "components" directory inside your theme, and run "drush sfc:watch" to watch for changes.{% endtrans %}</p>
+
+<h2>{% trans %}Final note{% endtrans %}</h2>
+
+<p>{% trans %}SFCs are weird, but try them out before you go back to normal Drupal theming. If you really don't like them, you can always use a different theme and keep the Bookish admin tweaks around!{% endtrans %}</p>
