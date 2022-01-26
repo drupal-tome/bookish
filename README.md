@@ -36,7 +36,7 @@ First, run these commands:
 ```
 composer create-project drupal-tome/tome-project my_site --stability dev --no-interaction
 cd my_site
-composer require mortenson/bookish
+composer require drupal-tome/bookish
 drush tome:init # Select Bookish in the prompt
 ```
 
@@ -70,7 +70,7 @@ example [the one for Netlify].
 If you don't want to use Tome, you can run this from any Drupal 9+ install:
 
 ```
-composer require mortenson/bookish
+composer require drupal-tome/bookish
 drush si bookish -y
 drush pmu tome -y
 ```
