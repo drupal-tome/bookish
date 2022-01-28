@@ -170,6 +170,9 @@ class BookishTagsWidget extends WidgetBase {
     $uid = $this->currentUser->id();
     $handler = $this->selectionManager->getInstance($selection_settings);
     $data = json_decode($values, TRUE);
+    if (!is_array($data)) {
+      return [];
+    }
     $items = [];
     $term_storage = $this->entityTypeManager->getStorage('taxonomy_term');
     foreach ($data as $current) {
