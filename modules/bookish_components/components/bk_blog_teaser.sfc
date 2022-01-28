@@ -40,7 +40,6 @@
   .bk-blog-teaser__link:hover,
   .bk-blog-teaser__link:focus {
     color: var(--font-color);
-    font-weight: normal;
     text-decoration: none;
   }
   .bk-blog-teaser__link::before {
