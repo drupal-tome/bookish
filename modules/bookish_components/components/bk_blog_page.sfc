@@ -50,6 +50,11 @@
       grid-template-columns: 1fr 1fr;
     }
   }
+  @media screen and (max-width: 920px) {
+    .bk-blog-page__blogs .bk-blog-teaser__tag:not(:first-child) {
+      display: none;
+    }
+  }
   @media screen and (max-width: 800px) {
     .bk-blog-page__blogs {
       grid-row-gap: var(--spacer-2);
@@ -60,6 +65,9 @@
     .bk-blog-page__blogs {
       grid-template-columns: 1fr;
       grid-column: 1 / 11;
+    }
+    .bk-blog-page__blogs .bk-blog-teaser__tag:not(:first-child) {
+      display: block;
     }
   }
 </style>

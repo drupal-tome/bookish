@@ -1,31 +1,31 @@
 <template>
   {% set title_element = title_element ? title_element : 'h2' %}
   <article class="bk-blog-teaser" role="article">
-    <a class="bk-blog-teaser__link" href="{{ link }}">
-      <div class="bk-blog-teaser__image">{{ image }}</div>
-      <div class="bk-blog-teaser__bottom">
-        <div class="bk-blog-teaser__title">
-          <{{ title_element }} class="bk-blog-teaser__title-element">
+    <div class="bk-blog-teaser__image">{{ image }}</div>
+    <div class="bk-blog-teaser__bottom">
+      <div class="bk-blog-teaser__title">
+        <{{ title_element }} class="bk-blog-teaser__title-element">
+          <a class="bk-blog-teaser__link" href="{{ link }}">
             {{ title }}
-          </{{ title_element }}>
-        </div>
-        <div class="bk-blog-teaser__text bk-text">{{ text }}</div>
-        <div class="bk-blog-teaser__footer">
-          {% if tags %}
-          <div class="bk-blog-teaser__tags">
-            {% for tag in tags|slice(0, 2) %}
-              <div class="bk-blog-teaser__tag">{{ tag }}</div>
-            {% endfor %}
-          </div>
-          {% endif %}
-          {% if time %}
-            <div class="bk-blog-teaser__byline">
-            {{ time | date('M j, Y') }}
-            </div>
-          {% endif %}
-        </div>
+          </a>
+        </{{ title_element }}>
       </div>
-    </a>
+      <div class="bk-blog-teaser__text bk-text">{{ text }}</div>
+      <div class="bk-blog-teaser__footer">
+        {% if tags %}
+        <div class="bk-blog-teaser__tags">
+          {% for tag in tags|slice(0, 2) %}
+            <div class="bk-blog-teaser__tag">{{ tag }}</div>
+          {% endfor %}
+        </div>
+        {% endif %}
+        {% if time %}
+          <div class="bk-blog-teaser__byline">
+          {{ time | date('M j, Y') }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
   </article>
 </template>
 
@@ -33,6 +33,8 @@
   .bk-blog-teaser {
     padding: 20px;
     position: relative;
+    display: flex;
+    flex-direction: column;
   }
   .bk-blog-teaser__link,
   .bk-blog-teaser__link:hover,
@@ -40,9 +42,6 @@
     color: var(--font-color);
     font-weight: normal;
     text-decoration: none;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
   }
   .bk-blog-teaser__link::before {
     right: -5px;
@@ -74,7 +73,6 @@
     height: 100%;
     width: 100%;
     border: 2px solid var(--border-color);
-    pointer-events: none;
     transition: .2s;
   }
   .bk-blog-teaser__image {
