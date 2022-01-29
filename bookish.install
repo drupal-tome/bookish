@@ -116,7 +116,15 @@ function bookish_install() {
 
   $body = <<<EOT
   <p>Bitters brunch selvage celiac migas cred salvia flannel ethical gluten-free pop-up. Succulents photo booth authentic, skateboard tousled vinyl hell of single-origin coffee aesthetic chia farm-to-table gentrify pop-up affogato tattooed. Readymade lo-fi 90's asymmetrical hoodie, yr intelligentsia synth unicorn single-origin coffee edison bulb put a bird on it next level. Neutra godard master cleanse whatever tilde, copper mug before they sold out photo booth shoreditch pinterest next level snackwave sartorial. Cloud bread fanny pack street art fam, 90's flexitarian ugh snackwave biodiesel slow-carb ramps squid venmo.</p>
+  <pre><code class="language-php">&lt;?php
+  echo "You can embed code snippets";
+  if (TRUE) {
+    echo "They're automatically highlighted!";
+  }</code></pre>
+  <h2>Headings automatically have anchor links</h2>
   <p>Brunch fashion axe helvetica affogato blue bottle, fixie shoreditch venmo. Post-ironic hexagon truffaut vegan crucifix, waistcoat ugh chillwave flannel. Deep v pop-up iPhone chia, live-edge blog pork belly etsy PBR&B. Vape disrupt air plant XOXO wayfarers coloring book banh mi knausgaard. Roof party fanny pack forage raw denim poutine humblebrag. Semiotics swag tumblr, vaporware truffaut bushwick tote bag poutine fam enamel pin salvia affogato.</p>
+  <p>You can also embed Dailymotion, Spotify, YouTube, and Vimeo media by pasting the URL:</p>
+  <figure class="media"><div data-oembed-url="https://www.youtube.com/watch?v=SLgms78JVo0"><div style="position: relative; padding-bottom: 100%; height: 0; padding-bottom: 56.2493%;"><iframe src="https://www.youtube.com/embed/SLgms78JVo0" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe></div></div></figure>
   EOT;
 
   $nodes = [
