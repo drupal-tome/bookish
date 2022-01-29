@@ -29,7 +29,7 @@ The requirements for using Tome locally are:
 * PHP 7+
 * Composer
 * Drush
-* SQLite and the related PHP extensions
+* SQLite 3.26+ and the related PHP extensions
 
 First, run these commands:
 
