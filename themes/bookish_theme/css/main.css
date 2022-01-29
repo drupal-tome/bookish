@@ -249,7 +249,7 @@ div[data-drupal-messages],
 .block-local-tasks-block a:focus {
   display: block;
   color: var(--font-color);
-  padding: 8px 10px;
+  padding: 8px 15px;
   border-bottom: 2px solid var(--border-color);
   margin-bottom: -2px;
   transition: border-color .2s;
