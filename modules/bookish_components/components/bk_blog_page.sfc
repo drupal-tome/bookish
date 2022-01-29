@@ -61,7 +61,7 @@
       grid-column-gap: var(--spacer-2);
     }
   }
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 660px) {
     .bk-blog-page__blogs {
       grid-template-columns: 1fr;
       grid-column: 1 / 11;
