@@ -1,0 +1,93 @@
+<template>
+  <div data-drupal-messages class="bk-status-messages" data-sfc-id="bk_status_messages">
+    {% set i = 0 %}
+    {% for type, messages in message_list %}
+      {% if messages is not empty %}
+        <div role="contentinfo" aria-label="{{ status_headings[type] }}">
+          {% if type == 'error' %}
+            <div role="alert">
+          {% endif %}
+              <ul class="bk-status-messages__group">
+                {% for message in messages %}
+                  {% set i = i+1 %}
+                  <li class="bk-status-messages__message {{ type }}" style="animation-duration: {{ (i*0.2) + 1 }}s">
+                    <div>{{ message }}</div>
+                    <button class="bk-status-messages__dismiss"><span class="visually-hidden">{{ 'Dismiss' | t }}</span></button>
+                  </li>
+                {% endfor %}
+              </ul>
+          {% if type == 'error' %}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</template>
+
+<script data-type="attach">
+  $(this).find('.bk-status-messages__dismiss').on('click', function () {
+    $(this).parent().fadeOut(300, function () {
+      $(this).remove();
+    });
+  });
+</script>
+
+<style>
+  @keyframes bkStatusMessageSlideIn {
+    0% {
+      transform: translateY(100%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  .bk-status-messages {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    animation: 1s bkStatusMessageSlideIn;
+  }
+  .bk-status-messages__group {
+    list-style: none;
+    margin: 0;
+  }
+  .bk-status-messages__message {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 20px;
+    border: 2px solid var(--border-color);
+    background: var(--background-color);
+    margin: 0;
+    margin-bottom: var(--spacer-1);
+    margin-right: var(--spacer-1);
+    animation: 2s bkStatusMessageSlideIn;
+  }
+  .bk-status-messages__message.warning {
+    border-color: var(--warning-color);
+  }
+  .bk-status-messages__message.error {
+    border-color: var(--error-color);
+  }
+  .bk-status-messages__dismiss {
+    border: none;
+    background: none;
+    background-color: transparent;
+    width: 25px;
+    height: 25px;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    margin-left: var(--spacer-2);
+  }
+  .bk-status-messages__dismiss:hover {
+    background-color: var(--border-color);
+  }
+  .bk-status-messages__dismiss::before {
+    content: "\00d7";
+    display: block;
+    font-size: 14px;
+  }
+</style>

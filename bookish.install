@@ -123,8 +123,6 @@ function bookish_install() {
   }</code></pre>
   <h2>Headings automatically have anchor links</h2>
   <p>Brunch fashion axe helvetica affogato blue bottle, fixie shoreditch venmo. Post-ironic hexagon truffaut vegan crucifix, waistcoat ugh chillwave flannel. Deep v pop-up iPhone chia, live-edge blog pork belly etsy PBR&B. Vape disrupt air plant XOXO wayfarers coloring book banh mi knausgaard. Roof party fanny pack forage raw denim poutine humblebrag. Semiotics swag tumblr, vaporware truffaut bushwick tote bag poutine fam enamel pin salvia affogato.</p>
-  <p>You can also embed Dailymotion, Spotify, YouTube, and Vimeo media by pasting the URL:</p>
-  <figure class="media"><div data-oembed-url="https://www.youtube.com/watch?v=SLgms78JVo0"><div style="position: relative; padding-bottom: 100%; height: 0; padding-bottom: 56.2493%;"><iframe src="https://www.youtube.com/embed/SLgms78JVo0" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe></div></div></figure>
   EOT;
 
   $nodes = [

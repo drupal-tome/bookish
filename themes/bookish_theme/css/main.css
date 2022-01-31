@@ -45,6 +45,8 @@ body {
   --spacer-2: 25px;
   --spacer-3: 50px;
   --spacer-4: 75px;
+  --error-color: #a72828;
+  --warning-color: #937d1b;
   font-family: var(--font-family);
   font-weight: var(--font-weight-regular);
   color: var(--font-color);
@@ -224,7 +226,6 @@ input[type="submit"]:hover {
 .block-local-tasks-block ul,
 .lunr-search-page-form,
 .lunr-search-results,
-div[data-drupal-messages],
 .user-login-form,
 .user-pass,
 .user-form {
@@ -259,11 +260,6 @@ div[data-drupal-messages],
 .block-local-tasks-block a:focus {
   text-decoration: none;
   border-color: var(--border-color-hover);
-}
-
-div[data-drupal-messages] {
-  margin: var(--spacer-1) auto;
-  padding: 20px 100px;
 }
 
 .region-before > * {
@@ -341,7 +337,6 @@ div[data-drupal-messages] {
   .block-local-tasks-block ul,
   .lunr-search-page-form,
   .lunr-search-results,
-  div[data-drupal-messages],
   .container,
   .user-login-form,
   .user-pass,

@@ -74,7 +74,7 @@
     grid-column: 1 / 11;
     margin-bottom: var(--spacer-2);
   }
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 1000px) {
     .bk-blog__text {
       grid-column: 2 / 10;
     }

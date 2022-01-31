@@ -6,6 +6,7 @@ related:
 <h2>{% trans %}Helpful links{% endtrans %}</h2>
 <p>{% trans %}There are a number of configuration pages you can visit to tweak your new site. Here's a list of them:{% endtrans %}</p>
 <ul>
+  <li><a href="{{ path('system.site_information_settings') }}">{% trans %}Change the site name{% endtrans %}</a></li>
   <li><a href="{{ path('system.theme_settings_theme', {'theme': 'bookish_theme'}) }}">{% trans %}Change the copyright name and force light/dark mode{% endtrans %}</a></li>
   <li><a href="{{ path('entity.shortcut_set.customize_form', {'shortcut_set': 'default'}) }}">{% trans %}Edit the toolbar links{% endtrans %}</a></li>
   <li><a href="{{ path('entity.block_content.collection') }}">{% trans %}Edit the default homepage block{% endtrans %}</a></li>

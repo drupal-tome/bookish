@@ -64,10 +64,15 @@
   @media screen and (max-width: 660px) {
     .bk-blog-page__blogs {
       grid-template-columns: 1fr;
-      grid-column: 1 / 11;
+      grid-column: 2 / 10;
     }
     .bk-blog-page__blogs .bk-blog-teaser__tag:not(:first-child) {
       display: block;
+    }
+  }
+  @media screen and (max-width: 400px) {
+    .bk-blog-page__blogs {
+      grid-column: 1 / 11;
     }
   }
 </style>

@@ -30,7 +30,7 @@
     grid-row: 2 / 3;
     padding: var(--spacer-4);
     background: var(--background-color);
-    border: 1px solid var(--border-color);
+    border: 2px solid var(--border-color);
   }
   .bk-callout__text::after {
     position: absolute;
