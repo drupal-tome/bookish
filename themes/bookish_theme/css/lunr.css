@@ -57,9 +57,10 @@
   margin-bottom: 0;
 }
 
+.bookish-search-tags input:focus + label {
+  border-color: var(--font-color);
+}
 
-.bookish-search-tags label:focus,
-.bookish-search-tags label:hover,
 .bookish-search-tags input:checked + label {
   background-color: var(--border-color);
 }
