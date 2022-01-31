@@ -1,0 +1,3 @@
+mode: manual
+auto_languages: 'c javascript css'
+manual_regex: 'language-([a-zA-Z1-9]*)'
