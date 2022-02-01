@@ -57,7 +57,8 @@
   margin-bottom: 0;
 }
 
-.bookish-search-tags input:focus + label {
+.bookish-search-tags input:focus + label,
+.bookish-search-tags label:hover {
   border-color: var(--font-color);
 }
 
