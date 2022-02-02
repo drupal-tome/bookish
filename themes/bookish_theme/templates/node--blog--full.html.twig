@@ -2,6 +2,7 @@
 {% for key,tag in node.field_tags %}
   {% if tag.entity.bundle() == "tags" %}
     {% set tags = tags|merge([tag.entity.label()]) %}
+    {{ sfc_cache(tag.entity) }}
   {% endif %}
 {% endfor %}
 {% include 'sfc--bk-blog' with {
