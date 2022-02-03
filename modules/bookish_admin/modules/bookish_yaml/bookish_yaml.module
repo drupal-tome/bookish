@@ -1,0 +1,89 @@
+<?php
+
+/**
+ * @file
+ * Contains hook implementations for the bookish_yaml module.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\FieldableEntityInterface;
+
+/**
+ * Implements hook_entity_presave().
+ */
+function bookish_yaml_entity_presave(EntityInterface $entity) {
+  if ($entity instanceof FieldableEntityInterface) {
+    foreach ($entity->getFields() as $field) {
+      if (!in_array($field->getFieldDefinition()->getType(), ['text_long', 'text_with_summary', 'text'], TRUE)) {
+        continue;
+      }
+      /** @var \Drupal\Core\Field\FieldItemInterface $field_item */
+      foreach ($field as $field_item) {
+        $value = $field_item->getValue();
+        $value['value'] = _bookish_yaml_process($value['value']);
+        $field_item->setValue($value);
+      }
+    }
+  }
+}
+
+/**
+ * Processes field data to better support Yaml.
+ *
+ * @param mixed $data
+ *   The field data to process.
+ */
+function _bookish_yaml_process($data) {
+  if (!is_string($data)) {
+    return $data;
+  }
+  // Remove carriage returns, which breaks multi-line Yaml strings.
+  $data = str_replace("\r", '', $data);
+
+  // Auto format HTML to add newlines that were removed by CKEditor 5.
+  $dom = _bookish_yaml_load_html($data);
+  $body_node = $dom->getElementsByTagName('body')->item(0);
+  $html = '';
+  if ($body_node !== NULL) {
+    foreach ($body_node->childNodes as $node) {
+      $html .= $dom->saveHTML($node);
+    }
+    $data = $html;
+  }
+  return $data;
+}
+
+/**
+ * A clone of \Drupal\Component\Utility\Html that supports pretty-printing.
+ *
+ * @param string $html
+ *   The partial (X)HTML snippet to load. Invalid markup will be corrected on
+ *   import.
+ *
+ * @return \DOMDocument
+ *   A \DOMDocument that represents the loaded (X)HTML snippet.
+ */
+function _bookish_yaml_load_html($html) {
+  $document = <<<EOD
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<body>!html</body>
+</html>
+EOD;
+  // PHP's \DOMDocument serialization adds extra whitespace when the markup
+  // of the wrapping document contains newlines, so ensure we remove all
+  // newlines before injecting the actual HTML body to be processed.
+  $document = strtr($document, ["\n" => '', '!html' => $html]);
+
+  $dom = new \DOMDocument();
+
+  // This is all that's hacked in here.
+  $dom->preserveWhiteSpace = FALSE;
+  $dom->formatOutput = TRUE;
+
+  // Ignore warnings during HTML soup loading.
+  @$dom->loadHTML($document);
+
+  return $dom;
+}

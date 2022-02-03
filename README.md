@@ -20,7 +20,7 @@ Some feature highlights are:
 * Ability to embed code snippets in CKEditor that are styled in the frontend
 * A simplified toolbar that just lists the default shortcuts
 
-# Install (with Tome)
+## Install (with Tome)
 
 The best way to use Bookish is with the [Tome Composer project].
 
@@ -65,7 +65,7 @@ and click the link to start editing.
 To deploy your static site, refer to the hosting guides on https://tome.fyi, for
 example [the one for Netlify].
 
-# Install (without Tome)
+## Install (without Tome)
 
 If you don't want to use Tome, you can run this from any Drupal 9+ install:
 
@@ -75,10 +75,29 @@ drush si bookish -y
 drush pmu tome -y
 ```
 
-# Further help
+## Further help
 
 After logging in, click "Help" in the toolbar. This module has extensive
 documentation located inside Drupal using the Help Topics module.
+
+## Exporting content as YAML
+
+If you would prefer exporting content as .yml files, you can try using the
+experimental "yaml" encoder for Tome by adding this line to settings.php:
+
+```
+$settings['tome_sync_encoder'] = 'yaml';
+```
+
+Then enable the bookish_yaml module, which reformats rich text content to
+make sure it's easily editable as a multi-line YAML string.
+
+Then, run "drush tome:export" to re-export your content as .yml files, and
+remove old .json files after running "drush tome:install" and confirming things
+still work.
+
+This feature is experimental, but may be the default for Tome installs in the
+future, so thank you in advance for testing it out!
 
 [View demo site]: https://bookish-drupal.netlify.app/
 [Tome]: https://drupal.org/project/tome
