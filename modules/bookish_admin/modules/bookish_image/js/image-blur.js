@@ -1,16 +1,16 @@
-(function ($, Drupal) {
+(function (Drupal, once) {
 
   Drupal.behaviors.bookishAdminBlurImage = {
     attach: function attach(context, settings) {
-      $('.bookish-image-blur-image').once('bookish-image-blur').each(function () {
-        if (!$(this).prop('complete')) {
-          $(this).addClass('loading');
-          $(this).on('load', function () {
-            $(this).addClass('loaded');
-          });
+      once('bookish-image-blur', '.bookish-image-blur-image').forEach(function (blurImage) {
+        if (!blurImage.complete) {
+          blurImage.classList.add('loading');
+          blurImage.onload = function () {
+            blurImage.classList.add('loaded');
+          };
         }
       });
     }
   };
 
-})(jQuery, Drupal);
+})(Drupal, once);

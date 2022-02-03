@@ -25,6 +25,5 @@ imageBlur:
     theme:
       css/image-blur.css: { }
   dependencies:
-    - core/jquery
-    - core/jquery.once
     - core/drupal
+    - core/once

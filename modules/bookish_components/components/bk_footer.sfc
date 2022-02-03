@@ -3,7 +3,7 @@
     <div class="bk-footer__copyright">©{{ 'now'|date('Y') }} {{ user }}</div>
     <a class="bk-footer__rss" href="/feed.xml">
       <span class="visually-hidden">RSS Feed</span>
-      <img alt="RSS feed icon" src="/core/misc/feed.svg" />
+      <img alt="RSS feed icon" width="16px" height="16px" src="/core/misc/feed.svg" />
     </a>
   </footer>
 </template>
