@@ -177,3 +177,7 @@ input.bookish-image-re-render {
 .bookish-image-form-actions {
   flex-basis: 100%;
 }
+
+.ui-dialog {
+  max-width: 92% !important;
+}

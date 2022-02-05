@@ -26,7 +26,7 @@
         var $wrapper = $(this).parent();
         $wrapper
           .css('width', $img.attr('width'))
-          .css('height', $img.attr('height'))
+          .css('height', 'auto')
           .css('max-width', '500px');
         $(this).promise().done(debounce(function () {
           var f = function () {
@@ -34,7 +34,7 @@
               .css('background-image', 'url(' + $img.attr('src') + ')')
               .css('box-shadow', 'none')
               .css('background-repeat', 'no-repeat')
-              .css('background-size', 'contain');
+              .css('background-size', 'cover');
           }
           if ($img.prop('complete')) {
             f();

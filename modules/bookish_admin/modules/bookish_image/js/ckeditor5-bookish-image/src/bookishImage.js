@@ -102,6 +102,7 @@ export default class BookishImage extends Plugin {
 					event: 'click',
 					dialogType: 'modal',
 					dialog: {
+						// width: '90%',
 						width: 1280,
 						height: 850
 					},
