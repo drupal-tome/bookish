@@ -343,7 +343,7 @@ input[type="submit"]:hover {
   .container--margin {
     margin: var(--spacer-3) auto;
   }
-  .block-system-menu-blockmain ul {
-    margin-top: var(--spacer-1);
+  .block-system-menu-blockmain a {
+    padding: 10px 0;
   }
 }

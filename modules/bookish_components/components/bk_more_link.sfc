@@ -18,7 +18,7 @@
   }
   .bk-more-link svg {
     fill: var(--font-color);
-    transition: .2s;
+    transition: transform .2s;
     margin-left: 4px;
   }
   .bk-more-link:hover,
@@ -27,7 +27,6 @@
   }
   .bk-more-link:hover svg,
   .bk-more-link:focus svg {
-    margin-right: -4px;
-    margin-left: 8px;
+    transform: translateX(4px);
   }
 </style>
