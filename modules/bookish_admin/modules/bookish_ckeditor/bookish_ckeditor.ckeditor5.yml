@@ -20,6 +20,7 @@ bookish_ckeditor_mediaembed:
     config:
       mediaEmbed:
         previewsInData: true
+        removeProviders: [ 'instagram', 'googleMaps', 'facebook' ]
   drupal:
     label: Media Embed
     library: bookish_ckeditor/mediaEmbed

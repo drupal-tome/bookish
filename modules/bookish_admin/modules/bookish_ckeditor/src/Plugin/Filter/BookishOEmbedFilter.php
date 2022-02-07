@@ -169,11 +169,13 @@ class BookishOEmbedFilter extends FilterBase implements ContainerFactoryPluginIn
         $wrapper->appendChild($iframe);
         $node->parentNode->replaceChild($wrapper, $node);
       }
-      $result->setAttachments([
-        'library' => [
-          'bookish_ckeditor/iframeSize',
-        ],
-      ]);
+      if ($provider['name'] === 'twitter') {
+        $result->setAttachments([
+          'library' => [
+            'bookish_ckeditor/iframeSize',
+          ],
+        ]);
+      }
       $result->setProcessedText(Html::serialize($dom));
     }
 
