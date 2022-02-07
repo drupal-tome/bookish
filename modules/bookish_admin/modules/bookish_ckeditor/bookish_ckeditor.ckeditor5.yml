@@ -28,6 +28,7 @@ bookish_ckeditor_mediaembed:
       mediaEmbed:
         label: Media Embed
     elements:
-      - <iframe src style frameborder allow allowfullscreen width height>
+      - <iframe srcdoc sandbox src style frameborder allow allowfullscreen width height>
       - <div class style data-oembed-url>
       - <figure class>
+      - <oembed url>

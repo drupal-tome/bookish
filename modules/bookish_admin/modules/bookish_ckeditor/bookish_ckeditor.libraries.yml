@@ -19,3 +19,13 @@ mediaEmbed.admin:
   css:
     theme:
       css/mediaEmbed.admin.css: { }
+
+iframeSize:
+  js:
+    js/iframe-size.js: { }
+  css:
+    theme:
+      css/oembed-iframe.css: { }
+  dependencies:
+    - core/drupal
+    - core/once

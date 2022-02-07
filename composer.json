@@ -21,7 +21,7 @@
   ],
   "scripts": {
     "remove-uuid": "cd config/install && sed -i.bak '/^uuid: /d' ./* && rm *.bak",
-    "check-style": "phpcs --standard=Drupal . --ignore='*node_modules|ckeditor5*'"
+    "check-style": "phpcs --standard=Drupal,phpcs.xml . --ignore='*node_modules|ckeditor5*'"
   },
   "require": {
       "drupal/core": "^9",

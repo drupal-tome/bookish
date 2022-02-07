@@ -207,6 +207,7 @@ input[type="submit"]:hover {
   display: flex;
   flex-direction: column;
   margin: 0;
+  margin: var(--spacer-2) 0;
 }
 
 .bk-text figcaption {
@@ -297,7 +298,6 @@ input[type="submit"]:hover {
 
 [data-oembed-url] > div {
   position: relative;
-  padding-bottom: 100%;
   height: 0;
   padding-bottom: 56.2493%;
 }
