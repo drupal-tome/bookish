@@ -26,6 +26,7 @@
   "require": {
       "drupal/core": "^9",
       "drupal/tome": "^1",
+      "drupal/tome_netlify": "^1",
       "drupal-tome/tome_drush": "dev-master",
       "drupal/lunr": "^1",
       "drupal/sfc": "^1",

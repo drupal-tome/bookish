@@ -118,6 +118,12 @@ input[type="password"] {
   transition: border-color .2s;
 }
 
+textarea {
+  background: transparent;
+  border-color: var(--border-color);
+  transition: border-color .2s;
+}
+
 #coffee-q {
   max-width: none;
 }
@@ -125,7 +131,8 @@ input[type="password"] {
 input[type="search"]:focus,
 input[type="text"]:focus,
 input[type="email"]:focus,
-input[type="password"]:focus {
+input[type="password"]:focus,
+textarea:focus {
   outline: none;
   border-color: var(--font-color);
 }
@@ -225,11 +232,13 @@ input[type="submit"]:hover {
 }
 
 .block-local-tasks-block ul,
+.block-page-title-block,
 .lunr-search-page-form,
 .lunr-search-results,
 .user-login-form,
 .user-pass,
-.user-form {
+.user-form,
+.contact-form {
   max-width: 1280px;
   padding: 0 100px;
   margin: 0 auto;
@@ -332,12 +341,14 @@ input[type="submit"]:hover {
 
 @media screen and (max-width: 800px) {
   .block-local-tasks-block ul,
+  .block-page-title-block,
   .lunr-search-page-form,
   .lunr-search-results,
   .container,
   .user-login-form,
   .user-pass,
-  .user-form {
+  .user-form,
+  .contact-form {
     padding: 0 25px;
   }
   .container--margin {

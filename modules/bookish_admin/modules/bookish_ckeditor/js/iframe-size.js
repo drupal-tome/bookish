@@ -10,6 +10,7 @@
       once('bookish-ckeditor-iframe', '.bookish-oembed-twitter', context).forEach(function (element) {
         setTimeout(f.bind(element), 500);
         setTimeout(f.bind(element), 1000);
+        setTimeout(f.bind(element), 1500);
         setTimeout(f.bind(element), 2000);
       });
     }

@@ -101,7 +101,7 @@ function bookish_install() {
     'title' => t('about'),
     'menu_name' => 'main',
     'link' => ['uri' => 'internal:/about'],
-    'weight' => 1,
+    'weight' => 10,
   ]);
   $menu_link->save();
 
@@ -110,7 +110,7 @@ function bookish_install() {
     'title' => t('search'),
     'menu_name' => 'main',
     'link' => ['uri' => 'internal:/search'],
-    'weight' => 2,
+    'weight' => 20,
   ]);
   $menu_link->save();
 

@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - tome_netlify_contact
+third_party_settings:
+  tome_netlify_contact:
+    use_netlify: true
+    use_captcha: true
+    use_honeypot: true
+id: contact_me
+label: 'Contact me'
+recipients:
+  - admin@example.com
+reply: ''
+weight: 0
+message: ''
+redirect: ''

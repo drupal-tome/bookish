@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * @file
+ * Contains install hooks for the Bookish Contact module.
+ */
+
+use Drupal\menu_link_content\Entity\MenuLinkContent;
+use Drupal\user\Entity\Role;
+
+/**
+ * Implements hook_install().
+ */
+function bookish_contact_install() {
+  $anonymous_role = Role::load(Role::ANONYMOUS_ID);
+  $anonymous_role->grantPermission('access site-wide contact form');
+  $anonymous_role->save();
+  $contact_settings = \Drupal::configFactory()->getEditable('contact.settings');
+  $contact_settings->set('default_form', 'contact_me');
+  $contact_settings->save();
+
+  $menu_link = MenuLinkContent::create([
+    'enabled' => TRUE,
+    'title' => t('contact'),
+    'menu_name' => 'main',
+    'link' => ['uri' => 'internal:/contact'],
+    'weight' => 15,
+  ]);
+  $menu_link->save();
+}
