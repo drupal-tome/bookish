@@ -80,7 +80,7 @@ drush pmu tome -y
 After logging in, click "Help" in the toolbar. This module has extensive
 documentation located inside Drupal using the Help Topics module.
 
-## Exporting content as YAML
+## Exporting content as YAML (experimental)
 
 If you would prefer exporting content as .yml files, you can try using the
 experimental "yaml" encoder for Tome by adding this line to settings.php:
