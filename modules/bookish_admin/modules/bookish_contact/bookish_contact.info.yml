@@ -6,3 +6,4 @@ dependencies:
   - drupal:contact
   - drupal:user
   - tome_netlify:tome_netlify_contact
+  - sfc:sfc

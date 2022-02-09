@@ -339,6 +339,12 @@ input[type="submit"]:hover {
   top: calc(50% - 0.5rem);
 }
 
+.g-recaptcha {
+  margin-bottom: var(--spacer-2);
+}
+
+/* @todo required form styling */
+
 @media screen and (max-width: 800px) {
   .block-local-tasks-block ul,
   .block-page-title-block,

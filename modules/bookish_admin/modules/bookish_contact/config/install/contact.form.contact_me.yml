@@ -8,11 +8,13 @@ third_party_settings:
     use_netlify: true
     use_captcha: true
     use_honeypot: true
+_core:
+  default_config_hash: 74LzWeR-A7VUAh8_JgeHNQV-5myYkFXP06SVMxZUxJo
 id: contact_me
-label: 'Contact me'
+label: Contact
 recipients:
   - admin@example.com
 reply: ''
 weight: 0
 message: ''
-redirect: ''
+redirect: /contact-success

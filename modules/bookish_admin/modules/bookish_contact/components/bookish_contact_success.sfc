@@ -1,0 +1,11 @@
+<template>
+  <div class="bookish-contact-success container">
+    <p>{%trans%}Thank you for your message! I'll get back to you as soon as I can.{% endtrans %}</p>
+  </div>
+</template>
+
+<style>
+  .bookish-contact-success > p {
+    grid-column: 1 / 11;
+  }
+</style>

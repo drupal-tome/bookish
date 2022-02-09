@@ -20,4 +20,4 @@ visibility:
   request_path:
     id: request_path
     negate: false
-    pages: "/user/*\r\n/contact/*\r\n/contact"
+    pages: "/user/*\r\n/contact/*\r\n/contact\r\n/contact-success"

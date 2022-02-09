@@ -1,0 +1,8 @@
+bookish_contact.success:
+  path: '/contact-success'
+  defaults:
+    _controller: '\Drupal\sfc\Controller\ComponentController::build'
+    component_id: 'bookish_contact_success'
+    _title: 'Contact form submitted'
+  requirements:
+    _access: 'TRUE'
