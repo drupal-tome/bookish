@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * Hook implementations for bookish_components.
+ */
+
+/**
+ * Implements hook_page_top().
+ */
+function bookish_components_page_top() {
+  if (\Drupal::service('theme_handler')->getDefault() === 'bookish_theme' && \Drupal::routeMatch()->getRouteName() === 'entity.entity_view_display.node.default') {
+    \Drupal::messenger()->addWarning(t('The Bookish Theme overrides default node displays in its templates to have better control over HTML, and to use Single File Components. You can override these templates to provide your own markup.'));
+  }
+}

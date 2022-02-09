@@ -45,6 +45,7 @@ body {
   --spacer-2: 25px;
   --spacer-3: 50px;
   --spacer-4: 75px;
+  --success-color: var(--accent-color-2);
   --error-color: #a72828;
   --warning-color: #937d1b;
   font-family: var(--font-family);

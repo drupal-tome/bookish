@@ -58,7 +58,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 18px 20px;
-    border: 2px solid var(--border-color);
+    border: 2px solid var(--success-color);
     background: var(--background-color);
     margin: 0;
     margin-bottom: var(--spacer-1);
