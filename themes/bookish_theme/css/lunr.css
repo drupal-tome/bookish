@@ -75,6 +75,7 @@
   transition: background-color .2s;
   font-weight: normal;
   cursor: pointer;
+  user-select: none;
 }
 
 .lunr-search-page-form input[type="search"] {

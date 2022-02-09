@@ -122,6 +122,7 @@ textarea {
   background: transparent;
   border-color: var(--border-color);
   transition: border-color .2s;
+  max-width: 100%;
 }
 
 #coffee-q {
