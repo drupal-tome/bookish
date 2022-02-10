@@ -13,6 +13,14 @@ related:
 
 <p>{% trans %}Tome is also always exporting config (in the sync directory) and content (../content) as you edit it. This allows you to commit your entire website to Git without running Drupal anywhere except your local machine. While this blog doesn't use Bookish, it does use Tome so you should check it out for an example of a "real" site: <a href="https://github.com/mortenson/mortenson.github.io">mortenson/mortenson.github.io</a>.{% endtrans %}</p>
 
+<h2>{% trans %}Easy setup for tome-project users{% endtrans %}</h2>
+
+<p>{% trans %}If you built this site with drupal-tome/tome-project, an example Netlify and GitHub Pages config are already in your repository.{% endtrans %}</p>
+
+<p>{% trans %}If you want to use Netlify, edit "netlify.toml" and add the "Example lines" back into the build command, then connect your repository to Netlify.{% endtrans %}</p>
+
+<p>{% trans %}If you want to use GitHub Pages, copy ".example_github" to ".github", then in ".github/workflows/build.yml" uncomment the lines under "Uncomment these lines if needed".{% endtrans %}</p>
+
 <h2>{% trans %}Digging deeper{% endtrans %}</h2>
 
 <p>{% trans %}Tome is already documented extensively, so instead of copy+pasting everything here I will redirect you to some other resources you should read over:{% endtrans %}</p>
