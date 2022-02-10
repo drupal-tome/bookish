@@ -10,7 +10,6 @@ use Drupal\filter\Plugin\FilterBase;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\RequestOptions;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
  * Renders non-previewable OEmbed content.
@@ -80,11 +79,11 @@ class BookishOEmbedFilter extends FilterBase implements ContainerFactoryPluginIn
         'name' => 'vimeo',
         'url' => [
           '/^vimeo\.com\/(\d+)/',
-          '/^vimeo\.com\/[^/]+\/[^/]+\/video\/(\d+)/',
-          '/^vimeo\.com\/album\/[^/]+\/video\/(\d+)/',
-          '/^vimeo\.com\/channels\/[^/]+\/(\d+)/',
-          '/^vimeo\.com\/groups\/[^/]+\/videos\/(\d+)/',
-          '/^vimeo\.com\/ondemand\/[^/]+\/(\d+)/',
+          '/^vimeo\.com\/[^\/]+\/[^\/]+\/video\/(\d+)/',
+          '/^vimeo\.com\/album\/[^\/]+\/video\/(\d+)/',
+          '/^vimeo\.com\/channels\/[^\/]+\/(\d+)/',
+          '/^vimeo\.com\/groups\/[^\/]+\/videos\/(\d+)/',
+          '/^vimeo\.com\/ondemand\/[^\/]+\/(\d+)/',
           '/^player\.vimeo\.com\/video\/(\d+)/',
         ],
       ],
@@ -156,7 +155,7 @@ class BookishOEmbedFilter extends FilterBase implements ContainerFactoryPluginIn
         $iframe = $dom->createElement('iframe', '');
         $iframe->setAttribute('class', 'bookish-oembed bookish-oembed-' . ($provider ? $provider['name'] : 'unknown'));
         $iframe->setAttribute('srcdoc', '<style>iframe { max-width: 100% !important; }</style>' . $data['html']);
-        if ($provider['name'] === 'flickr') {
+        if (!empty($provider) && $provider['name'] === 'flickr') {
           $iframe->setAttribute('scrolling', 'no');
         }
         if (isset($data['width'])) {
@@ -169,7 +168,7 @@ class BookishOEmbedFilter extends FilterBase implements ContainerFactoryPluginIn
         $wrapper->appendChild($iframe);
         $node->parentNode->replaceChild($wrapper, $node);
       }
-      if ($provider['name'] === 'twitter') {
+      if (!empty($provider) && $provider['name'] === 'twitter') {
         $result->setAttachments([
           'library' => [
             'bookish_ckeditor/iframeSize',
@@ -223,63 +222,17 @@ class BookishOEmbedFilter extends FilterBase implements ContainerFactoryPluginIn
       return ['html' => 'Could not retrieve the oEmbed HTML.'];
     }
 
-    [$format] = $response->getHeader('Content-Type');
     $content = (string) $response->getBody();
+    $data = Json::decode($content);
 
-    if (strstr($format, 'text/xml') || strstr($format, 'application/xml')) {
-      $data = $this->parseResourceXml($content, $url);
-    }
-    // By default, try to parse the resource data as JSON.
-    else {
-      $data = Json::decode($content);
-
-      if (json_last_error() !== JSON_ERROR_NONE) {
-        return ['html' => 'Error decoding oEmbed data'];
-      }
+    if (json_last_error() !== JSON_ERROR_NONE) {
+      return ['html' => 'Error decoding oEmbed data.'];
     }
     if (empty($data) || !is_array($data) || !isset($data['html']) || !is_string($data['html'])) {
       return ['html' => 'The oEmbed data does not have valid HTML.'];
     }
 
     return $data;
-  }
-
-  /**
-   * Parses XML resource data.
-   *
-   * @param string $data
-   *   The raw XML for the resource.
-   * @param string $url
-   *   The resource URL.
-   *
-   * @return array
-   *   The parsed resource data.
-   *
-   * @throws \Drupal\media\OEmbed\ResourceException
-   *   If the resource data could not be parsed.
-   */
-  protected function parseResourceXml($data, $url) {
-    // Enable userspace error handling.
-    $was_using_internal_errors = libxml_use_internal_errors(TRUE);
-    libxml_clear_errors();
-
-    $content = simplexml_load_string($data, 'SimpleXMLElement', LIBXML_NOCDATA);
-    // Restore the previous error handling behavior.
-    libxml_use_internal_errors($was_using_internal_errors);
-
-    $error = libxml_get_last_error();
-    if ($error) {
-      libxml_clear_errors();
-      throw new AccessDeniedHttpException($error->message);
-    }
-    elseif ($content === FALSE) {
-      throw new AccessDeniedHttpException('The fetched resource could not be parsed.');
-    }
-
-    // Convert XML to JSON so that the parsed resource has a consistent array
-    // structure, regardless of any XML attributes or quirks of the XML parser.
-    $data = Json::encode($content);
-    return Json::decode($data);
   }
 
   /**
