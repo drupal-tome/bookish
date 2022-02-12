@@ -1,0 +1,7 @@
+image.effect.bookish_image_crop:
+  type: image_size
+  label: 'Bookish image scale'
+
+image.effect.bookish_image_scale_and_crop:
+  type: image_size
+  label: 'Bookish image scale and crop'

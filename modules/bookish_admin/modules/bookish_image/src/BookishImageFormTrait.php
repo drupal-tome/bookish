@@ -29,7 +29,7 @@ trait BookishImageFormTrait {
       'callback' => [static::class, 'updatePreview'],
       'options' => [
         'query' => [
-          'element_parents' => implode('/', $element['#array_parents']),
+          'element_parents' => implode('/', $element['#array_parents'] ?? []),
         ],
       ],
       'event' => 'change',

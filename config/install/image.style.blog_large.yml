@@ -13,8 +13,8 @@ effects:
     id: bookish_image_scale_and_crop
     weight: 1
     data:
-      width: '1024'
-      height: '500'
+      width: 1024
+      height: 500
   0e3c7793-78b0-4592-aba5-b04ff7da24b0:
     uuid: 0e3c7793-78b0-4592-aba5-b04ff7da24b0
     id: bookish_image_effect

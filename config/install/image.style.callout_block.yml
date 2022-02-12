@@ -11,8 +11,8 @@ effects:
     id: bookish_image_scale_and_crop
     weight: 1
     data:
-      width: '650'
-      height: '450'
+      width: 650
+      height: 450
   f6cad519-8576-47d6-ba37-f20f8eb45843:
     uuid: f6cad519-8576-47d6-ba37-f20f8eb45843
     id: bookish_image_effect
