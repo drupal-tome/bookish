@@ -93,10 +93,10 @@ class BookishImageFilter extends FilterBase implements ContainerFactoryPluginInt
       $dom = Html::load($text);
       $xpath = new \DOMXPath($dom);
       foreach ($xpath->query('//*[@data-entity-type="file" and @data-entity-uuid and @data-bookish-image-style]') as $node) {
-        $uuid = $node->getAttribute('data-entity-uuid');
         if ($node->nodeName !== 'img') {
           continue;
         }
+        $uuid = $node->getAttribute('data-entity-uuid');
         /** @var \Drupal\file\FileInterface $file */
         $file = $this->entityRepository->loadEntityByUuid('file', $uuid);
         if (!($file instanceof FileInterface)) {

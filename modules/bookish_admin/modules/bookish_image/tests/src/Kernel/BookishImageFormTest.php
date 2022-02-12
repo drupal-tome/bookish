@@ -7,7 +7,6 @@ use Drupal\Core\Form\FormState;
 use Drupal\file\Entity\File;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\KernelTests\KernelTestBase;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Tests BookishImageForm.
