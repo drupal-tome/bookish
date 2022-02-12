@@ -1,8 +1,16 @@
 <?php
 
+/**
+ * @file
+ * Contains hook implementations for the theme.
+ */
+
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Form\FormStateInterface;
 
+/**
+ * Implements hook_preprocess_html().
+ */
 function bookish_theme_preprocess_html(&$variables) {
   $color_mode = theme_get_setting('bookish_color_mode');
   if ($color_mode === 'light' || $color_mode === 'dark') {
@@ -26,6 +34,9 @@ function bookish_theme_theme_suggestions_block_alter(array &$suggestions, array 
   }
 }
 
+/**
+ * Implements hook_form_system_theme_settings_alter().
+ */
 function bookish_theme_form_system_theme_settings_alter(&$form, FormStateInterface $form_state, $form_id = NULL) {
   if (isset($form_id)) {
     return;

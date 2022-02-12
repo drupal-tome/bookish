@@ -60,7 +60,7 @@ function bookish_admin_token_info() {
 
   $info['types']['bookish'] = [
     'name' => t('Bookish'),
-    'description' => t('Bookish tokens')
+    'description' => t('Bookish tokens'),
   ];
 
   $info['tokens']['bookish']['social_node'] = [
@@ -76,23 +76,23 @@ function bookish_admin_token_info() {
  * Implements hook_tokens().
  */
 function bookish_admin_tokens($type, $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata) {
-    $replacements = [];
+  $replacements = [];
 
-    if ($type !== 'bookish') {
+  if ($type !== 'bookish') {
+    return $replacements;
+  }
+
+  if ($tokens = \Drupal::token()->findWithPrefix($tokens, 'social_node')) {
+    $nodes = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties([
+      'title' => 'social_node',
+    ]);
+    if (empty($nodes)) {
       return $replacements;
     }
+    $node = reset($nodes);
+    $replacements += \Drupal::token()->generate('node', $tokens, ['node' => $node], $options, $bubbleable_metadata);
+  }
 
-    if ($tokens = \Drupal::token()->findWithPrefix($tokens, 'social_node')) {
-      $nodes = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties([
-        'title' => 'social_node',
-      ]);
-      if (empty($nodes)) {
-        return $replacements;
-      }
-      $node = reset($nodes);
-      $replacements += \Drupal::token()->generate('node', $tokens, ['node' => $node], $options, $bubbleable_metadata);
-    }
-
-    return $replacements;
+  return $replacements;
 
 }

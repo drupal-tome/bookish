@@ -14,7 +14,11 @@ use Drupal\Core\Entity\FieldableEntityInterface;
 function bookish_yaml_entity_presave(EntityInterface $entity) {
   if ($entity instanceof FieldableEntityInterface) {
     foreach ($entity->getFields() as $field) {
-      if (!in_array($field->getFieldDefinition()->getType(), ['text_long', 'text_with_summary', 'text'], TRUE)) {
+      if (!in_array($field->getFieldDefinition()->getType(), [
+        'text_long',
+        'text_with_summary',
+        'text',
+      ], TRUE)) {
         continue;
       }
       /** @var \Drupal\Core\Field\FieldItemInterface $field_item */

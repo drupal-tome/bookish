@@ -216,7 +216,7 @@ function bookish_install() {
           'blue' => 0,
           'focal_point' => [427, 652],
         ],
-      ]
+      ],
     ],
   ];
 

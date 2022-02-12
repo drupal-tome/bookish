@@ -62,17 +62,26 @@ function bookish_image_entity_update(EntityInterface $entity) {
           $data = array_merge(_bookish_image_coerce_data($data), _bookish_image_coerce_data($new_data));
           $item->entity->bookish_image_data = json_encode($data);
           $item->entity->save();
-          _bookish_image_flush_image_styles($item->entity->getFileUri());  
+          _bookish_image_flush_image_styles($item->entity->getFileUri());
         }
       }
     }
   }
 }
 
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
 function bookish_image_form_node_form_alter(&$form, &$form_state, $form_id) {
   $form['#attached']['library'][] = 'bookish_image/node_form';
 }
 
+/**
+ * Flushes all image style cache for a given file.
+ *
+ * @param string $uri
+ *   The image URI.
+ */
 function _bookish_image_flush_image_styles($uri) {
   if (empty($uri)) {
     return;
@@ -84,6 +93,14 @@ function _bookish_image_flush_image_styles($uri) {
   }
 }
 
+/**
+ * Updates a file object with the new bookish image data, without saving it.
+ *
+ * @param \Drupal\file\FileInterface $file
+ *   The file to update.
+ * @param mixed $new_image_data
+ *   The new image data.
+ */
 function _bookish_image_update_data(FileInterface $file, $new_image_data) {
   $original_image_data = [];
   if (!empty($file->bookish_image_data)) {
@@ -93,6 +110,15 @@ function _bookish_image_update_data(FileInterface $file, $new_image_data) {
   $file->bookish_image_data = json_encode($image_data);
 }
 
+/**
+ * Attempts to transform user-submitted image data to an expected structure.
+ *
+ * @param mixed $data
+ *   The image data.
+ *
+ * @return array
+ *   The formatted image data.
+ */
 function _bookish_image_coerce_data($data) {
   if (!is_array($data)) {
     return [];
@@ -103,10 +129,11 @@ function _bookish_image_coerce_data($data) {
         $value = explode(',', $value);
       }
       if (count($value) < 2) {
-        $value = [0,0];
+        $value = [0, 0];
       }
       $value = array_map('intval', $value);
-    } else {
+    }
+    else {
       $value = (int) $value;
     }
   }
