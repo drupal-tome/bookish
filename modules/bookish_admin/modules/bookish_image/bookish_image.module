@@ -69,6 +69,10 @@ function bookish_image_entity_update(EntityInterface $entity) {
   }
 }
 
+function bookish_image_form_node_form_alter(&$form, &$form_state, $form_id) {
+  $form['#attached']['library'][] = 'bookish_image/node_form';
+}
+
 function _bookish_image_flush_image_styles($uri) {
   if (empty($uri)) {
     return;
@@ -80,8 +84,13 @@ function _bookish_image_flush_image_styles($uri) {
   }
 }
 
-function bookish_image_form_node_form_alter(&$form, &$form_state, $form_id) {
-  $form['#attached']['library'][] = 'bookish_image/node_form';
+function _bookish_image_update_data(FileInterface $file, $new_image_data) {
+  $original_image_data = [];
+  if (!empty($file->bookish_image_data)) {
+    $original_image_data = json_decode($file->bookish_image_data->getString(), TRUE);
+  }
+  $image_data = array_merge(_bookish_image_coerce_data($original_image_data), _bookish_image_coerce_data($new_image_data));
+  $file->bookish_image_data = json_encode($image_data);
 }
 
 function _bookish_image_coerce_data($data) {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\tome_static\Kernel;
+namespace Drupal\Tests\bookish_ckeditor\Kernel;
 
 use Drupal\bookish_ckeditor\Plugin\Filter\BookishOEmbedFilter;
 use Drupal\KernelTests\KernelTestBase;

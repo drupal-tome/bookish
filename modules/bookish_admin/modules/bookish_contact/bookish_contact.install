@@ -23,7 +23,7 @@ function bookish_contact_install() {
     'enabled' => TRUE,
     'title' => t('contact'),
     'menu_name' => 'main',
-    'link' => ['uri' => 'internal:/contact'],
+    'link' => ['uri' => 'internal:/contact/'],
     'weight' => 15,
   ]);
   $menu_link->save();

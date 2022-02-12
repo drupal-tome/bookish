@@ -295,13 +295,11 @@ class BookishImageForm extends FormBase {
       return;
     }
     $file = $form['#file'];
-    $image_data = json_decode($file->bookish_image_data->getString(), TRUE);
     $new_image_data = $form_state->getValue([
       'bookish_image',
       'bookish_image_data',
     ]);
-    $image_data = array_merge(_bookish_image_coerce_data($image_data), _bookish_image_coerce_data($new_image_data));
-    $file->bookish_image_data = json_encode($image_data);
+    _bookish_image_update_data($file, $new_image_data);
     _bookish_image_flush_image_styles($file->getFileUri());
     $file->save();
   }

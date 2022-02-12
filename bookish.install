@@ -91,7 +91,7 @@ function bookish_install() {
     'enabled' => TRUE,
     'title' => t('blog'),
     'menu_name' => 'main',
-    'link' => ['uri' => 'internal:/blog'],
+    'link' => ['uri' => 'internal:/blog/'],
     'weight' => 0,
   ]);
   $menu_link->save();
@@ -100,7 +100,7 @@ function bookish_install() {
     'enabled' => TRUE,
     'title' => t('about'),
     'menu_name' => 'main',
-    'link' => ['uri' => 'internal:/about'],
+    'link' => ['uri' => 'internal:/about/'],
     'weight' => 10,
   ]);
   $menu_link->save();
@@ -109,7 +109,7 @@ function bookish_install() {
     'enabled' => TRUE,
     'title' => t('search'),
     'menu_name' => 'main',
-    'link' => ['uri' => 'internal:/search'],
+    'link' => ['uri' => 'internal:/search/'],
     'weight' => 20,
   ]);
   $menu_link->save();

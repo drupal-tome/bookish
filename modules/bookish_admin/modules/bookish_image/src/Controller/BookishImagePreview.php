@@ -12,6 +12,7 @@ use Drupal\image\ImageStyleInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
 
 /**
  * Controller for previewing Bookish image effect settings.
@@ -69,11 +70,13 @@ class BookishImagePreview extends ControllerBase {
    *   The contents of the preview image.
    */
   public function build(FileInterface $file, ImageStyleInterface $image_style, Request $request) {
-    $original_image_data = json_decode($file->bookish_image_data->getString(), TRUE);
-    $new_image_data = json_decode($request->query->get('bookish_image_data', []), TRUE);
-    $image_data = array_merge(_bookish_image_coerce_data($original_image_data), _bookish_image_coerce_data($new_image_data));
-    $file->bookish_image_data = json_encode($image_data);
-    $derivative_uri = 'temporary://bookish-image-preview/' . preg_replace('|.*://|', '', $file->getFileUri());
+    $new_image_data = json_decode($request->query->get('bookish_image_data', '[]'), TRUE);
+    _bookish_image_update_data($file, $new_image_data);
+    $uri = preg_replace('|.*://|', '', $file->getFileUri());
+    if (empty($uri)) {
+      throw new NotAcceptableHttpException('Provided file has no path.');
+    }
+    $derivative_uri = 'temporary://bookish-image-preview/' . $uri;
     $this->fileSystem->delete($derivative_uri);
     $image_style->createDerivative($file->getFileUri(), $derivative_uri);
     $image = $this->imageFactory->get($derivative_uri);

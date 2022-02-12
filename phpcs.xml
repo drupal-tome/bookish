@@ -8,4 +8,5 @@
     <exclude-pattern>dragsort.js</exclude-pattern>
     <exclude-pattern>*min.js</exclude-pattern>
     <exclude-pattern>*.css</exclude-pattern>
+    <arg name="extensions" value="inc,install,module,php,profile,test,theme,yml"/>
 </ruleset>
