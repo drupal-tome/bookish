@@ -230,10 +230,10 @@ function bookish_install() {
       'type' => $values['type'],
       'created' => time() + ++$i,
       'body' => [
-        'value' => isset($values['body']) ? $values['body'] : $body,
+        'value' => $values['body'] ?? $body,
         'format' => 'rich_text',
       ],
-      'status' => isset($values['status']) ? $values['status'] : 1,
+      'status' => $values['status'] ?? 1,
       'promote' => 1,
       'sticky' => 0,
     ]);

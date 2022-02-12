@@ -226,12 +226,12 @@ class BookishImageEffect extends ImageEffectBase {
         $g = ($rgb >> 8) & 0xFF;
         $b = $rgb & 0xFF;
         $alpha = ($rgb & 0x7F000000) >> 24;
-        list($h, $s, $l) = $this->rgb2hsl($r, $g, $b);
+        [$h, $s, $l] = $this->rgb2hsl($r, $g, $b);
         $s = $s * (100 + $saturation_percentage) / 100;
         if ($s > 1) {
           $s = 1;
         }
-        list($r, $g, $b) = $this->hsl2rgb($h, $s, $l);
+        [$r, $g, $b] = $this->hsl2rgb($h, $s, $l);
         imagesetpixel($image, $x, $y, imagecolorallocatealpha($image, $r, $g, $b, $alpha));
       }
     }
@@ -261,12 +261,12 @@ class BookishImageEffect extends ImageEffectBase {
         $g = ($rgb >> 8) & 0xFF;
         $b = $rgb & 0xFF;
         $alpha = ($rgb & 0x7F000000) >> 24;
-        list($h, $s, $l) = $this->rgb2hsl($r, $g, $b);
+        [$h, $s, $l] = $this->rgb2hsl($r, $g, $b);
         $h += $angle / 360;
         if ($h > 1) {
           $h--;
         }
-        list($r, $g, $b) = $this->hsl2rgb($h, $s, $l);
+        [$r, $g, $b] = $this->hsl2rgb($h, $s, $l);
         imagesetpixel($image, $x, $y, imagecolorallocatealpha($image, $r, $g, $b, $alpha));
       }
     }
