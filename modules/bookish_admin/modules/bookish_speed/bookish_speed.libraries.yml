@@ -1,7 +1,6 @@
 main:
   js:
     js/speed.js: { }
-    js/events.js: { }
   dependencies:
     - core/drupal
     - core/drupal.announce
