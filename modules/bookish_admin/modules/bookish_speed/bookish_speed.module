@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * Hook implementations for bookish_speed.
+ */
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function bookish_speed_page_attachments_alter(array &$page) {
+  if (!\Drupal::service('router.admin_context')->isAdminRoute()) {
+    $page['#attached']['library'][] = 'bookish_speed/main';
+  }
+}

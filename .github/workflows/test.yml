@@ -19,6 +19,6 @@ jobs:
       - name: Install Bookish
         run: ./vendor/bin/drush si bookish -y
       - name: Run PHPCS
-        run: ./vendor/bin/phpcs --standard=Drupal,./web/profiles/bookish/phpcs.xml ./web/profiles/bookish --ignore='*node_modules|ckeditor5*'
+        run: ./vendor/bin/phpcs --standard=Drupal,./web/profiles/bookish/phpcs.xml ./web/profiles/bookish
       - name: Run PHPUnit
         run: SIMPLETEST_DB=sqlite://localhost/.test.sqlite ./vendor/bin/phpunit -c core profiles/bookish/

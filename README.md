@@ -80,6 +80,11 @@ drush pmu tome -y
 After logging in, click "Help" in the toolbar. This module has extensive
 documentation located inside Drupal using the Help Topics module.
 
+## Speeding up your site with AJAX navigation (experimental)
+
+To emulate the behavior of JavaScript routers which refresh the main content of
+the page instead of navigating to a new page when links are clicked, you can
+
 ## Exporting content as YAML (experimental)
 
 If you would prefer exporting content as .yml files, you can try using the
