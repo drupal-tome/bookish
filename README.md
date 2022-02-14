@@ -1,4 +1,5 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/c7036c2e-996a-4bac-9da4-c4bba607ab04/deploy-status)](https://app.netlify.com/sites/bookish-drupal/deploys)
+![Tests](https://github.com/drupal-tome/bookish/actions/workflows/test/badge.svg)
 
 # Bookish
 
@@ -79,6 +80,11 @@ drush pmu tome -y
 
 After logging in, click "Help" in the toolbar. This module has extensive
 documentation located inside Drupal using the Help Topics module.
+
+## Speeding up your site with AJAX navigation (experimental)
+
+To emulate the behavior of JavaScript routers which refresh the main content of
+the page instead of navigating to a new page when links are clicked, you can
 
 ## Exporting content as YAML (experimental)
 

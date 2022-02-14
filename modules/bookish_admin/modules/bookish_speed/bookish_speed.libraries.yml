@@ -1,0 +1,7 @@
+main:
+  js:
+    js/speed.js: { }
+  dependencies:
+    - core/drupal
+    - core/drupal.announce
+    - core/once

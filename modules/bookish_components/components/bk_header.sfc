@@ -1,5 +1,5 @@
 <template>
-  <div class="bk-header {% if is_front %}bk-header--front{% endif %}">
+  <div class="bk-header">
     <header class="container">
       {% if is_front %}
         <h1 class="bk-header__name">
@@ -37,10 +37,10 @@
     color: var(--font-color);
     text-decoration: underline;
   }
-  .bk-header--front {
+  .is-front .bk-header {
     grid-template-rows: 200px 300px;
   }
-  .bk-header--front .bk-header__name {
+  .is-front .bk-header__name {
     font-size: 4rem;
     line-height: 4rem;
     grid-row: 1;
@@ -58,13 +58,13 @@
     background: var(--accent-color-1);
   }
   @media screen and (max-width: 800px) {
-    .bk-header--front .bk-header__name {
+    .is-front .bk-header__name {
       font-size: 3rem;
       line-height: 3rem;
     }
   }
   @media screen and (max-width: 560px) {
-    .bk-header--front {
+    .is-front .bk-header {
       grid-template-rows: 125px 200px 100px;
     }
     .bk-header__name {

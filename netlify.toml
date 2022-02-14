@@ -7,8 +7,10 @@ export BUILD_DIR=$(pwd) \
 && mkdir -p /tmp/my_site/web/profiles/bookish && cp -r * /tmp/my_site/web/profiles/bookish/ \
 && cd /tmp/my_site \
 && composer install \
-&& composer require "drupal/lunr:^1" "drupal/sfc:^1" "drupal/twig_tweak:^3" "drupal/metatag:^1" "drupal/pathauto:^1" "drupal/simple_sitemap:^4" "drupal/highlight_php:^1" "drupal/coffee:^1" "drupal/coffee_extras:^1" "drupal/tome_netlify:^1" \
+&& composer require "drupal/lunr:^1" "drupal/sfc:^1" "drupal/twig_tweak:^3" "drupal/metatag:^1" "drupal/pathauto:^1" "drupal/simple_sitemap:^4" "drupal/highlight_php:^1" "drupal/coffee:^1" "drupal/coffee_extras:^1" "drupal/tome_netlify:^1" "drupal/quicklink:^2" \
 && ./vendor/bin/drush si bookish --site-name="Bookish Demo" -y \
+&& ./vendor/bin/drush en bookish_contact bookish_speed quicklink -y \
+&& ./vendor/bin/drush cr -y \
 && LUNR_DRUSH=./vendor/bin/drush node web/modules/contrib/lunr/js/index.node.js default \
 && ./vendor/bin/drush simple-sitemap-generate -y -l $DEPLOY_PRIME_URL \
 && ./vendor/bin/drush tome:static -l $DEPLOY_PRIME_URL \

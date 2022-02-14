@@ -1,0 +1,4 @@
+name: Bookish Speed (Experimental)
+type: module
+description: 'Uses AJAX to perform page navigation, like a budget Refreshless/Turbo.'
+core_version_requirement: '^9'

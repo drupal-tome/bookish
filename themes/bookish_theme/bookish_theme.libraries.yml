@@ -16,3 +16,9 @@ highlight_php:
     base:
       css/a11y-light.css: {}
       css/a11y-dark.css: {}
+
+speed:
+  js:
+    js/speed.js: { }
+  dependencies:
+    - core/drupal
