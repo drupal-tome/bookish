@@ -73,7 +73,7 @@
         document.dispatchEvent(event);
       };
 
-      // If there are no new assets, we can replace now.
+      // If there are no CSS assets, we can replace now.
       var timeout;
       if (newCss.length === 0) {
         replaceHtml();
@@ -138,7 +138,7 @@
 
   Drupal.behaviors.bookishSpeed = {
     attach: function attach(context, settings) {
-      once('bookish-speed', 'a', context).forEach(function (element) {
+      once('bookish-speed', 'a:not([target])', context).forEach(function (element) {
         // Check if URL is local, an admin-y path, or has an extension.
         if (element.href.match(/\/(admin|node|user)|\.[a-zA-Z0-9]+$/) || !Drupal.url.isLocal(element.href)) {
           return;

@@ -10,6 +10,9 @@ assignees: ''
 **Describe the bug**
 A clear and concise description of what the bug is.
 
+_Note: Incompatibility with a contrib module that is not a Bookish dependency
+is a **feature request**, not a bug._
+
 **To Reproduce**
 Steps to reproduce the behavior:
 1. Run "drush si bookish -y" and login
