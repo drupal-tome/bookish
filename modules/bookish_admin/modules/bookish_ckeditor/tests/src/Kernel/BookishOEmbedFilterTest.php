@@ -27,7 +27,7 @@ class BookishOEmbedFilterTest extends KernelTestBase {
       ->will($this->returnValue(new Response(200, [], $response)));
     $filter = new BookishOEmbedFilter([], '', ['provider' => ''], $mocked_http_client);
     $result = $filter->process($text, 'en');
-    $this->assertRegExp($expected, $result->getProcessedText());
+    $this->assertMatchesRegularExpression($expected, $result->getProcessedText());
   }
 
   /**

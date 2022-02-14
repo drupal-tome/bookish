@@ -36,7 +36,7 @@ class BookishImageFilterTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp() : void {
     parent::setUp();
 
     $this->installEntitySchema('file');
@@ -76,7 +76,7 @@ class BookishImageFilterTest extends KernelTestBase {
     $expected = str_replace('uuid_placeholder', $this->uuid, $expected);
     $filter = BookishImageFilter::create($this->container, [], '', ['provider' => 'bookish_image']);
     $result = $filter->process($text, 'en');
-    $this->assertRegExp($expected, $result->getProcessedText());
+    $this->assertMatchesRegularExpression($expected, $result->getProcessedText());
   }
 
   /**
