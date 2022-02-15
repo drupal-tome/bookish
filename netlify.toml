@@ -23,8 +23,3 @@ publish = "html"
 
 [build.environment]
 PHP_VERSION="7.4"
-
-[[headers]]
-  for = "/*"
-  [headers.values]
-  cache-control = "max-age=600"
