@@ -6,7 +6,7 @@
     </div>
     <div class="bk-blog__tags">
       {% for tag in tags %}
-        <a class="bk-blog__tag" href="{{ url('<front>') }}/search?field_tags={{ tag }} ">{{ tag }}</a>
+        <a class="bk-blog__tag" href="{{ url('<front>') }}search?field_tags={{ tag }}">{{ tag }}</a>
       {% endfor %}
     </div>
     <div class="bk-blog__image">{{ image }}</div>
