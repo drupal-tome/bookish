@@ -36,6 +36,10 @@
       var settingsJs = html.match(/(?<=<script[^>]*drupal-settings-json[^>]*>)[^<]*/g);
       if (settingsJs) {
         window.drupalSettings = JSON.parse(settingsJs[0]);
+        var settingsElement = document.querySelector('script[data-drupal-selector="drupal-settings-json"]');
+        if (settingsElement) {
+          settingsElement.innerText = settingsJs[0];
+        }
       }
 
       // Determine what CSS/JS files are new.
