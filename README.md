@@ -1,5 +1,5 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/c7036c2e-996a-4bac-9da4-c4bba607ab04/deploy-status)](https://app.netlify.com/sites/bookish-drupal/deploys)
-![Tests](https://github.com/drupal-tome/bookish/actions/workflows/test/badge.svg)
+![Tests Status](https://github.com/drupal-tome/bookish/actions/workflows/test.yml/badge.svg)
 
 # Bookish
 
