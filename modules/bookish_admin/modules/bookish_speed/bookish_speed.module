@@ -5,6 +5,7 @@
  * Hook implementations for bookish_speed.
  */
 
+use Drupal\bookish_speed\EventSubscriber\ModifyHtmlSubscriber;
 use Drupal\Core\Asset\AttachedAssetsInterface;
 
 /**
@@ -26,6 +27,9 @@ function bookish_speed_js_settings_alter(array &$settings, AttachedAssetsInterfa
     return;
   }
   $already_called = TRUE;
+  // Store the local paths so that Tome can pick them up.
+  $local_assets = &drupal_static(ModifyHtmlSubscriber::STATIC_KEY, []);
+  $local_assets = [];
 
   /** @var \Drupal\Core\Asset\AssetResolver $asset_resolver */
   $asset_resolver = \Drupal::service('asset.resolver');
@@ -45,6 +49,7 @@ function bookish_speed_js_settings_alter(array &$settings, AttachedAssetsInterfa
       }
       if (is_file($current['data'])) {
         $css[] = '/' . $current['data'];
+        $local_assets[] = $current['data'];
       }
       else {
         $css[] = $current['data'];
@@ -64,6 +69,7 @@ function bookish_speed_js_settings_alter(array &$settings, AttachedAssetsInterfa
         }
         if (is_file($current['data'])) {
           $js[] = '/' . $current['data'];
+          $local_assets[] = $current['data'];
         }
         else {
           $js[] = $current['data'];
