@@ -85,6 +85,9 @@ documentation located inside Drupal using the Help Topics module.
 
 To emulate the behavior of JavaScript routers which refresh the main content of
 the page instead of navigating to a new page when links are clicked, you can
+enable the Bookish Speed module. Note that your JavaScript will have to run in
+behaviors, and will have to use `once()`. Inline scripts and styles are not
+supported.
 
 ## Exporting content as YAML (experimental)
 
