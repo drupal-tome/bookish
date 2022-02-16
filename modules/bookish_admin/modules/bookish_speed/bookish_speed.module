@@ -13,7 +13,12 @@ use Drupal\Core\Asset\AttachedAssetsInterface;
  */
 function bookish_speed_page_attachments_alter(array &$page) {
   if (!\Drupal::service('router.admin_context')->isAdminRoute()) {
+    $config = \Drupal::config('bookish_speed.settings');
     $page['#attached']['library'][] = 'bookish_speed/main';
+    $page['#attached']['drupalSettings']['bookishSpeedSettings'] = [
+      'exclude_regex' => $config->get('exclude_regex'),
+      'wait_time' => $config->get('wait_time'),
+    ];
   }
 }
 

@@ -1,0 +1,2 @@
+wait_time: 300
+exclude_regex: '/(contact|admin|node|user)|\.[a-zA-Z0-9]+$'

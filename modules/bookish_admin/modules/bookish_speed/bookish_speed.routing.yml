@@ -1,0 +1,7 @@
+bookish_speed.settings:
+  path: '/admin/structure/bookish-speed/settings'
+  defaults:
+    _form: '\Drupal\bookish_speed\Form\BookishSpeedSettingsForm'
+    _title: 'Bookish Speed'
+  requirements:
+    _permission: 'administer site configuration'

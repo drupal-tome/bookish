@@ -103,7 +103,7 @@
         replaceHtml();
       }
       else {
-        var timeout = setTimeout(replaceHtml, 200);
+        var timeout = setTimeout(replaceHtml, window.drupalSettings.bookishSpeedSettings ? window.drupalSettings.bookishSpeedSettings.wait_time : 300);
       }
 
       var cssLoaded = function () {
@@ -162,9 +162,11 @@
 
   Drupal.behaviors.bookishSpeed = {
     attach: function attach(context, settings) {
+      var exclude_regex = settings.bookishSpeedSettings ? settings.bookishSpeedSettings.exclude_regex : '/(admin|node|user)|\.[a-zA-Z0-9]+$';
+      exclude_regex = new RegExp(exclude_regex);
       once('bookish-speed', 'a:not([target])', context).forEach(function (element) {
         // Check if URL is local, an admin-y path, or has an extension.
-        if (element.href.match(/\/(admin|node|user)|\.[a-zA-Z0-9]+$/) || !Drupal.url.isLocal(element.href)) {
+        if (element.href.match(exclude_regex) || !Drupal.url.isLocal(element.href)) {
           return;
         }
         element.addEventListener('click', function (event) {
