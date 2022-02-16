@@ -27,7 +27,7 @@
     return out;
   };
 
-  function requestUrl(url, search, hash) {
+  function requestUrl(url, search, hash, scrollTop) {
     // Do some early precautions to ensure URL is local.
     url = url.replace(/^\/?/, '/').replace(/\/\//g, '/');
     // Fetch the new URL, do not allow requests/redirects to non local origins.
@@ -80,7 +80,7 @@
         replaced = true;
         var main = document.querySelector('main');
         main.innerHTML = newMain;
-        window.scrollTo({ top: 0 });
+        window.scrollTo({ top: scrollTop });
         // Accessibility tweaks.
         var skipLink = document.querySelector('#skip-link');
         if (skipLink) {
@@ -175,14 +175,16 @@
             return;
           }
           event.preventDefault();
+          history.replaceState({scrollTop: document.documentElement.scrollTop}, '');
           history.pushState(null, '', pathname + url.search + url.hash);
-          requestUrl(pathname, url.search, url.hash);
+          requestUrl(pathname, url.search, url.hash, 0);
         });
       });
       once('bookish-speed-history', 'body', context).forEach(function () {
-        window.addEventListener('popstate', function () {
+        window.addEventListener('popstate', function (event) {
           if (document.location.pathname !== lastPath) {
-            requestUrl(document.location.pathname, document.location.search, document.location.hash);
+            var scrollTop = event.state && event.state.scrollTop ? event.state.scrollTop : 0;
+            requestUrl(document.location.pathname, document.location.search, document.location.hash, scrollTop);
           }
         });
       });
