@@ -2,6 +2,31 @@
 
   var lastPath = null;
 
+  // Shim for $.extend(true, ...)
+  var deepExtend = function (out) {
+    out = out || {};
+
+    for (var i = 1; i < arguments.length; i++) {
+      var obj = arguments[i];
+
+      if (!obj) { continue;
+      }
+
+      for (var key in obj) {
+        if (obj.hasOwnProperty(key)) {
+          if (typeof obj[key] === "object" && obj[key] !== null) {
+            if (obj[key] instanceof Array) { out[key] = obj[key].slice(0);
+            } else { out[key] = deepExtend(out[key], obj[key]);
+            }
+          } else { out[key] = obj[key];
+          }
+        }
+      }
+    }
+
+    return out;
+  };
+
   function requestUrl(url, search, hash) {
     // Do some early precautions to ensure URL is local.
     url = url.replace(/^\/?/, '/').replace(/\/\//g, '/');
@@ -34,24 +59,19 @@
 
       // Get drupalSettings.
       var settingsJs = html.match(/(?<=<script[^>]*drupal-settings-json[^>]*>)[^<]*/g);
+      var oldSettings = window.drupalSettings;
       if (settingsJs) {
-        window.drupalSettings = JSON.parse(settingsJs[0]);
+        window.drupalSettings = deepExtend({}, window.drupalSettings, JSON.parse(settingsJs[0]));
         var settingsElement = document.querySelector('script[data-drupal-selector="drupal-settings-json"]');
         if (settingsElement) {
-          settingsElement.innerText = settingsJs[0];
+          settingsElement.innerText = JSON.stringify(window.drupalSettings);
         }
       }
 
       // Determine what CSS/JS files are new.
-      // Note: This regex assumes the rel comes before the href.
-      var cssUrl = /(?<=<link[^>]*rel="stylesheet"[^>]*href=")[^"']*\.css[^"']*(?="[^>]*>)/g;
-      var jsUrl = /(?<=<script[^>]*src=")[^"']*\.js[^"']*(?="[^>]*>)/g;
-      var oldCss = document.documentElement.innerHTML.match(cssUrl) || [];
-      var newCss = html.match(cssUrl) || [];
-      newCss = newCss.filter(function (x) { return oldCss.indexOf(x) === -1; });
-      var oldJs = document.documentElement.innerHTML.match(jsUrl) || [];
-      var newJs = html.match(jsUrl) || [];
-      newJs = newJs.filter(function (x) { return oldJs.indexOf(x) === -1; });
+      var newCss = window.drupalSettings.bookishSpeed.css.filter(function (x) { return oldSettings.bookishSpeed.css.indexOf(x) === -1; });
+      var newJs = window.drupalSettings.bookishSpeed.js.filter(function (x) { return oldSettings.bookishSpeed.js.indexOf(x) === -1; });
+
       var loadedCssAssets = 0;
       var loadedJsAssets = 0;
 
@@ -122,14 +142,14 @@
         var link = document.createElement('link');
         link.rel = "stylesheet";
         link.type = "text/css";
-        link.href = newUrl;
+        link.href = newUrl + (newUrl.indexOf('?') === -1 ? '?' : '&') + window.drupalSettings.bookishSpeed.query_string;
         link.addEventListener('load', cssLoaded);
         document.head.appendChild(link);
       });
       newJs.forEach(function (newUrl) {
         var script = document.createElement('script');
         script.async = false;
-        script.src = newUrl;
+        script.src = newUrl + (newUrl.indexOf('?') === -1 ? '?' : '&') + window.drupalSettings.bookishSpeed.query_string;
         script.addEventListener('load', jsLoaded);
         document.head.appendChild(script);
       });

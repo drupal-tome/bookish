@@ -5,6 +5,8 @@
  * Hook implementations for bookish_speed.
  */
 
+use Drupal\Core\Asset\AttachedAssetsInterface;
+
 /**
  * Implements hook_page_attachments_alter().
  */
@@ -12,4 +14,64 @@ function bookish_speed_page_attachments_alter(array &$page) {
   if (!\Drupal::service('router.admin_context')->isAdminRoute()) {
     $page['#attached']['library'][] = 'bookish_speed/main';
   }
+}
+
+/**
+ * Implements hook_js_settings_alter().
+ */
+function bookish_speed_js_settings_alter(array &$settings, AttachedAssetsInterface $assets) {
+  // This feels pretty stupid but even with placeholders this is hard to do.
+  $already_called = &drupal_static(__FUNCTION__, FALSE);
+  if ($already_called) {
+    return;
+  }
+  $already_called = TRUE;
+
+  /** @var \Drupal\Core\Asset\AssetResolver $asset_resolver */
+  $asset_resolver = \Drupal::service('asset.resolver');
+  /** @var \Drupal\Core\Asset\AssetCollectionGrouperInterface $css_grouper */
+  $css_grouper = \Drupal::service('asset.css.collection_grouper');
+  /** @var \Drupal\Core\Asset\AssetCollectionGrouperInterface $js_grouper */
+  $js_grouper = \Drupal::service('asset.js.collection_grouper');
+
+  // Get CSS assets.
+  $css_assets = $asset_resolver->getCssAssets($assets, FALSE);
+  $grouped_css = $css_grouper->group($css_assets);
+  $css = [];
+  foreach ($grouped_css as $group) {
+    foreach ($group['items'] as $current) {
+      if (!is_string($current['data'])) {
+        continue;
+      }
+      if (is_file($current['data'])) {
+        $css[] = '/' . $current['data'];
+      }
+      else {
+        $css[] = $current['data'];
+      }
+    }
+  }
+
+  // Get JS assets.
+  $parts = $asset_resolver->getJsAssets($assets, FALSE);
+  $js = [];
+  foreach ($parts as $part) {
+    $grouped_js = $js_grouper->group($part);
+    foreach ($grouped_js as $group) {
+      foreach ($group['items'] as $name => $current) {
+        if (!is_string($current['data'])) {
+          continue;
+        }
+        if (is_file($current['data'])) {
+          $js[] = '/' . $current['data'];
+        }
+        else {
+          $js[] = $current['data'];
+        }
+      }
+    }
+  }
+  $settings['bookishSpeed']['css'] = $css;
+  $settings['bookishSpeed']['js'] = $js;
+  $settings['bookishSpeed']['query_string'] = \Drupal::state()->get('system.css_js_query_string', '0');
 }
