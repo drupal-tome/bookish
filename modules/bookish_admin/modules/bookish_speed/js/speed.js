@@ -88,12 +88,14 @@
           skipLink.focus();
         };
         Drupal.announce(Drupal.t('Navigated to "@title"', { '@title': document.title }));
+        var event = new CustomEvent('bookish-speed-html', { });
+        document.dispatchEvent(event);
       };
 
       var triggerBehaviors = function () {
         var main = document.querySelector('main');
         Drupal.attachBehaviors(main, window.drupalSettings);
-        var event = new CustomEvent('bookish-speed-html', { });
+        var event = new CustomEvent('bookish-speed-javascript', { });
         document.dispatchEvent(event);
       };
 
@@ -144,6 +146,7 @@
         link.type = "text/css";
         link.href = newUrl + (newUrl.indexOf('?') === -1 ? '?' : '&') + window.drupalSettings.bookishSpeed.query_string;
         link.addEventListener('load', cssLoaded);
+        link.addEventListener('error', cssLoaded);
         document.head.appendChild(link);
       });
       newJs.forEach(function (newUrl) {
@@ -151,6 +154,7 @@
         script.async = false;
         script.src = newUrl + (newUrl.indexOf('?') === -1 ? '?' : '&') + window.drupalSettings.bookishSpeed.query_string;
         script.addEventListener('load', jsLoaded);
+        script.addEventListener('error', jsLoaded);
         document.head.appendChild(script);
       });
     }).catch(function (error) {
