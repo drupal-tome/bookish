@@ -204,6 +204,12 @@ input[type="submit"]:hover {
   height: auto;
 }
 
+.bk-text img:not(.align-left):not(.align-right) {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
+
 .bk-text .align-left {
   margin-right: var(--spacer-1);
 }
