@@ -114,10 +114,6 @@
         }
       };
 
-      if (newJs.length === 0) {
-        triggerBehaviors();
-      }
-
       // Wait to trigger behaviors until JS is loaded.
       var jsLoaded = function () {
         loadedJsAssets++;
@@ -136,6 +132,10 @@
           }
         }
       };
+
+      if (newJs.length === 0) {
+        jsLoaded();
+      }
 
       // Append CSS/JS to head.
       newCss.forEach(function (newUrl) {
