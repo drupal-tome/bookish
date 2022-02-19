@@ -17,6 +17,7 @@ export BUILD_DIR=$(pwd) \
 && LUNR_DRUSH=./vendor/bin/drush node web/modules/contrib/lunr/js/index.node.js default \
 && ./vendor/bin/drush simple-sitemap-generate -y -l $BUILD_URL \
 && ./vendor/bin/drush tome:static -l $BUILD_URL \
+&& cp html/404/index.html html/404.html \
 && cp -r html "$BUILD_DIR/html"
 """
 
