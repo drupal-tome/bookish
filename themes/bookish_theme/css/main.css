@@ -240,20 +240,6 @@ input[type="submit"]:hover {
   font-family: monospace;
 }
 
-.block-local-tasks-block ul,
-.block-page-title-block,
-.lunr-search-page-form,
-.lunr-search-results,
-.user-login-form,
-.user-pass,
-.user-form,
-.contact-form,
-.default-node {
-  max-width: 1280px;
-  padding: 0 100px;
-  margin: 0 auto;
-}
-
 .block-local-tasks-block {
   margin: var(--spacer-2) 0;
   text-align: right;
@@ -356,16 +342,7 @@ input[type="submit"]:hover {
 /* @todo required form styling */
 
 @media screen and (max-width: 800px) {
-  .block-local-tasks-block ul,
-  .block-page-title-block,
-  .lunr-search-page-form,
-  .lunr-search-results,
-  .container,
-  .user-login-form,
-  .user-pass,
-  .user-form,
-  .contact-form,
-  .default-node {
+  .container {
     padding: 0 25px;
   }
   .container--margin {

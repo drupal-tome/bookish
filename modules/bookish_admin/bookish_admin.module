@@ -50,6 +50,10 @@ function bookish_admin_lunr_search_page_alter(array &$build, LunrSearchInterface
     }
     ksort($build['form']['tags_container']['tags']);
   }
+  $build['results']['#attributes']['class'][] = 'container';
+  $build['results']['#attributes']['class'][] = 'container--no-grid';
+  $build['form']['#attributes']['class'][] = 'container';
+  $build['form']['#attributes']['class'][] = 'container--no-grid';
 }
 
 /**

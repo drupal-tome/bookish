@@ -77,3 +77,15 @@ function bookish_theme_library_info_alter(&$libraries, $extension) {
     }
   }
 }
+
+/**
+ * Implements hook_form_alter().
+ */
+function bookish_theme_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
+  $is_contact_form = strpos($form_id, 'contact_message') === 0;
+  $is_user_form = strpos($form_id, 'user_') === 0;
+  if ($is_contact_form || $is_user_form) {
+    $form['#attributes']['class'][] = 'container';
+    $form['#attributes']['class'][] = 'container--no-grid';
+  }
+}
