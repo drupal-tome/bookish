@@ -247,7 +247,8 @@ input[type="submit"]:hover {
 .user-login-form,
 .user-pass,
 .user-form,
-.contact-form {
+.contact-form,
+.default-node {
   max-width: 1280px;
   padding: 0 100px;
   margin: 0 auto;
@@ -363,7 +364,8 @@ input[type="submit"]:hover {
   .user-login-form,
   .user-pass,
   .user-form,
-  .contact-form {
+  .contact-form,
+  .default-node {
     padding: 0 25px;
   }
   .container--margin {
