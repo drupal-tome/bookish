@@ -28,7 +28,7 @@
     position: relative;
     grid-column: 5 / 10;
     grid-row: 2 / 3;
-    padding: var(--spacer-4);
+    padding: var(--spacer-3);
     background: var(--background-color);
     border: 2px solid var(--border-color);
   }
@@ -51,7 +51,6 @@
       grid-row: 1 / 4;
     }
     .bk-callout__text {
-      padding: var(--spacer-3);
       grid-column: 5 / 11;
       grid-row: 2 / 3;
     }
