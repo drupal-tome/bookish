@@ -33,7 +33,8 @@ body {
   --font-weight-regular: 400;
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
-  --font-weight-black: 800;
+  --font-weight-heavy: 800;
+  --font-weight-black: 950;
   --accent-color-1: #ffaaaa;
   --accent-color-2: #aadfff;
   --background-color: white;
