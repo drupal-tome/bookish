@@ -12,3 +12,8 @@ in a module has a number of benefits:
 
 However, this module isn't really a design system, so things are pretty
 specific to the theme.
+
+## Watching for component changes
+
+While editing components, make sure to run "drush sfc:watch" so that you don't
+have to rebuild cache every time you make changes.

@@ -13,6 +13,7 @@ related:
   <li><a href="{{ path('entity.menu.edit_form', {'menu' : 'main'}) }}">{% trans %}Edit the main menu{% endtrans %}</a></li>
   <li><a href="{{ path('entity.image_style.collection') }}">{% trans %}Add/edit image styles{% endtrans %}</a></li>
   <li><a href="{{ path('entity.metatag_defaults.collection') }}">{% trans %}Edit Metatags (tweak SEO settings){% endtrans %}</a></li>
+  <li><a href="{{ path('entity.view.edit_form', {'view': 'feed'}) }}">{% trans %}Edit RSS feed (set "Creator" field to your name){% endtrans %}</a></li>
   <li><a href="{{ path('system.admin_content', {}, {'query': {'title': 'social_node' }} ) }}">Find/edit the default social node (the image and body summary here are fallbacks for Metatag)</a></li>
   <li><a href="{{ path('simple_sitemap.entities') }}">{% trans %}Re-configure your sitemap.xml file{% endtrans %}</a></li>
 </ul>
