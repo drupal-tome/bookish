@@ -209,7 +209,7 @@
       });
       once('bookish-speed-history', 'body', context).forEach(function () {
         window.addEventListener('popstate', function (event) {
-          if (document.location.pathname !== lastPath) {
+          if (lastPath && document.location.pathname !== lastPath) {
             var scrollTop = event.state && event.state.scrollTop ? event.state.scrollTop : 0;
             requestUrl(document.location.pathname, document.location.search, document.location.hash, scrollTop);
           }
