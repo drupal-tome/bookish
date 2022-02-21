@@ -32,6 +32,9 @@ The requirements for using Tome locally are:
 * Drush
 * SQLite 3.26+ and the related PHP extensions
 
+Alternatively you can run the commands below using the [mortenson/tome Docker
+image]. See the [Docker script documentation] for reference.
+
 First, run these commands:
 
 ```
@@ -114,3 +117,5 @@ future, so thank you in advance for testing it out!
 [Tome]: https://drupal.org/project/tome
 [Tome Composer project]: https://github.com/drupal-tome/tome-project
 [the one for Netlify]: https://tome.fyi/docs/hosting/netlify/
+[mortenson/tome Docker image]: https://github.com/drupal-tome/tome-docker
+[Docker script documentation]: https://github.com/drupal-tome/tome-project/#docker
