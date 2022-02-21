@@ -283,7 +283,7 @@ function bookish_install() {
     'type' => 'bookish_callout',
     'info' => 'Homepage callout',
     'body' => [
-      'value' => '<p>Welcome to your new Bookish site! You can edit this intro block by visiting the custom block library page.</p>',
+      'value' => '<p>Welcome to your new Bookish site! To get started, log in and click "Help" in the toolbar to browse documentation.</p>',
       'format' => 'rich_text',
     ],
     'field_image' => [

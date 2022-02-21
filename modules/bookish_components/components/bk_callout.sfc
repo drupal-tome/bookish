@@ -26,6 +26,8 @@
   }
   .bk-callout__text {
     position: relative;
+    display: flex;
+    align-items: center;
     grid-column: 5 / 10;
     grid-row: 2 / 3;
     padding: var(--spacer-3);

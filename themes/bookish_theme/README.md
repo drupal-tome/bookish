@@ -22,3 +22,24 @@ margin, but it's up to you to creatively decide when to not center elements.
 Mobile styling isn't perfectly consistent in this theme, but in general mobile
 is considered anything less than 560px wide, and desktop is anything greater
 than 850px wide.
+
+## CSS variables and dark mode
+
+Colors, font weights, and other settings are configured using CSS variables.
+These can be easily overridden in a child theme, but supporting dark mode is a
+bit trickier because users can force the theme into dark/light mode with the 
+CSS classes "dark" and "light". Add your dark mode styles in a block like this:
+
+```css
+body {
+  /* Normal variables here */
+}
+@media (prefers-color-scheme: dark) {
+  body:not(.light) {
+    /* Dark overrides here */
+  }
+}
+body.dark {
+  /* Duplicate the overrides here */
+}
+```

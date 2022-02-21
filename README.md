@@ -79,7 +79,9 @@ drush pmu tome -y
 ## Further help
 
 After logging in, click "Help" in the toolbar. This module has extensive
-documentation located inside Drupal using the Help Topics module.
+documentation located inside Drupal using the Help Topics module. A good place
+to start would be the "Configuring your Bookish site" page, which will guide
+you through personalizing the configuration of your site.
 
 ## Speeding up your site with AJAX navigation (experimental)
 

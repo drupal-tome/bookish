@@ -11,9 +11,8 @@ CSS and JS on the new page are detected by checking the new `drupalSettings`.
 Bookish Speed adds a new drupalSetting to every page that tries to list all
 CSS and JS files that are included, even if preprocessing is enabled.
 
-CSS is technically loaded first, but if it doesn't finish before the deadline
-(default 300ms), `<main>` will load which may lead to a FOUC. This deadline is
-configurable.
+CSS is technically loaded first, but if it doesn't finish before the deadline,
+`<main>` will load which may lead to a FOUC. This deadline is configurable.
 
 JS is loaded synchronously, and Drupal behaviors are attached last. If you
 aren't using Drupal behaviors and `once()`, your code will likely break.
