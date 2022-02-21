@@ -189,7 +189,10 @@
             return;
           }
           event.preventDefault();
-          history.replaceState({scrollTop: document.documentElement.scrollTop}, '');
+          history.replaceState({
+            scrollTop: document.documentElement.scrollTop,
+            fromBookishSpeed: true,
+          }, '');
           history.pushState(null, '', pathname + url.search + url.hash);
           requestUrl(pathname, url.search, url.hash, 0);
         });
@@ -209,7 +212,7 @@
       });
       once('bookish-speed-history', 'body', context).forEach(function () {
         window.addEventListener('popstate', function (event) {
-          if (lastPath && document.location.pathname !== lastPath) {
+          if (lastPath && event.state && event.state.fromBookishSpeed && document.location.pathname !== lastPath) {
             var scrollTop = event.state && event.state.scrollTop ? event.state.scrollTop : 0;
             requestUrl(document.location.pathname, document.location.search, document.location.hash, scrollTop);
           }
