@@ -202,10 +202,10 @@
           prefetchTimer = setTimeout(function () {
             prefetchUrl(pathname, url.search);
           }, 65);
-        });
+        }, { passive: true, capture: true });
         element.addEventListener('mouseout', function () {
           clearTimeout(prefetchTimer);
-        });
+        }, { passive: true, capture: true });
       });
       once('bookish-speed-history', 'body', context).forEach(function () {
         window.addEventListener('popstate', function (event) {
