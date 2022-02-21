@@ -1,7 +1,7 @@
 (function (Drupal, once) {
 
   var lastPath = null;
-  var prefetchTimer = setTimeout(function(){}, 0);
+  var prefetchTimer = setTimeout(function (){}, 0);
   var lastTimerUrl = null;
 
   // Shim for $.extend(true, ...)
