@@ -1,11 +1,15 @@
 # Bookish Theme
 
 This is the main theme for the Bookish profile. It makes use of many Single
-File Components defined in the bookish_components module, and tries to
-implement minimal global styling itself.
+File Components, and tries to implement minimal global styling otherwise.
+
+Normally components would go in a module if they were part of a design system,
+but these aren't extremely flexible, and having in the theme is likely more
+palatable to a general Drupal audience.
 
 The theme and all components are written using vanilla CSS/JS, so no build step
-is required.
+is required, however while working on components you should run
+`drush sfc:watch` so that cache is cleared automatically.
 
 ## Using the container grid
 
