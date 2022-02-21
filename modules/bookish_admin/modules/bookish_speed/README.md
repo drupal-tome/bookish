@@ -20,6 +20,9 @@ aren't using Drupal behaviors and `once()`, your code will likely break.
 If you want to ignore a link, you can configure the regular expression that
 ignores `href`s at `/admin/structure/bookish-speed/settings`.
 
+Links are also prefetched if hovered for long enough, which provides similar
+features to Quicklink.
+
 ## Responding to navigation
 
 Two window-level events are provided which can be used to do things

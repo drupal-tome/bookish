@@ -1,6 +1,8 @@
 (function (Drupal, once) {
 
   var lastPath = null;
+  var prefetchTimer = setTimeout(function(){}, 0);
+  var lastTimerUrl = null;
 
   // Shim for $.extend(true, ...)
   var deepExtend = function (out) {
@@ -28,6 +30,7 @@
   };
 
   function requestUrl(url, search, hash, scrollTop) {
+    clearTimeout(prefetchTimer);
     // Do some early precautions to ensure URL is local.
     url = url.replace(/^\/?/, '/').replace(/\/\//g, '/');
     // Fetch the new URL, do not allow requests/redirects to non local origins.
@@ -41,7 +44,7 @@
       // Make sure <main> exists in response.
       var newMain = html.match(/(?<=<main[^>]+>)[\s\S]*(?=<\/main>)/g);
       if (!newMain) {
-        throw `Cannot parse response for ${url}`;
+        throw 'Cannot parse response for ' + url;
       }
       newMain = newMain[0];
 
@@ -155,10 +158,19 @@
       });
     }).catch(function (error) {
       // Fall back to normal navigation.
-      console.error(`Cannot request ${url}`, error);
+      console.error('Cannot request ' + url, error);
       window.location = url + search + hash;
     });
   };
+
+  function prefetchUrl(url, search) {
+    // Do some early precautions to ensure URL is local.
+    url = url.replace(/^\/?/, '/').replace(/\/\//g, '/');
+    var link = document.createElement('link');
+    link.rel = 'prefetch';
+    link.href = url + search;
+    document.head.appendChild(link);
+  }
 
   Drupal.behaviors.bookishSpeed = {
     attach: function attach(context, settings) {
@@ -169,9 +181,9 @@
         if (element.href.match(exclude_regex) || !Drupal.url.isLocal(element.href)) {
           return;
         }
+        var url = new URL(element.href);
+        var pathname = url.pathname.replace(/^\/?/, '/').replace(/\/\//g, '/');
         element.addEventListener('click', function (event) {
-          var url = new URL(element.href);
-          var pathname = url.pathname.replace(/^\/?/, '/').replace(/\/\//g, '/');
           // Do nothing if clicking a hash URL.
           if (document.location.pathname === pathname && url.hash) {
             return;
@@ -180,6 +192,19 @@
           history.replaceState({scrollTop: document.documentElement.scrollTop}, '');
           history.pushState(null, '', pathname + url.search + url.hash);
           requestUrl(pathname, url.search, url.hash, 0);
+        });
+        element.addEventListener('mouseover', function () {
+          if (lastTimerUrl === pathname + url.search || document.querySelector('link[rel="prefetch"][href="' + pathname + url.search + '"]')) {
+            return;
+          }
+          lastTimerUrl = pathname + url.search;
+          clearTimeout(prefetchTimer);
+          prefetchTimer = setTimeout(function () {
+            prefetchUrl(pathname, url.search);
+          }, 65);
+        });
+        element.addEventListener('mouseout', function () {
+          clearTimeout(prefetchTimer);
         });
       });
       once('bookish-speed-history', 'body', context).forEach(function () {
