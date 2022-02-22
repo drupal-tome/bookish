@@ -181,3 +181,7 @@ input.bookish-image-re-render {
 .ui-dialog {
   max-width: 92% !important;
 }
+
+.ui-dialog .ui-dialog-content {
+  max-height: calc(100vh - 200px) !important;
+}

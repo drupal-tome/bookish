@@ -1,6 +1,8 @@
 (function (Drupal, once) {
 
   var lastPath = null;
+  var prefetchTimer = setTimeout(function (){}, 0);
+  var lastTimerUrl = null;
 
   // Shim for $.extend(true, ...)
   var deepExtend = function (out) {
@@ -28,6 +30,7 @@
   };
 
   function requestUrl(url, search, hash, scrollTop) {
+    clearTimeout(prefetchTimer);
     // Do some early precautions to ensure URL is local.
     url = url.replace(/^\/?/, '/').replace(/\/\//g, '/');
     // Fetch the new URL, do not allow requests/redirects to non local origins.
@@ -41,7 +44,7 @@
       // Make sure <main> exists in response.
       var newMain = html.match(/(?<=<main[^>]+>)[\s\S]*(?=<\/main>)/g);
       if (!newMain) {
-        throw `Cannot parse response for ${url}`;
+        throw 'Cannot parse response for ' + url;
       }
       newMain = newMain[0];
 
@@ -159,36 +162,61 @@
       });
     }).catch(function (error) {
       // Fall back to normal navigation.
-      console.error(`Cannot request ${url}`, error);
+      console.error('Cannot request ' + url, error);
       window.location = url + search + hash;
     });
   };
+
+  function prefetchUrl(url, search) {
+    // Do some early precautions to ensure URL is local.
+    url = url.replace(/^\/?/, '/').replace(/\/\//g, '/');
+    var link = document.createElement('link');
+    link.rel = 'prefetch';
+    link.href = url + search;
+    document.head.appendChild(link);
+  }
 
   Drupal.behaviors.bookishSpeed = {
     attach: function attach(context, settings) {
       var exclude_regex = settings.bookishSpeedSettings ? settings.bookishSpeedSettings.exclude_regex : '/(admin|node|user)|\.[a-zA-Z0-9]+$';
       exclude_regex = new RegExp(exclude_regex);
-      once('bookish-speed', 'a:not([target])', context).forEach(function (element) {
+      once('bookish-speed', 'a:not([target]):not(.use-ajax)', context).forEach(function (element) {
         // Check if URL is local, an admin-y path, or has an extension.
         if (element.href.match(exclude_regex) || !Drupal.url.isLocal(element.href)) {
           return;
         }
+        var url = new URL(element.href);
+        var pathname = url.pathname.replace(/^\/?/, '/').replace(/\/\//g, '/');
         element.addEventListener('click', function (event) {
-          var url = new URL(element.href);
-          var pathname = url.pathname.replace(/^\/?/, '/').replace(/\/\//g, '/');
           // Do nothing if clicking a hash URL.
           if (document.location.pathname === pathname && url.hash) {
             return;
           }
           event.preventDefault();
-          history.replaceState({scrollTop: document.documentElement.scrollTop}, '');
+          history.replaceState({
+            scrollTop: document.documentElement.scrollTop,
+            fromBookishSpeed: true,
+          }, '');
           history.pushState(null, '', pathname + url.search + url.hash);
           requestUrl(pathname, url.search, url.hash, 0);
         });
+        element.addEventListener('mouseover', function () {
+          if (lastTimerUrl === pathname + url.search || document.querySelector('link[rel="prefetch"][href="' + pathname + url.search + '"]')) {
+            return;
+          }
+          lastTimerUrl = pathname + url.search;
+          clearTimeout(prefetchTimer);
+          prefetchTimer = setTimeout(function () {
+            prefetchUrl(pathname, url.search);
+          }, 65);
+        }, { passive: true, capture: true });
+        element.addEventListener('mouseout', function () {
+          clearTimeout(prefetchTimer);
+        }, { passive: true, capture: true });
       });
       once('bookish-speed-history', 'body', context).forEach(function () {
         window.addEventListener('popstate', function (event) {
-          if (document.location.pathname !== lastPath) {
+          if (lastPath && event.state && event.state.fromBookishSpeed && document.location.pathname !== lastPath) {
             var scrollTop = event.state && event.state.scrollTop ? event.state.scrollTop : 0;
             requestUrl(document.location.pathname, document.location.search, document.location.hash, scrollTop);
           }

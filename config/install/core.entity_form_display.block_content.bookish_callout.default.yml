@@ -5,10 +5,12 @@ dependencies:
     - block_content.type.bookish_callout
     - field.field.block_content.bookish_callout.body
     - field.field.block_content.bookish_callout.field_image
-    - image.style.social_card
+    - image.style.callout_block
   module:
     - bookish_image
     - text
+_core:
+  default_config_hash: LpqyaiYyqGqCOY4K0wfwLnvLTOcIQF9w0VO6YdkgZ0k
 id: block_content.bookish_callout.default
 targetEntityType: block_content
 bundle: bookish_callout
@@ -29,8 +31,9 @@ content:
     weight: 27
     region: content
     settings:
-      preview_image_style: social_card
+      preview_image_style: callout_block
       progress_indicator: throbber
+      show_zoom: 0
     third_party_settings: {  }
   info:
     type: string_textfield

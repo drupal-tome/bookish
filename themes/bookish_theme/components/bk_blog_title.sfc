@@ -24,7 +24,7 @@
     font-size: 4rem;
     line-height: 4rem;
     margin: 0;
-    font-weight: var(--font-weight-black);
+    font-weight: var(--font-weight-heavy);
   }
   @media screen and (max-width: 560px) {
     .bk-blog-title__bg {

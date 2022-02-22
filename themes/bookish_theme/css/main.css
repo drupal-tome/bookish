@@ -33,7 +33,8 @@ body {
   --font-weight-regular: 400;
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
-  --font-weight-black: 800;
+  --font-weight-heavy: 800;
+  --font-weight-black: 950;
   --accent-color-1: #ffaaaa;
   --accent-color-2: #aadfff;
   --background-color: white;
@@ -239,19 +240,6 @@ input[type="submit"]:hover {
   font-family: monospace;
 }
 
-.block-local-tasks-block ul,
-.block-page-title-block,
-.lunr-search-page-form,
-.lunr-search-results,
-.user-login-form,
-.user-pass,
-.user-form,
-.contact-form {
-  max-width: 1280px;
-  padding: 0 100px;
-  margin: 0 auto;
-}
-
 .block-local-tasks-block {
   margin: var(--spacer-2) 0;
   text-align: right;
@@ -354,15 +342,7 @@ input[type="submit"]:hover {
 /* @todo required form styling */
 
 @media screen and (max-width: 800px) {
-  .block-local-tasks-block ul,
-  .block-page-title-block,
-  .lunr-search-page-form,
-  .lunr-search-results,
-  .container,
-  .user-login-form,
-  .user-pass,
-  .user-form,
-  .contact-form {
+  .container {
     padding: 0 25px;
   }
   .container--margin {

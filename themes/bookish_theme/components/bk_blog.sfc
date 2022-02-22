@@ -94,5 +94,13 @@
     .bk-blog__tags {
       grid-column: 5 / 11;
     }
+    .bk-blog__tag:nth-child(n+3) {
+      display: none;
+    }
+  }
+  @media screen and (max-width: 400px) {
+    .bk-blog__tag {
+      display: none;
+    }
   }
 </style>

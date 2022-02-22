@@ -17,7 +17,7 @@
     font-size: 4rem;
     line-height: 4rem;
     margin: 0;
-    font-weight: var(--font-weight-black);
+    font-weight: var(--font-weight-heavy);
     margin: var(--spacer-3) 0;
     text-align: center;
   }

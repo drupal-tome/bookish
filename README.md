@@ -32,6 +32,9 @@ The requirements for using Tome locally are:
 * Drush
 * SQLite 3.26+ and the related PHP extensions
 
+Alternatively you can run the commands below using the [mortenson/tome Docker
+image]. See the [Docker script documentation] for reference.
+
 First, run these commands:
 
 ```
@@ -79,7 +82,9 @@ drush pmu tome -y
 ## Further help
 
 After logging in, click "Help" in the toolbar. This module has extensive
-documentation located inside Drupal using the Help Topics module.
+documentation located inside Drupal using the Help Topics module. A good place
+to start would be the "Configuring your Bookish site" page, which will guide
+you through personalizing the configuration of your site.
 
 ## Speeding up your site with AJAX navigation (experimental)
 
@@ -112,3 +117,5 @@ future, so thank you in advance for testing it out!
 [Tome]: https://drupal.org/project/tome
 [Tome Composer project]: https://github.com/drupal-tome/tome-project
 [the one for Netlify]: https://tome.fyi/docs/hosting/netlify/
+[mortenson/tome Docker image]: https://github.com/drupal-tome/tome-docker
+[Docker script documentation]: https://github.com/drupal-tome/tome-project/#docker
