@@ -357,7 +357,9 @@ input[type="submit"]:hover {
   .block-system-menu-blockmain li {
     margin-right: var(--spacer-1);
   }
-  .block-system-menu-blockmain a {
+  .block-local-tasks-block a,
+  .block-local-tasks-block a:hover,
+  .block-local-tasks-block a:focus {
     letter-spacing: 0;
   }
 }
