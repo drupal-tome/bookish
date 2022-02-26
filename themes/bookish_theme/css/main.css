@@ -339,6 +339,12 @@ input[type="submit"]:hover {
   margin-bottom: var(--spacer-2);
 }
 
+#skip-link:focus {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+}
+
 /* @todo required form styling */
 
 @media screen and (max-width: 800px) {
