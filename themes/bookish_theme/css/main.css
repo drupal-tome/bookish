@@ -34,7 +34,7 @@ body {
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
   --font-weight-heavy: 800;
-  --font-weight-black: 950;
+  --font-weight-black: 800;
   --accent-color-1: #ffaaaa;
   --accent-color-2: #aadfff;
   --background-color: white;
@@ -348,7 +348,10 @@ input[type="submit"]:hover {
   .container--margin {
     margin: var(--spacer-3) auto;
   }
+  .block-system-menu-blockmain li {
+    margin-right: var(--spacer-1);
+  }
   .block-system-menu-blockmain a {
-    padding: 10px 0;
+    letter-spacing: 0;
   }
 }
