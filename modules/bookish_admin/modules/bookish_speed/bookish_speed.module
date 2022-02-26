@@ -69,7 +69,7 @@ function bookish_speed_js_settings_alter(array &$settings, AttachedAssetsInterfa
     unset($part['drupalSettings']);
     $grouped_js = $js_grouper->group($part);
     foreach ($grouped_js as $group) {
-      foreach ($group['items'] as $name => $current) {
+      foreach ($group['items'] as $current) {
         if (!is_string($current['data'])) {
           continue;
         }
