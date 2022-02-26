@@ -1,0 +1,16 @@
+@media (prefers-color-scheme: dark) {
+  body:not(.light) {
+    --accent-color-1: #367234;
+    --accent-color-2: #715286;
+  }
+}
+
+body.dark {
+  --accent-color-1: #367234;
+  --accent-color-2: #715286;
+}
+
+body {
+  --accent-color-1: #aaffae;
+  --accent-color-2: #f1aaff;
+}

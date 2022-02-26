@@ -1,0 +1,5 @@
+main:
+  version: VERSION
+  css:
+    base:
+      css/main.css: {}

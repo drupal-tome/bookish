@@ -1,0 +1,10 @@
+name: Bookish sub-theme
+type: theme
+base theme: bookish_theme
+description: 'An example Bookish sub-theme you can copy to your own /themes folder.'
+core_version_requirement: '^9'
+libraries:
+  - bookish_sub_theme/main
+regions:
+  before: Before
+  content: Content
