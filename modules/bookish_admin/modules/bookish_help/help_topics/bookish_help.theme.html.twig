@@ -14,8 +14,8 @@ related:
 
 <h3>{% trans %}Override CSS variables{% endtrans %}</h3>
 <p>{% trans %}The simplest way to change the theme is to define your own CSS variable values. Here are some variables you can override in your own CSS:{% endtrans %}</p>
-<pre>
-  <code>
+{% filter highlight %}
+  <code class="language-css">
 body {
   --font-family: Helvetica, sans-serif;
   --font-color: #1e1e1e;
@@ -42,17 +42,17 @@ body {
   --spacer-4: 75px;
 }
   </code>
-</pre>
+{% endfilter %}
 
 <h3>{% trans %}Override templates{% endtrans %}</h3>
 <p>{% trans %}To override a template provided by bookish_theme, you can copy it into your theme's "/templates" directory.{% endtrans %}</p>
 <p>{% trans %}The naming format for SFC templates, as in the Twig inside the template tag in an SFC, is "sfc--bk-[name].html.twig". Note that when overriding an SFC template, you also need to include the boilerplate prepended to all SFC templates:{% endtrans %}</p>
-<pre>
-  <code>
+{% filter highlight %}
+  <code class="language-twig">
 {{ "{{ sfc_prepare_context('bk_[name]') }}" }}
 {{ "{{ attach_library('sfc/component.bk_[name]') }}" }}
   </code>
-</pre>
+{% endfilter %}
 
 <h3>{% trans %}Override libraries{% endtrans %}</h3>
 <p>{% trans %}Using the "libraries-override" key in your theme's ".info.yml" file, you can override any component's CSS or JS. The library name format for a component is "sfc/component.bk_[name]".{% endtrans %}</p>
