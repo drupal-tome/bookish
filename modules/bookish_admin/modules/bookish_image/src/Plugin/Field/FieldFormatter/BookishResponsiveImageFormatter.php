@@ -155,7 +155,7 @@ class BookishResponsiveImageFormatter extends ResponsiveImageFormatter {
           'width' => $original_image->getWidth(),
           'height' => $original_image->getHeight(),
         ], $file->getFileUri());
-        return $url . ' width="' . $dimensions['width'] . '" height="' . $dimensions['height'] . '"';
+        return $url . ' width="' . (int) $dimensions['width'] . '" height="' . (int) $dimensions['height'] . '"';
       }, $rendered);
 
       $elements[$delta] = [
@@ -174,7 +174,6 @@ class BookishResponsiveImageFormatter extends ResponsiveImageFormatter {
             '#markup' => Markup::create($rendered),
           ],
           '#attached' => ['library' => ['bookish_image/imageBlur']],
-          '#cache' => ['max-age' => 0],
         ],
       ];
     }
