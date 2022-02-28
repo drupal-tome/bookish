@@ -216,9 +216,12 @@
       });
       once('bookish-speed-history', 'body', context).forEach(function () {
         window.addEventListener('popstate', function (event) {
-          if (lastPath && event.state && event.state.fromBookishSpeed && document.location.pathname !== lastPath) {
+          if (event.state && event.state.fromBookishSpeed && document.location.pathname !== lastPath) {
             var scrollTop = event.state && event.state.scrollTop ? event.state.scrollTop : 0;
             requestUrl(document.location.pathname, document.location.search, document.location.hash, scrollTop);
+          }
+          else {
+            location.reload();
           }
         });
       });
