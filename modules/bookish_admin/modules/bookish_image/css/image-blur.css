@@ -3,6 +3,10 @@
   position: relative;
 }
 
+.bookish-responsive-image-blur-container {
+  display: inline-block;
+}
+
 .bookish-image-blur-blur {
   position: absolute;
   top: 0;

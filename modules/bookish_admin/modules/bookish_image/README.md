@@ -34,6 +34,3 @@ very small version of the image, displaying that in its own img tag using a
 data attribute, and using a CSS filter to blur it. When the real full size
 image is loaded, it is faded in with CSS. When JS is disabled, things still
 work, you just don't see that fade.
-
-Responsive images are not supported at this time, but should be! Let me know in
-an issue if you have a good idea.

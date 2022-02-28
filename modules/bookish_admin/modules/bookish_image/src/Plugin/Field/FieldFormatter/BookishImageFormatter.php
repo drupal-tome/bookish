@@ -18,7 +18,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @FieldFormatter(
  *   id = "bookish_image",
- *   label = @Translation("Bookish iamge"),
+ *   label = @Translation("Bookish image"),
  *   field_types = {
  *     "image"
  *   },
