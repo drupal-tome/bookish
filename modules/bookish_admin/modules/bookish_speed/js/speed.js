@@ -198,7 +198,10 @@
             scrollTop: document.documentElement.scrollTop,
             fromBookishSpeed: true,
           }, '');
-          history.pushState(null, '', pathname + url.search + url.hash);
+          history.pushState({
+            scrollTop: 0,
+            fromBookishSpeed: true,
+          }, '', pathname + url.search + url.hash);
           requestUrl(pathname, url.search, url.hash, 0);
         });
         element.addEventListener('mouseover', function () {
@@ -220,9 +223,6 @@
           if (event.state && event.state.fromBookishSpeed && document.location.pathname !== lastPath) {
             var scrollTop = event.state && event.state.scrollTop ? event.state.scrollTop : 0;
             requestUrl(document.location.pathname, document.location.search, document.location.hash, scrollTop);
-          }
-          else {
-            location.reload();
           }
         });
       });
