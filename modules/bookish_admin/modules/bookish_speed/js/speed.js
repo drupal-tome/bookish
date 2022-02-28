@@ -178,10 +178,11 @@
 
   Drupal.behaviors.bookishSpeed = {
     attach: function attach(context, settings) {
+      // Default to excluding admin-y paths or links with extensions.
       var exclude_regex = settings.bookishSpeedSettings ? settings.bookishSpeedSettings.exclude_regex : '/(admin|node|user)|\.[a-zA-Z0-9]+$';
       exclude_regex = new RegExp(exclude_regex);
       once('bookish-speed', 'a:not([target]):not(.use-ajax)', context).forEach(function (element) {
-        // Check if URL is local, an admin-y path, or has an extension.
+        // Check if URL is local or fails regex check.
         if (element.href.match(exclude_regex) || !Drupal.url.isLocal(element.href)) {
           return;
         }
