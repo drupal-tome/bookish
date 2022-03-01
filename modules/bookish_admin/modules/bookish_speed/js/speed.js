@@ -65,15 +65,15 @@
       var oldSettings = window.drupalSettings;
       if (settingsJs) {
         window.drupalSettings = deepExtend({}, window.drupalSettings, JSON.parse(settingsJs[0]));
-        var settingsElement = document.querySelector('script[data-drupal-selector="drupal-settings-json"]');
-        if (settingsElement) {
-          settingsElement.innerText = JSON.stringify(window.drupalSettings);
-        }
       }
 
       // Determine what CSS/JS files are new.
       var newCss = window.drupalSettings.bookishSpeed.css.filter(function (x) { return oldSettings.bookishSpeed.css.indexOf(x) === -1; });
       var newJs = window.drupalSettings.bookishSpeed.js.filter(function (x) { return oldSettings.bookishSpeed.js.indexOf(x) === -1; });
+
+      // Concat the old+new CSS/JS to avoid re-loading files later.
+      window.drupalSettings.bookishSpeed.css = oldSettings.bookishSpeed.css.concat(newCss);
+      window.drupalSettings.bookishSpeed.js = oldSettings.bookishSpeed.js.concat(newJs);
 
       var loadedCssAssets = 0;
       var loadedJsAssets = 0;
@@ -219,6 +219,9 @@
         }, { passive: true, capture: true });
       });
       once('bookish-speed-history', 'body', context).forEach(function () {
+        if (history.scrollRestoration) {
+          history.scrollRestoration = 'manual';
+        }
         window.addEventListener('popstate', function (event) {
           if (event.state && event.state.fromBookishSpeed && document.location.pathname !== lastPath) {
             var scrollTop = event.state && event.state.scrollTop ? event.state.scrollTop : 0;
