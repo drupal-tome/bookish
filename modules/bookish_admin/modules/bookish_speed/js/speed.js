@@ -190,7 +190,7 @@
         var pathname = url.pathname.replace(/^\/?/, '/').replace(/\/\//g, '/');
         element.addEventListener('click', function (event) {
           // Do nothing if clicking a hash URL.
-          if (document.location.pathname === pathname && url.hash) {
+          if (element.getAttribute('href')[0] === '#' || (document.location.pathname === pathname && url.hash)) {
             return;
           }
           event.preventDefault();
@@ -230,8 +230,10 @@
         });
       });
       once('bookish-speed-skip-link', '#skip-link', context).forEach(function (element) {
-        element.addEventListener('blur', function () {
-          element.classList.add('focusable');
+        element.addEventListener('blur', function (event) {
+          if (event.target !== document.activeElement) {
+            element.classList.add('focusable');
+          }
         });
       });
     }
