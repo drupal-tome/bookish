@@ -41,30 +41,25 @@
       }
       return response.text();
     }).then(function (html) {
+      var domparser = new DOMParser();
+      var newDocument = domparser.parseFromString(html, 'text/html');
       // Make sure <main> exists in response.
-      var newMain = html.match(/(?<=<main[^>]+>)[\s\S]*(?=<\/main>)/g);
+      var newMain = newDocument.querySelector('main');
       if (!newMain) {
         throw 'Cannot parse response for ' + url;
       }
-      newMain = newMain[0];
 
       // Log the URL to prevent making requests when hash/query params change.
       lastPath = url;
 
       // Replace the title.
-      var titleTag = html.match(/(?<=<title[^>]*>)[^<]*/);
-      if (titleTag) {
-        document.title = titleTag[0];
-      }
-
-      // Handle front page styling.
-      document.body.classList.toggle('is-front', url === window.drupalSettings.path.baseUrl);
+      document.title = newDocument.title;
 
       // Get drupalSettings.
-      var settingsJs = html.match(/(?<=<script[^>]*drupal-settings-json[^>]*>)[^<]*/g);
+      var newSettings = newDocument.querySelector('[data-drupal-selector="drupal-settings-json"]');
       var oldSettings = window.drupalSettings;
-      if (settingsJs) {
-        window.drupalSettings = deepExtend({}, window.drupalSettings, JSON.parse(settingsJs[0]));
+      if (newSettings) {
+        window.drupalSettings = deepExtend({}, window.drupalSettings, JSON.parse(newSettings.textContent));
       }
 
       // Determine what CSS/JS files are new.
@@ -82,7 +77,7 @@
       var replaceHtml = function () {
         replaced = true;
         var main = document.querySelector('main');
-        main.innerHTML = newMain;
+        main.innerHTML = newMain.innerHTML;
         window.scrollTo({ top: scrollTop });
         // Accessibility tweaks.
         var skipLink = document.querySelector('#skip-link');
@@ -181,7 +176,7 @@
       // Default to excluding admin-y paths or links with extensions.
       var exclude_regex = settings.bookishSpeedSettings ? settings.bookishSpeedSettings.exclude_regex : '/(admin|node|user)|\.[a-zA-Z0-9]+$';
       exclude_regex = new RegExp(exclude_regex);
-      once('bookish-speed', 'a:not([target]):not(.use-ajax)', context).forEach(function (element) {
+      once('bookish-speed', 'a:not([target]):not(.use-ajax):not(.no-speed)', context).forEach(function (element) {
         // Check if URL is local, a relative anchor, or fails regex check.
         if (element.getAttribute('href')[0] === '#' || element.href.match(exclude_regex) || !Drupal.url.isLocal(element.href)) {
           return;

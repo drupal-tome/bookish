@@ -16,9 +16,6 @@ function bookish_theme_preprocess_html(&$variables) {
   if ($color_mode === 'light' || $color_mode === 'dark') {
     $variables['attributes']['class'][] = $color_mode;
   }
-  if (\Drupal::service('path.matcher')->isFrontPage()) {
-    $variables['attributes']['class'][] = 'is-front';
-  }
 }
 
 /**

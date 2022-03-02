@@ -18,7 +18,8 @@ JS is loaded synchronously, and Drupal behaviors are attached last. If you
 aren't using Drupal behaviors and `once()`, your code will likely break.
 
 If you want to ignore a link, you can configure the regular expression that
-ignores `href`s at `/admin/structure/bookish-speed/settings`.
+ignores `href`s at `/admin/structure/bookish-speed/settings`. You can also add
+the class "no-speed" to any `a` tag to ignore it.
 
 Links are also prefetched if hovered for long enough, which provides similar
 features to Quicklink.
