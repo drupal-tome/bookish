@@ -58,7 +58,7 @@
       }
 
       // Handle front page styling.
-      document.body.classList.toggle('is-front', url === '/');
+      document.body.classList.toggle('is-front', url === window.drupalSettings.path.baseUrl);
 
       // Get drupalSettings.
       var settingsJs = html.match(/(?<=<script[^>]*drupal-settings-json[^>]*>)[^<]*/g);
@@ -182,15 +182,15 @@
       var exclude_regex = settings.bookishSpeedSettings ? settings.bookishSpeedSettings.exclude_regex : '/(admin|node|user)|\.[a-zA-Z0-9]+$';
       exclude_regex = new RegExp(exclude_regex);
       once('bookish-speed', 'a:not([target]):not(.use-ajax)', context).forEach(function (element) {
-        // Check if URL is local or fails regex check.
-        if (element.href.match(exclude_regex) || !Drupal.url.isLocal(element.href)) {
+        // Check if URL is local, a relative anchor, or fails regex check.
+        if (element.getAttribute('href')[0] === '#' || element.href.match(exclude_regex) || !Drupal.url.isLocal(element.href)) {
           return;
         }
         var url = new URL(element.href);
         var pathname = url.pathname.replace(/^\/?/, '/').replace(/\/\//g, '/');
         element.addEventListener('click', function (event) {
           // Do nothing if clicking a hash URL.
-          if (element.getAttribute('href')[0] === '#' || (document.location.pathname === pathname && url.hash)) {
+          if (document.location.pathname === pathname && url.hash) {
             return;
           }
           event.preventDefault();
