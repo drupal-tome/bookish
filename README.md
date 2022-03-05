@@ -66,8 +66,9 @@ drush uli -l 127.0.0.1:8888
 
 and click the link to start editing.
 
-To deploy your static site, refer to the hosting guides on https://tome.fyi, for
-example [the one for Netlify].
+For information on deploying your site, you can visit
+`/admin/help/topic/bookish_help.tome` on your local site, or read the docs at
+https://tome.fyi/docs.
 
 ## Install (without Tome)
 
@@ -116,6 +117,5 @@ future, so thank you in advance for testing it out!
 [View demo site]: https://bookish-drupal.netlify.app/
 [Tome]: https://drupal.org/project/tome
 [Tome Composer project]: https://github.com/drupal-tome/tome-project
-[the one for Netlify]: https://tome.fyi/docs/hosting/netlify/
 [mortenson/tome Docker image]: https://github.com/drupal-tome/tome-docker
 [Docker script documentation]: https://github.com/drupal-tome/tome-project/#docker
