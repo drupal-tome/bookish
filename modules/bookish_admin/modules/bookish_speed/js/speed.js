@@ -29,7 +29,7 @@
     return out;
   };
 
-  function requestUrl(url, search, hash, scrollTop) {
+  function requestUrl(url, search, hash, scrollTop, context) {
     clearTimeout(prefetchTimer);
     // Do some early precautions to ensure URL is local.
     url = url.replace(/^\/?/, '/').replace(/\/\//g, '/');
@@ -78,7 +78,21 @@
         replaced = true;
         var main = document.querySelector('main');
         main.innerHTML = newMain.innerHTML;
-        window.scrollTo({ top: scrollTop });
+        // Special scroll handling for hash links.
+        if (hash && context === 'click') {
+          var hashElem = document.getElementById(hash.slice(1));
+          if (hashElem) {
+            setTimeout(function () {
+              hashElem.scrollIntoView();
+              var oldState = history.state;
+              oldState.scrollTop = document.documentElement.scrollTop;
+              history.replaceState(oldState, '');
+            }, 0);
+          }
+        }
+        else {
+          window.scrollTo({ top: scrollTop });
+        }
         // Accessibility tweaks.
         var skipLink = document.querySelector('#skip-link');
         if (skipLink) {
@@ -197,7 +211,7 @@
             scrollTop: 0,
             fromBookishSpeed: true,
           }, '', pathname + url.search + url.hash);
-          requestUrl(pathname, url.search, url.hash, 0);
+          requestUrl(pathname, url.search, url.hash, 0, 'click');
         });
         element.addEventListener('mouseover', function () {
           if (lastTimerUrl === pathname + url.search || document.querySelector('link[rel="prefetch"][href="' + pathname + url.search + '"]')) {
@@ -220,7 +234,7 @@
         window.addEventListener('popstate', function (event) {
           if (event.state && event.state.fromBookishSpeed && document.location.pathname !== lastPath) {
             var scrollTop = event.state && event.state.scrollTop ? event.state.scrollTop : 0;
-            requestUrl(document.location.pathname, document.location.search, document.location.hash, scrollTop);
+            requestUrl(document.location.pathname, document.location.search, document.location.hash, scrollTop, 'popstate');
           }
         });
       });
