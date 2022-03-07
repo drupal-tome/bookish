@@ -174,7 +174,7 @@ function bookish_install() {
     [
       'title' => 'Learning to ride moose',
       'type' => 'blog',
-      'tags' => ['nature', 'wildlife'],
+      'tags' => ['nature', 'wildlife', 'forest'],
       'file' => [
         'filename' => 'madhu-shesharam-YvQ2--lOghs-unsplash.jpg',
         'alt' => 'A moose in the forest.',
