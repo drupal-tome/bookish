@@ -1,0 +1,28 @@
+name: Sync
+on:
+  push:
+    branches:
+      - 1.0.x
+jobs:
+  sync:
+    name: Sync bookish_admin to Drupal.org
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone GitHub codebase
+        uses: actions/checkout@v2
+        with:
+          path: bookish_github
+      - name: Clone Drupal.org codebase
+        run: |
+          echo "$SSH_KEY" > "$RUNNER_TEMP/deploy_key"
+          git clone git@git.drupal.org:project/bookish_admin.git
+          cd bookish_admin
+          rm -rf *
+          cp -r ../bookish_github/modules/bookish_admin/* .
+          git add .
+          git commit -m "Automated sync from GitHub"
+          git push
+        shell: bash
+        env:
+          GIT_SSH_COMMAND: ssh -i "$RUNNER_TEMP/deploy_key" -o IdentitiesOnly=yes -o StrictHostKeyChecking=no
+          SSH_KEY: ${{secrets.BOOKISH_ADMIN_SSH_KEY}}
