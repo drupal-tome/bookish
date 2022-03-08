@@ -71,6 +71,9 @@
     }
   }
   @media screen and (max-width: 600px) {
+    .bk-callout.container {
+      margin-bottom: var(--spacer-4);
+    }
     .bk-callout__image {
       display: none;
     }
