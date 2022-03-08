@@ -15,6 +15,7 @@ jobs:
       - name: Clone Drupal.org codebase
         run: |
           echo "$SSH_KEY" > "$RUNNER_TEMP/deploy_key"
+          chmod 400 "$RUNNER_TEMP/deploy_key"
           git clone git@git.drupal.org:project/bookish_admin.git
           cd bookish_admin
           rm -rf *
