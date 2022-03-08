@@ -16,6 +16,8 @@ jobs:
         run: |
           echo "$SSH_KEY" > "$RUNNER_TEMP/deploy_key"
           chmod 400 "$RUNNER_TEMP/deploy_key"
+          git config --global user.email "samuel.mortenson@2582268.no-reply.drupal.org"
+          git config --global user.name "samuel.mortenson"
           git clone git@git.drupal.org:project/bookish_admin.git
           cd bookish_admin
           rm -rf *
