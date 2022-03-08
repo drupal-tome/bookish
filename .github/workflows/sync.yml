@@ -23,8 +23,7 @@ jobs:
           rm -rf *
           cp -r ../bookish_github/modules/bookish_admin/* .
           git add .
-          git commit -m "Automated sync from GitHub"
-          git push
+          if [[ -n $(git status --porcelain) ]]; then git commit -m "Automated sync from GitHub" && git push; fi
         shell: bash
         env:
           GIT_SSH_COMMAND: ssh -i "$RUNNER_TEMP/deploy_key" -o IdentitiesOnly=yes -o StrictHostKeyChecking=no
