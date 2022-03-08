@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - 1.0.x
+concurrency:
+  group: sync-drupalorg
 jobs:
   sync:
     name: Sync bookish_admin to Drupal.org
