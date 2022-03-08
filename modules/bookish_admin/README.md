@@ -13,3 +13,6 @@ present here. Right now, that's:
 - Provides a summary field formatter which filters out many unwanted HTML tags
 without being plain text.
 - Provides a text filter that adds anchor links to all headings.
+
+If you want to use Bookish Admin features without using the Bookish profile,
+you can install https://www.drupal.org/project/bookish_admin.
