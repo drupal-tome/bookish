@@ -1,12 +1,12 @@
 <template>
-  <div class="bk-callout container">
+  <article class="bk-callout container">
     <div class="bk-callout__image">
       {{ image }}
     </div>
     <div class="bk-callout__text bk-text">
       {{ text }}
     </div>
-  </div>
+  </article>
 </template>
 
 <style>
