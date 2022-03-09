@@ -69,6 +69,7 @@ a:focus {
 
 main {
   min-height: 800px;
+  margin-top: var(--spacer-3);
 }
 
 table,
