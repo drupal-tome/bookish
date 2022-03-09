@@ -283,8 +283,8 @@ function bookish_install() {
     'type' => 'bookish_callout',
     'info' => 'Homepage callout',
     'body' => [
-      'value' => '<p>Welcome to your new Bookish site! To get started, log in and click "Help" in the toolbar to browse documentation.</p>',
-      'format' => 'rich_text',
+      'value' => '<h2>Welcome!</h2><p>To get started, log in and click "Help" in the toolbar to browse documentation.</p>',
+      'format' => 'callout_text',
     ],
     'field_image' => [
       'target_id' => $file->id(),

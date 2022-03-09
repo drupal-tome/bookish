@@ -1,0 +1,90 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - bookish_ckeditor
+    - bookish_image
+    - editor
+    - highlight_php
+_core:
+  default_config_hash: P0abUzx8byynHCww1iXny-yx2b-7mVxLWzkLLBc-K4U
+name: 'Callout text'
+format: callout_text
+weight: 0
+filters:
+  filter_html:
+    id: filter_html
+    provider: filter
+    status: true
+    weight: -50
+    settings:
+      allowed_html: '<code class> <pre class="text-align-left text-align-center text-align-right text-align-justify"> <br> <p class="text-align-left text-align-center text-align-right text-align-justify"> <h2 class="text-align-left text-align-center text-align-right text-align-justify"> <h3 class="text-align-left text-align-center text-align-right text-align-justify"> <h4 class="text-align-left text-align-center text-align-right text-align-justify"> <h5 class="text-align-left text-align-center text-align-right text-align-justify"> <h6 class="text-align-left text-align-center text-align-right text-align-justify"> <strong> <em> <u> <s> <blockquote class="text-align-left text-align-center text-align-right text-align-justify"> <a href>'
+      filter_html_help: true
+      filter_html_nofollow: false
+  editor_file_reference:
+    id: editor_file_reference
+    provider: editor
+    status: true
+    weight: -49
+    settings: {  }
+  filter_align:
+    id: filter_align
+    provider: filter
+    status: true
+    weight: -48
+    settings: {  }
+  filter_caption:
+    id: filter_caption
+    provider: filter
+    status: true
+    weight: -47
+    settings: {  }
+  bookish_image_filter:
+    id: bookish_image_filter
+    provider: bookish_image
+    status: true
+    weight: -46
+    settings: {  }
+  filter_highlight_php:
+    id: filter_highlight_php
+    provider: highlight_php
+    status: false
+    weight: -45
+    settings: {  }
+  filter_html_image_secure:
+    id: filter_html_image_secure
+    provider: filter
+    status: false
+    weight: -39
+    settings: {  }
+  filter_url:
+    id: filter_url
+    provider: filter
+    status: false
+    weight: -40
+    settings:
+      filter_url_length: 72
+  filter_html_escape:
+    id: filter_html_escape
+    provider: filter
+    status: false
+    weight: -42
+    settings: {  }
+  filter_htmlcorrector:
+    id: filter_htmlcorrector
+    provider: filter
+    status: false
+    weight: -38
+    settings: {  }
+  filter_autop:
+    id: filter_autop
+    provider: filter
+    status: false
+    weight: -41
+    settings: {  }
+  bookish_oembed_filter:
+    id: bookish_oembed_filter
+    provider: bookish_ckeditor
+    status: false
+    weight: -42
+    settings: {  }

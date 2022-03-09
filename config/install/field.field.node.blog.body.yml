@@ -5,9 +5,14 @@ dependencies:
     - field.storage.node.body
     - node.type.blog
   module:
+    - allowed_formats
     - text
+third_party_settings:
+  allowed_formats:
+    allowed_formats:
+      - rich_text
 _core:
-  default_config_hash: GoJG0937xstei7wB3_mQVYwtcIGvPs3s-si_0KygiB4
+  default_config_hash: n0o1McktDQt3gFp4M9PBncbaIaiIGQJvO22CxHpe4mg
 id: node.blog.body
 field_name: body
 entity_type: node

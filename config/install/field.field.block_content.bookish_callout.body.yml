@@ -5,7 +5,14 @@ dependencies:
     - block_content.type.bookish_callout
     - field.storage.block_content.body
   module:
+    - allowed_formats
     - text
+third_party_settings:
+  allowed_formats:
+    allowed_formats:
+      - callout_text
+_core:
+  default_config_hash: 1rdoAm0GjvFqfwvxisnc3Tlrkco-fdxk14MELpMNoLs
 id: block_content.bookish_callout.body
 field_name: body
 entity_type: block_content

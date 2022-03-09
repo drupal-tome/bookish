@@ -52,6 +52,7 @@ install:
   - highlight_php
   - coffee
   - coffee_extras
+  - allowed_formats
 
 themes:
   - bookish_theme

@@ -44,6 +44,12 @@
     transform: rotate(45deg);
     background: linear-gradient(to bottom, var(--accent-color-2) 0%, var(--accent-color-2) 40%, transparent 0%, transparent 60%, var(--accent-color-2) 0%);
   }
+  .bk-callout__text > div > *:first-child {
+    margin-top: 0;
+  }
+  .bk-callout__text > div > *:last-child {
+    margin-bottom: 0;
+  }
   @media screen and (max-width: 1200px) {
     .bk-callout.container {
       grid-template-rows: 1fr 10fr 1fr;
