@@ -10,7 +10,7 @@ jobs:
       - name: Setup project
         run: |
           composer create-project drupal-tome/tome-project . --stability dev --no-interaction
-          composer require --with-all-dependencies "phpspec/prophecy-phpunit:^2" "squizlabs/php_codesniffer" "drupal/core-dev" "drupal/lunr:^1" "drupal/sfc:^1" "drupal/twig_tweak:^3" "drupal/metatag:^1" "drupal/pathauto:^1" "drupal/simple_sitemap:^4" "drupal/highlight_php:^1" "drupal/coffee:^1" "drupal/coffee_extras:^1" "drupal/tome_netlify:^1"
+          composer require --with-all-dependencies "phpspec/prophecy-phpunit:^2" "squizlabs/php_codesniffer" "drupal/core-dev" "drupal/lunr:^1" "drupal/sfc:^1" "drupal/twig_tweak:^3" "drupal/metatag:^1" "drupal/pathauto:^1" "drupal/simple_sitemap:^4" "drupal/highlight_php:^1" "drupal/coffee:^1" "drupal/coffee_extras:^1" "drupal/tome_netlify:^1" "drupal/allowed_formats:^1"
       - name: Clone codebase
         uses: actions/checkout@v2
         with:
