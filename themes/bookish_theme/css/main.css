@@ -346,7 +346,17 @@ input[type="submit"]:hover {
   left: 0;
 }
 
-/* @todo required form styling */
+.form-required:after {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin: 0 0.3em;
+  content: "";
+  vertical-align: super;
+  background-image: url(../assets/required.svg);
+  background-repeat: no-repeat;
+  background-size: 6px 6px;
+}
 
 @media screen and (max-width: 800px) {
   .container {
