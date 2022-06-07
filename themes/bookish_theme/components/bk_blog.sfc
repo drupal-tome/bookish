@@ -1,6 +1,6 @@
 <template>
   <article class="bk-blog container container--margin" role="article">
-    {% include 'sfc--bk-blog-title' with {'title': title} %}
+    {% include 'sfc--bk-blog-title.html.twig' with {'title': title} %}
     <div class="bk-blog__byline">
       {{ time | date('F jS, Y') }}
     </div>

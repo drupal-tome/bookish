@@ -5,7 +5,7 @@
     {{ sfc_cache(tag.entity) }}
   {% endif %}
 {% endfor %}
-{% include 'sfc--bk-blog' with {
+{% include 'sfc--bk-blog.html.twig' with {
   'title': node.label(),
   'time': node.created.value,
   'text': node.body|view({

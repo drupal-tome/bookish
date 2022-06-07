@@ -25,7 +25,7 @@
  * @see template_preprocess_block()
  */
 #}
-{% include 'sfc--bk-callout' with {
+{% include 'sfc--bk-callout.html.twig' with {
   'text': content['#block_content'].body|view({
     'label': 'hidden',
     'type': 'text_default',
