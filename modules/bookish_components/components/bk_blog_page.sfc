@@ -1,6 +1,6 @@
 <template>
   <div class="bk-blog-page container container--margin">
-    {% include 'sfc--bk-blog-title' with {'title': 'Blog' | t} %}
+    {% include 'sfc--bk-blog-title.html.twig' with {'title': 'Blog' | t} %}
     <div class="bk-blog-page__blogs">
       {% for node in nodes %}
         {% set tags = [] %}
@@ -10,7 +10,7 @@
             {{ sfc_cache(tag.entity) }}
           {% endif %}
         {% endfor %}
-        {% include 'sfc--bk-blog-teaser' with {
+        {% include 'sfc--bk-blog-teaser.html.twig' with {
           'title': node.label(),
           'time': node.created.value,
           'link': path('entity.node.canonical', {'node': node.id}),

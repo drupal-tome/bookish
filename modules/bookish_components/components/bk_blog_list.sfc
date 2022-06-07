@@ -1,12 +1,12 @@
 <template>
   <div class="bk-blog-list container container--margin">
-    {% include 'sfc--bk-blog-title' with {
+    {% include 'sfc--bk-blog-title.html.twig' with {
       'title': 'Recent posts' | t,
       'element': 'h2'
     } %}
     <div class="bk-blog-list__blogs">
       {% for node in nodes %}
-        {% include 'sfc--bk-blog-teaser' with {
+        {% include 'sfc--bk-blog-teaser.html.twig' with {
           'title': node.label(),
           'link': path('entity.node.canonical', {'node': node.id}),
           'text': node.body|view({
@@ -25,7 +25,7 @@
       {{ sfc_cache(nodes) }}
       {{ sfc_cache('node_list') }}
     </div>
-    {% include 'sfc--bk-more-link' with {'link': '/blog', 'text': 'all posts' | t} %}
+    {% include 'sfc--bk-more-link.html.twig' with {'link': '/blog', 'text': 'all posts' | t} %}
   </div>
 </template>
 
