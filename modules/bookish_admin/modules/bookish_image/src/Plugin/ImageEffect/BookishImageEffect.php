@@ -390,7 +390,7 @@ class BookishImageEffect extends ImageEffectBase {
       $g = $var_G * 255;
       $b = $var_B * 255;
     }
-    return [$r, $g, $b];
+    return [(int) $r, (int) $g, (int) $b];
   }
 
 }
