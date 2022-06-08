@@ -66,7 +66,7 @@ function bookish_theme_form_system_theme_settings_alter(&$form, FormStateInterfa
  * Implements hook_library_info_alter().
  */
 function bookish_theme_library_info_alter(&$libraries, $extension) {
-  if ($extension === 'system') {
+  if ($extension === 'system' && isset($libraries['base']['dependencies'])) {
     foreach ($libraries['base']['dependencies'] as $key => $library) {
       if ($library === 'ckeditor5/ie11.user.warnings') {
         unset($libraries['base']['dependencies'][$key]);
