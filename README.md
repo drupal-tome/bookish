@@ -35,7 +35,7 @@ The requirements for using Tome locally are:
 Alternatively you can run the commands below using the [mortenson/tome Docker
 image]. See the [Docker script documentation] for reference.
 
-First, run these commands:
+To install Tome and Bookish, run these commands:
 
 ```
 composer create-project drupal-tome/tome-project my_site --stability dev --no-interaction
@@ -45,12 +45,6 @@ drush tome:init # Select Bookish in the prompt
 ```
 
 You can now commit your initial codebase, content, config, and files to Git.
-
-To re-install your site, run:
-
-```
-drush tome:install
-```
 
 To start a local webserver, run:
 
@@ -66,9 +60,30 @@ drush uli -l 127.0.0.1:8888
 
 and click the link to start editing.
 
+To re-install your site, run:
+
+```
+drush tome:install
+```
+
 For information on deploying your site, you can visit
 `/admin/help/topic/bookish_help.tome` on your local site, or read the docs at
 https://tome.fyi/docs.
+
+
+## Install Tome and Bookish in Lando
+
+Run these commands to install Tome and Bookish in Lando:
+
+```
+composer create-project drupal-tome/tome-project --stability dev --no-interaction
+cd tome-project
+composer require drupal-tome/bookish
+lando init --recipe drupal9 --name tome-project --source cwd --webroot web
+lando start
+lando drush tome:init # Select Bookish in the prompt
+lando drush uli -l https://tome-project.lndo.site
+```
 
 ## Install (without Tome)
 
