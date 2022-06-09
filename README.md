@@ -70,7 +70,6 @@ For information on deploying your site, you can visit
 `/admin/help/topic/bookish_help.tome` on your local site, or read the docs at
 https://tome.fyi/docs.
 
-
 ## Install (without Tome)
 
 If you don't want to use Tome, you can run this from any Drupal 9+ install:
