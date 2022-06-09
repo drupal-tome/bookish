@@ -35,13 +35,15 @@ The requirements for using Tome locally are:
 Alternatively you can run the commands below using the [mortenson/tome Docker
 image]. See the [Docker script documentation] for reference.
 
+A global Drush installation is not required to use Tome, but is easier to use than typing `vendor/bin/drush` every time you want to run a command. This guide will assume that the `drush` command is available.
+
 To install Tome and Bookish, run these commands:
 
 ```
 composer create-project drupal-tome/tome-project my_site --stability dev --no-interaction
 cd my_site
 composer require drupal-tome/bookish
-vendor/bin/drush tome:init # Select Bookish in the prompt
+drush tome:init # Select Bookish in the prompt
 ```
 
 You can now commit your initial codebase, content, config, and files to Git.
@@ -49,13 +51,13 @@ You can now commit your initial codebase, content, config, and files to Git.
 To start a local webserver, run:
 
 ```
-vendor/bin/drush runserver
+drush runserver
 ```
 
 then in another tab run:
 
 ```
-vendor/bin/drush uli -l 127.0.0.1:8888
+drush uli -l 127.0.0.1:8888
 ```
 
 and click the link to start editing.
@@ -63,7 +65,7 @@ and click the link to start editing.
 To re-install your site, run:
 
 ```
-vendor/bin/drush tome:install
+drush tome:install
 ```
 
 For information on deploying your site, you can visit
