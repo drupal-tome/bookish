@@ -71,20 +71,6 @@ For information on deploying your site, you can visit
 https://tome.fyi/docs.
 
 
-## Install Tome and Bookish in Lando
-
-Run these commands to install Tome and Bookish in Lando:
-
-```
-composer create-project drupal-tome/tome-project --stability dev --no-interaction
-cd tome-project
-composer require drupal-tome/bookish
-lando init --recipe drupal9 --name tome-project --source cwd --webroot web
-lando start
-lando drush tome:init # Select Bookish in the prompt
-lando drush uli -l https://tome-project.lndo.site
-```
-
 ## Install (without Tome)
 
 If you don't want to use Tome, you can run this from any Drupal 9+ install:
