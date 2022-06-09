@@ -41,7 +41,7 @@ To install Tome and Bookish, run these commands:
 composer create-project drupal-tome/tome-project my_site --stability dev --no-interaction
 cd my_site
 composer require drupal-tome/bookish
-drush tome:init # Select Bookish in the prompt
+vendor/bin/drush tome:init # Select Bookish in the prompt
 ```
 
 You can now commit your initial codebase, content, config, and files to Git.
@@ -49,13 +49,13 @@ You can now commit your initial codebase, content, config, and files to Git.
 To start a local webserver, run:
 
 ```
-drush runserver
+vendor/bin/drush runserver
 ```
 
 then in another tab run:
 
 ```
-drush uli -l 127.0.0.1:8888
+vendor/bin/drush uli -l 127.0.0.1:8888
 ```
 
 and click the link to start editing.
@@ -63,7 +63,7 @@ and click the link to start editing.
 To re-install your site, run:
 
 ```
-drush tome:install
+vendor/bin/drush tome:install
 ```
 
 For information on deploying your site, you can visit
