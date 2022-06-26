@@ -35,7 +35,7 @@ The requirements for using Tome locally are:
 Alternatively you can run the commands below using the [mortenson/tome Docker
 image]. See the [Docker script documentation] for reference.
 
-A global Drush installation is not required to use Tome, but is easier to use than typing `vendor/bin/drush` every time you want to run a command. This guide will assume that the `drush` command is available.
+The [Drush Launcher], which allows typing simply `drush`, is not required to use Tome. If not available, use `vendor/bin/drush` instead.
 
 To install Tome and Bookish, run these commands:
 
@@ -121,3 +121,4 @@ future, so thank you in advance for testing it out!
 [Tome Composer project]: https://github.com/drupal-tome/tome-project
 [mortenson/tome Docker image]: https://github.com/drupal-tome/tome-docker
 [Docker script documentation]: https://github.com/drupal-tome/tome-project/#docker
+[Drush Launcher]: https://github.com/drush-ops/drush-launcher
