@@ -35,7 +35,7 @@ The requirements for using Tome locally are:
 Alternatively you can run the commands below using the [mortenson/tome Docker
 image]. See the [Docker script documentation] for reference.
 
-The [Drush Launcher], which allows typing simply `drush`, is not required to use Tome. If not available, use `vendor/bin/drush` in stead.
+The [Drush Launcher], which allows typing simply `drush`, is not required to use Tome. If not available, use `vendor/bin/drush` instead.
 
 To install Tome and Bookish, run these commands:
 
