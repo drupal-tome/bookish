@@ -9,4 +9,7 @@
     <exclude-pattern>*min.js</exclude-pattern>
     <exclude-pattern>*.css</exclude-pattern>
     <arg name="extensions" value="js,inc,install,module,php,profile,test,theme,yml"/>
+    <rule ref="Generic.PHP.UpperCaseConstant">
+        <exclude-pattern>*.js</exclude-pattern>
+    </rule>
 </ruleset>
