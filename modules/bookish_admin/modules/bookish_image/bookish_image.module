@@ -139,3 +139,12 @@ function _bookish_image_coerce_data($data) {
   }
   return $data;
 }
+
+/**
+ * Implements hook_field_formatter_info_alter().
+ */
+function bookish_image_field_formatter_info_alter(array &$definitions) {
+  if (!\Drupal::moduleHandler()->moduleExists('responsive_image')) {
+    unset($definitions['bookish_responsive_image']);
+  }
+}
