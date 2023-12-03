@@ -24,19 +24,18 @@
     "check-style": "./vendor/bin/phpcs --standard=Drupal,phpcs.xml ."
   },
   "require": {
-      "drupal/core": "^9",
+      "drupal/core": "^10",
       "drupal/tome": "^1",
       "drupal/tome_netlify": "^1",
       "drupal-tome/tome_drush": "dev-master",
       "drupal/lunr": "^1",
       "drupal/sfc": "^1",
       "drupal/twig_tweak": "^3",
-      "drupal/metatag": "^1",
+      "drupal/metatag": "^2",
       "drupal/pathauto": "^1",
       "drupal/simple_sitemap": "^4",
       "drupal/highlight_php": "^1",
       "drupal/coffee": "^1",
-      "drupal/coffee_extras": "^1",
-      "drupal/allowed_formats": "^1"
+      "drupal/allowed_formats": "^3"
     }
 }

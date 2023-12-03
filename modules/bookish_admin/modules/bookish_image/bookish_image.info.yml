@@ -1,7 +1,7 @@
 name: Bookish Image
 type: module
 description: 'Provides magical image widgets, forms, and formatters.'
-core_version_requirement: '^9'
+core_version_requirement: '^9 || ^10'
 dependencies:
   - drupal:ckeditor5
   - drupal:image

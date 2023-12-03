@@ -2,9 +2,8 @@
 
   Drupal.behaviors.bookishAdminTagsWidget = {
     attach: function attach(context, settings) {
-      $('input.bookish-tags-widget').once('bookish-tags-widget').each(function () {
-        var input = this,
-          tagify = new Tagify(input, {
+      once('bookish-tags-widget', 'input.bookish-tags-widget', context).forEach(function (input) {
+          var tagify = new Tagify(input, {
             whitelist:[],
           }),
           controller;

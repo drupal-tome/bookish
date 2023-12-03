@@ -15,20 +15,20 @@
           };
         });
       }
-      $('.bookish-image-tabs').once('bookish-image-tab').each(function () {
-        $(this).on('click', fixZoomStates);
+      once('bookish-image-tab', '.bookish-image-tabs', context).forEach(function (elem) {
+        $(elem).on('click', fixZoomStates);
       });
 
       // Adds a background image to the preview parent, to avoid flashes of
       // white when waiting for images to load.
-      $('.bookish-image-preview', context).once('bookish-image-preview').each(function () {
-        var $img = $(this).find('img');
-        var $wrapper = $(this).parent();
+      once('bookish-image-preview', '.bookish-image-preview', context).forEach(function (elem) {
+        var $img = $(elem).find('img');
+        var $wrapper = $(elem).parent();
         $wrapper
           .css('width', $img.attr('width'))
           .css('height', 'auto')
           .css('max-width', '500px');
-        $(this).promise().done(debounce(function () {
+        $(elem).promise().done(debounce(function () {
           var f = function () {
             $wrapper
               .css('background-image', 'url(' + $img.attr('src') + ')')
@@ -47,8 +47,8 @@
       });
 
       // Adds a reset button to every range element in the form.
-      $('.bookish-image-container', context).once('bookish-image-container').each(function () {
-        $(this).find('input[type="range"]').each(function () {
+      once('bookish-image-container', '.bookish-image-container', context).forEach(function (elem) {
+        $(elem).find('input[type="range"]').each(function () {
           var $resetButton = $('<button class="bookish-image-reset"><span class="visually-hidden">Reset</span></button>');
           var $range = $(this);
           $resetButton.click(function (e) {
@@ -65,8 +65,8 @@
       });
 
       // Initializes the focal point selector.
-      $('.bookish-image-focal-point-container', context).once('bookish-image-focal-point').each(function () {
-        var $img = $(this).find('img');
+      once('bookish-image-focal-point', '.bookish-image-focal-point-container', context).forEach(function (elem) {
+        var $img = $(elem).find('img');
         var imageLoaded = function () {
           var $dot = $('<div class="bookish-image-focal-point-dot"></div>');
           var $container = $(this).closest('.bookish-image-container');
@@ -132,7 +132,7 @@
           $img.on('mouseup', function () {
             dragging = false;
           });
-        }.bind(this);
+        }.bind(elem);
         if ($img.prop('complete')) {
           imageLoaded();
         } else {
@@ -141,11 +141,11 @@
       });
 
       // Supports clicking a fitler to fill in filters automatically.
-      $('.bookish-image-filter', context).once('bookish-image-filter').each(function () {
-        $(this).on('click', function (e) {
+      once('bookish-image-filter', '.bookish-image-filter', context).forEach(function (elem) {
+        $(elem).on('click', function (e) {
           e.preventDefault();
-          var data = JSON.parse($(this).attr('data-image-data'));
-          $container = $(this).closest('.bookish-image-container');
+          var data = JSON.parse($(elem).attr('data-image-data'));
+          $container = $(elem).closest('.bookish-image-container');
           for (var key in data) {
             $container.find('input[type="range"][name*=' + key + ']').val(data[key]);
           }

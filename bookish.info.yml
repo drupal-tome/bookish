@@ -1,15 +1,13 @@
 name: Bookish
 type: profile
 description: 'A starter profile for Tome blogs.'
-core_version_requirement: '^9'
+core_version_requirement: '^9 || ^10'
 
 install:
   - node
   - block
   - block_content
   - breakpoint
-  - ckeditor
-  - color
   - config
   - menu_link_content
   - datetime
@@ -26,7 +24,6 @@ install:
   - dblog
   - field_ui
   - file
-  - rdf
   - views
   - views_ui
   - ckeditor5
@@ -51,7 +48,6 @@ install:
   - simple_sitemap
   - highlight_php
   - coffee
-  - coffee_extras
   - allowed_formats
 
 themes:

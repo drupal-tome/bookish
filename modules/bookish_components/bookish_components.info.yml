@@ -1,7 +1,7 @@
 name: Bookish Components
 type: module
 description: 'Provides frontend components for Bookish.'
-core_version_requirement: '^9'
+core_version_requirement: '^9 || ^10'
 dependencies:
   - drupal:sfc
   - twig_tweak:twig_tweak

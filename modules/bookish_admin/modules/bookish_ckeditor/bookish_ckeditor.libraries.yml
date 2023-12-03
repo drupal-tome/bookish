@@ -2,13 +2,13 @@ codeblock:
   js:
     js/code-block.js: { preprocess: false, minified: true }
   dependencies:
-    - ckeditor5/drupal.ckeditor5
+    - core/ckeditor5
 
 mediaEmbed:
   js:
     js/media-embed.js: { preprocess: false, minified: true }
   dependencies:
-    - ckeditor5/drupal.ckeditor5
+    - core/ckeditor5
 
 codeblock.admin:
   css:
