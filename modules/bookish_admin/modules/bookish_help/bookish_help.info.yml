@@ -1,7 +1,7 @@
 name: Bookish Help
 type: module
 description: 'Adds Help Topics for Bookish.'
-core_version_requirement: '^9'
+core_version_requirement: '^9 || ^10'
 dependencies:
   - drupal:help_topics
   - drupal:block_content

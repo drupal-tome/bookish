@@ -13,7 +13,7 @@ imageWidget:
       css/image-widget.css: { }
   dependencies:
     - core/jquery
-    - core/jquery.once
+    - core/once
     - core/drupal
     - core/drupal.ajax
     - core/drupal.debounce

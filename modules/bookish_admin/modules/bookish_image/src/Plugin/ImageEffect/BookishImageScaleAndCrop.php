@@ -5,8 +5,8 @@ namespace Drupal\bookish_image\Plugin\ImageEffect;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Image\ImageInterface;
 use Drupal\image\Plugin\ImageEffect\ResizeImageEffect;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Applies the scale and crop effect taking the focal point into account.

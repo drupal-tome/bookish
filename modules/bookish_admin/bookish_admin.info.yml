@@ -1,7 +1,7 @@
 name: Bookish Admin
 type: module
 description: 'Overrides admin styling for a better user experience.'
-core_version_requirement: '^9'
+core_version_requirement: '^9 || ^10'
 dependencies:
   - drupal:field
   - drupal:filter

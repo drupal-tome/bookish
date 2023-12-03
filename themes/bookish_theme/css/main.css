@@ -113,6 +113,7 @@ input[type="search"],
 input[type="text"],
 input[type="email"],
 input[type="password"] {
+  color: var(--font-color);
   border: none;
   max-width: 300px;
   padding-bottom: 5px;

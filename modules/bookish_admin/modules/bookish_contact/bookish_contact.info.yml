@@ -1,7 +1,7 @@
 name: Bookish Contact
 type: module
 description: 'Adds a contact form using Netlify.'
-core_version_requirement: '^9'
+core_version_requirement: '^9 || ^10'
 dependencies:
   - drupal:contact
   - drupal:user

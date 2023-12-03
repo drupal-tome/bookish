@@ -1,4 +1,4 @@
 name: Bookish Yaml
 type: module
 description: 'Tweaks content entities to better support human-readable Yaml.'
-core_version_requirement: '^9'
+core_version_requirement: '^9 || ^10'
