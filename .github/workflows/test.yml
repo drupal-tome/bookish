@@ -20,4 +20,4 @@ jobs:
       - name: Run PHPCS
         run: ./vendor/bin/phpcs --standard=Drupal,./web/profiles/bookish/phpcs.xml ./web/profiles/bookish
       - name: Run PHPUnit
-        run: SIMPLETEST_DB=sqlite://localhost/.test.sqlite ./vendor/bin/phpunit -c ./web/core ./web/profiles/bookish/
+        run: SYMFONY_DEPRECATIONS_HELPER=weak SIMPLETEST_DB=sqlite://localhost/.test.sqlite ./vendor/bin/phpunit -c ./web/core ./web/profiles/bookish/
