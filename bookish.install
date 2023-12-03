@@ -9,9 +9,9 @@ use Drupal\block_content\Entity\BlockContent;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\node\Entity\Node;
-use Drupal\user\Entity\User;
 use Drupal\shortcut\Entity\Shortcut;
 use Drupal\taxonomy\Entity\Term;
+use Drupal\user\Entity\User;
 
 /**
  * Implements hook_install().
