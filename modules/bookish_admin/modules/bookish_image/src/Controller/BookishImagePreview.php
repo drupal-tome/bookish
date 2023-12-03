@@ -72,6 +72,9 @@ class BookishImagePreview extends ControllerBase {
   public function build(FileInterface $file, ImageStyleInterface $image_style, Request $request) {
     $new_image_data = json_decode($request->query->get('bookish_image_data', '[]'), TRUE);
     _bookish_image_update_data($file, $new_image_data);
+    if (is_null($file->getFileUri())) {
+      throw new NotAcceptableHttpException('Provided file has no path.');
+    }
     $uri = preg_replace('|.*://|', '', $file->getFileUri());
     if (empty($uri)) {
       throw new NotAcceptableHttpException('Provided file has no path.');
